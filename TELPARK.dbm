@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,297" last-zoom="1" max-obj-count="7"
+	 default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#f1420a"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="PL2" encoding="UTF8" lc-collate="Spanish_Spain.1252" lc-ctype="Spanish_Spain.1252" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="vehiculos" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="500" y="600"/>
+	<column name="vehiculoid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="matricula" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="marca" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="modelo" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="color" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="vehiculos_pkey" type="pk-constr" table="public.vehiculos">
+		<columns names="vehiculoid" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="vehiculos_matricula_key" type="uq-constr" table="public.vehiculos">
+		<columns names="matricula" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="clientes" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="400"/>
+	<column name="clienteid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="apellido" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="telefono" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="provincia" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="clientes_pkey" type="pk-constr" table="public.clientes">
+		<columns names="clienteid" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="clientes_telefono_key" type="uq-constr" table="public.clientes">
+		<columns names="telefono" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="email_unique" type="uq-constr" table="public.clientes">
+		<columns names="email" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="plazas" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="940" y="660"/>
+	<column name="plazaid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="numero" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nivel" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="seccion" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="plazas_pkey" type="pk-constr" table="public.plazas">
+		<columns names="plazaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="reservas" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="600" y="360"/>
+	<column name="reservaid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="fechainicio" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fechafin" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="reservas_pkey" type="pk-constr" table="public.reservas">
+		<columns names="reservaid" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="vehiculoid_vehiculos" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="vehiculos_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="pagos" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="960" y="360"/>
+	<column name="pagoid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="cantidad" not-null="true">
+		<type name="numeric" length="10" precision="2"/>
+	</column>
+	<column name="fechapago" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="metodopago" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="pagos_pkey" type="pk-constr" table="public.pagos">
+		<columns names="pagoid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="incidencias" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="620"/>
+	<column name="incidenciaid" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="fechaincidencia" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="estado" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="incidencias_pkey" type="pk-constr" table="public.incidencias">
+		<columns names="incidenciaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="vehiculos_reservas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c1eaea"
+	 src-table="public.vehiculos"
+	 dst-table="public.reservas"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT"/>
+
+<relationship name="reservas_incidencias" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#afb3fa"
+	 src-table="public.reservas"
+	 dst-table="public.incidencias"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT">
+	<label ref-type="name-label">
+		<position x="72.6326" y="-7.40726"/>
+	</label>
+</relationship>
+
+<relationship name="clientes_vehiculos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#41f372"
+	 src-table="public.clientes"
+	 dst-table="public.vehiculos"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT"/>
+
+<relationship name="reservas_pagos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7462d3"
+	 src-table="public.reservas"
+	 dst-table="public.pagos"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT"/>
+
+<relationship name="plazas_reservas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#8fb32c"
+	 src-table="public.plazas"
+	 dst-table="public.reservas"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT"/>
+
+<relationship name="clientes_has_many_reservas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#79635d"
+	 src-table="public.clientes"
+	 dst-table="public.reservas"
+	 src-required="false" dst-required="false"
+	upd-action="RESTRICT"
+	del-action="RESTRICT"/>
+
+<permission>
+	<object name="public" type="schema"/>
+	<roles names="postgres"/>
+	<privileges create="true" usage="true"/>
+</permission>
+<permission>
+	<object name="public" type="schema"/>
+	<privileges create="true" usage="true"/>
+</permission>
+</dbmodel>
