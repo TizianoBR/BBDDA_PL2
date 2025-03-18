@@ -1,5 +1,11 @@
-\c investigar
+\c postgres
 
+DROP DATABASE IF EXISTS investigar;
+CREATE DATABASE investigar;
+
+\c investigar
+SET maintenance_work_mem = '512MB';
+SET max_wal_size = '4GB';
 CREATE TABLE IF NOT EXISTS investigadores(
     codigo_investigador NUMERIC PRIMARY KEY,
     nombre TEXT,
@@ -21,12 +27,16 @@ CREATE TABLE IF NOT EXISTS investigadores_contratos(
     PRIMARY KEY (codigo_investigador, codigo_contrato)
 );
 
--- \COPY investigadores FROM 'investigadores.csv' DELIMITER ','
--- \COPY contratos FROM 'contratos.csv' DELIMITER ','
--- \COPY investigadores_contratos FROM 'investigadores_contratos.csv' DELIMITER ','
+\COPY investigadores FROM 'datos_investigadores.csv' DELIMITER ','
+\COPY contratos FROM 'datos_contratos.csv' DELIMITER ','
+\COPY investigadores_contratos FROM 'datos_investigadores_contratos.csv' DELIMITER ','
 
 ALTER TABLE investigadores_contratos
 ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
 
 ALTER TABLE investigadores_contratos
 ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+
+ANALYZE;
+SET maintenance_work_mem = '64MB';
+SET max_wal_size = '1GB';
