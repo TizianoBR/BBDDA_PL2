@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,297" last-zoom="1" max-obj-count="7"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,131" last-zoom="1" max-obj-count="7"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="vehiculos" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="500" y="600"/>
+	<position x="540" y="760"/>
 	<column name="vehiculoid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -48,7 +48,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="clientes" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="400"/>
+	<position x="80" y="260"/>
 	<column name="clienteid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -81,7 +81,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plazas" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="940" y="660"/>
+	<position x="960" y="700"/>
 	<column name="plazaid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -102,7 +102,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="reservas" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="600" y="360"/>
+	<position x="720" y="160"/>
 	<column name="reservaid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -128,7 +128,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pagos" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="960" y="360"/>
+	<position x="1260" y="400"/>
 	<column name="pagoid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -149,7 +149,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="incidencias" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="620"/>
+	<position x="120" y="760"/>
 	<column name="incidenciaid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
