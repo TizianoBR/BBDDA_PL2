@@ -5,7 +5,7 @@ CREATE DATABASE investigar;
 
 \c investigar
 SET maintenance_work_mem = '512MB';
-SET max_wal_size = '4GB';
+
 CREATE TABLE IF NOT EXISTS investigadores(
     codigo_investigador NUMERIC PRIMARY KEY,
     nombre TEXT,
@@ -39,4 +39,3 @@ ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELET
 
 ANALYZE;
 SET maintenance_work_mem = '64MB';
-SET max_wal_size = '1GB';
