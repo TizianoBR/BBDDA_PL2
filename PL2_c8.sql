@@ -1,9 +1,9 @@
 \c postgres
 
-DROP DATABASE IF EXISTS telepark;
-CREATE DATABASE telepark;
+DROP DATABASE IF EXISTS telpark;
+CREATE DATABASE telpark;
 
-\c telepark
+\c telpark
 SET maintenance_work_mem = '512MB';
 CREATE TABLE IF NOT EXISTS clientes(
     clienteid INTEGER PRIMARY KEY,
