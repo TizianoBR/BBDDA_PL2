@@ -2,7 +2,11 @@ import random
 from datetime import datetime, timedelta
 
 
-provincias = ["Galicia", "Asturias", "Cantabria", "Pais Vasco", "Navarra", "La Rioja", "Aragon", "Cataluña", "Castilla y Leon", "Madrid", "Castilla la Mancha", "Extremadura", "Andalucia", "Murcia", "Valencia", "Islas Baleares", "Islas Canarias"]
+provincias = ['Alava','Albacete','Alicante','Almeria','Asturias','Avila','Badajoz','Barcelona','Burgos','Caceres',
+'Cadiz','Cantabria','Castellon','Ciudad Real','Cordoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+'Guipuzcoa','Huelva','Huesca','Islas Baleares','Jaen','Leon','Lerida','Lugo','Madrid','Malaga','Murcia','Navarra',
+'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
 colores = ["Rojo", "Azul", "Verde", "Amarillo", "Blanco", "Negro", "Gris"]
 
@@ -58,13 +62,6 @@ def gen_reservas_y_pagos_csv():
                     print(f"{i//400_000}%")
     print("Reservas y pagos hecho")
 
-# def gen_pagos_csv():
-#     with open("pagos.csv", "w") as f:
-#         for i in range(1, 40000001):
-#             f.write(f"{i},{random.randint(1,9999999999)/100},{gen_fecha_rand()[0]},{random.choice(["Efectivo", "Tarjeta de credito", "Tarjeta de debito", "PayPal", "Bizum", "Transferencia"])}\n")
-#         #ESTO ESTA MAL, CAMBIAR
-#     print("Pagos hecho")
-
 def gen_incidencias_csv():
     with open("incidencias.csv", "w") as f:
         for i in range(1, 4000001):
@@ -83,4 +80,4 @@ if __name__ == "__main__":
     #gen_telepark()
     # res = gen_fecha_rand()
     # print(res[0].strftime("%Y-%m-%d %H:%M:%S"), res[1].strftime("%Y-%m-%d %H:%M:%S"))
-    gen_reservas_y_pagos_csv()
+    gen_clientes_csv()
