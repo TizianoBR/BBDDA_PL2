@@ -4,7 +4,7 @@ DROP DATABASE IF EXISTS telepark;
 CREATE DATABASE telepark;
 
 \c telepark
-
+SET maintenance_work_mem = '512MB';
 CREATE TABLE IF NOT EXISTS clientes(
     clienteid INTEGER PRIMARY KEY,
     nombre TEXT NOT NULL,
@@ -55,7 +55,12 @@ CREATE TABLE IF NOT EXISTS pagos(
     reservaid_reservas INTEGER
 );
 
-\COPY
+\COPY vehiculos FROM 'vehiculos.csv' DELIMITER ','
+\COPY clientes FROM 'clientes.csv' DELIMITER ','
+\COPY plazas FROM 'plazas.csv' DELIMITER ','
+\COPY reservas FROM 'reservas.csv' DELIMITER ','
+\COPY incidencias FROM 'incidencias.csv' DELIMITER ','
+\COPY pagos FROM 'pagos.csv' DELIMITER ','
 
 ALTER TABLE vehiculos
 ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
@@ -72,3 +77,6 @@ ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RE
 
 ALTER TABLE pagos
 ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+
+ANALYZE;
+SET maintenance_work_mem = '64MB';

@@ -1,0 +1,17 @@
+                                               QUERY PLAN                                               
+--------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=281590.39..282260.01 rows=66962 width=25)
+   Group Key: c.nombre, c.entidad
+   ->  Nested Loop  (cost=5637.45..281014.41 rows=115196 width=25)
+         ->  Hash Join  (cost=5637.02..176440.76 rows=124449 width=31)
+               Hash Cond: (ic.codigo_contrato = c.codigo_contrato)
+               ->  Seq Scan on investigadores_contratos ic  (cost=0.00..169828.00 rows=371700 width=12)
+                     Filter: (horas = '5'::numeric)
+               ->  Hash  (cost=4800.00..4800.00 rows=66962 width=31)
+                     ->  Seq Scan on contratos c  (cost=0.00..4800.00 rows=66962 width=31)
+                           Filter: ((coste >= '10001'::numeric) AND (coste <= '19999'::numeric))
+         ->  Index Scan using investigadores_pkey on investigadores i  (cost=0.43..0.84 rows=1 width=6)
+               Index Cond: (codigo_investigador = ic.codigo_investigador)
+               Filter: (salario > '16000'::numeric)
+(13 filas)
+
