@@ -1,15 +1,16 @@
 import random
 from datetime import datetime, timedelta
-
-
+import csv
+#No se cuentan Ceuta y Melilla (nos lo ha permitido el profesor)
 provincias = ['Alava','Albacete','Alicante','Almeria','Asturias','Avila','Badajoz','Barcelona','Burgos','Caceres',
 'Cadiz','Cantabria','Castellon','Ciudad Real','Cordoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
 'Guipuzcoa','Huelva','Huesca','Islas Baleares','Jaen','Leon','Lerida','Lugo','Madrid','Malaga','Murcia','Navarra',
 'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
 'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
 
-colores = ["Rojo", "Azul", "Verde", "Amarillo", "Blanco", "Negro", "Gris"]
 
+colores = ["Rojo", "Azul", "Verde", "Amarillo", "Blanco", "Negro", "Gris"]
+diccionario_propiedades_vehiculos = {}
 def generar_matricula(numero):
     letras = "BCDFGHJKLMNPRSTVWXYZ"
     numero_matricula = str(numero % 10000).zfill(4)
@@ -41,7 +42,12 @@ def gen_clientes_csv():
 def gen_vehiculos_csv():
     with open("vehiculos.csv", "w") as f:
         for i in range(1, 5000001):
-            f.write(f"{i},{generar_matricula(i)},marca_{random.randint(1,500)},modelo_{random.randint(1,20)},{random.choice(colores)}, {random.randint(1,3000000)}\n")
+            propietario = random.randint(1, 3000000)
+            if propietario in diccionario_propiedades_vehiculos:
+                diccionario_propiedades_vehiculos[propietario].append(i)
+            else:
+                diccionario_propiedades_vehiculos[propietario] = [i]
+            f.write(f"{i},{generar_matricula(i)},marca_{random.randint(1,500)},modelo_{random.randint(1,20)},{random.choice(colores)}, {propietario}\n")
     print("Vehiculos hecho")
 
 def gen_plazas_csv():
@@ -51,11 +57,26 @@ def gen_plazas_csv():
     print("Plazas hecho")
 
 def gen_reservas_y_pagos_csv():
+    if len(diccionario_propiedades_vehiculos) == 0:
+        try:
+            with open("vehiculos.csv", "r") as fvehiculos:
+                lector_csv = csv.reader(fvehiculos, skipinitialspace=True, lineterminator="\n")
+                for fila in lector_csv:
+                    try:
+                        diccionario_propiedades_vehiculos[int(fila[-1])].append(int(fila[0]))
+                    except KeyError:
+                        diccionario_propiedades_vehiculos[int(fila[-1])] = [int(fila[0])]
+        except FileNotFoundError:
+            print("No se ha encontrado el archivo vehiculos.csv. Genera vehiculos.csv primero.")
+            return
     with open("reservas.csv", "w") as fres:
         with open("pagos.csv", "w") as fpag:
+            propietarios = list(diccionario_propiedades_vehiculos.keys())
             for i in range(1, 40_000_001):
                 f_ini, f_fin = gen_fecha_rand()
-                fres.write(f"{i},{f_ini.strftime('%Y-%m-%d %H:%M:%S')},{f_fin.strftime('%Y-%m-%d %H:%M:%S')},{random.randint(1,5000000)},{random.randint(1,200000)},{random.randint(1,3000000)}\n")
+                cliente = random.choice(propietarios)
+                vehiculo = random.choice(diccionario_propiedades_vehiculos[cliente])
+                fres.write(f"{i},{f_ini.strftime('%Y-%m-%d %H:%M:%S')},{f_fin.strftime('%Y-%m-%d %H:%M:%S')},{vehiculo},{random.randint(1,200000)},{cliente}\n")
                 f_pago = f_ini - timedelta(days = random.randint(1,10), hours = random.randint(1,23))
                 fpag.write(f"{i},{3*(f_fin - f_ini).total_seconds()/3600},{f_pago.strftime('%Y-%m-%d %H:%M:%S')},{random.choice(['Efectivo', 'Tarjeta de credito', 'Tarjeta de debito', 'PayPal', 'Bizum', 'Transferencia'])},{i}\n")
                 if i % 400_000 == 0:
