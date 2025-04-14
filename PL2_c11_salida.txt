@@ -1,0 +1,50 @@
+                                            QUERY PLAN                                             
+---------------------------------------------------------------------------------------------------
+ Delete on pagos p  (cost=1449388.00..2685537.39 rows=0 width=0)
+   ->  Hash Join  (cost=1449388.00..2685537.39 rows=12005633 width=12)
+         Hash Cond: (trb.reservaid = p.reservaid_reservas)
+         ->  Seq Scan on temp_reservas_a_borrar trb  (cost=0.00..173240.33 rows=12005633 width=10)
+         ->  Hash  (cost=754075.00..754075.00 rows=40000000 width=10)
+               ->  Seq Scan on pagos p  (cost=0.00..754075.00 rows=40000000 width=10)
+(6 filas)
+
+                                            QUERY PLAN                                             
+---------------------------------------------------------------------------------------------------
+ Delete on incidencias i  (cost=127384.00..533064.88 rows=0 width=0)
+   ->  Hash Join  (cost=127384.00..533064.88 rows=14239830 width=12)
+         Hash Cond: (trb.reservaid = i.reservaid_reservas)
+         ->  Seq Scan on temp_reservas_a_borrar trb  (cost=0.00..173240.33 rows=12005633 width=10)
+         ->  Hash  (cost=77384.00..77384.00 rows=4000000 width=10)
+               ->  Seq Scan on incidencias i  (cost=0.00..77384.00 rows=4000000 width=10)
+(6 filas)
+
+                                            QUERY PLAN                                             
+---------------------------------------------------------------------------------------------------
+ Delete on reservas r  (cost=1428647.00..1945959.12 rows=0 width=0)
+   ->  Hash Join  (cost=1428647.00..1945959.12 rows=12005633 width=12)
+         Hash Cond: (trb.reservaid = r.reservaid)
+         ->  Seq Scan on temp_reservas_a_borrar trb  (cost=0.00..173240.33 rows=12005633 width=10)
+         ->  Hash  (cost=733334.00..733334.00 rows=40000000 width=10)
+               ->  Seq Scan on reservas r  (cost=0.00..733334.00 rows=40000000 width=10)
+(6 filas)
+
+                                           QUERY PLAN                                           
+------------------------------------------------------------------------------------------------
+ Delete on vehiculos v  (cost=157956.00..201282.87 rows=0 width=0)
+   ->  Hash Join  (cost=157956.00..201282.87 rows=2241987 width=12)
+         Hash Cond: (tcb.clienteid = v.clienteid_clientes)
+         ->  Seq Scan on temp_clientes_a_borrar tcb  (cost=0.00..13032.00 rows=900000 width=10)
+         ->  Hash  (cost=95456.00..95456.00 rows=5000000 width=10)
+               ->  Seq Scan on vehiculos v  (cost=0.00..95456.00 rows=5000000 width=10)
+(6 filas)
+
+                                           QUERY PLAN                                           
+------------------------------------------------------------------------------------------------
+ Delete on clientes c  (cost=107620.80..123015.30 rows=0 width=0)
+   ->  Hash Join  (cost=107620.80..123015.30 rows=900000 width=12)
+         Hash Cond: (tcb.clienteid = c.clienteid)
+         ->  Seq Scan on temp_clientes_a_borrar tcb  (cost=0.00..13032.00 rows=900000 width=10)
+         ->  Hash  (cost=70117.58..70117.58 rows=3000258 width=10)
+               ->  Seq Scan on clientes c  (cost=0.00..70117.58 rows=3000258 width=10)
+(6 filas)
+
