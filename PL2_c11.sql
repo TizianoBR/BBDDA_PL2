@@ -6,7 +6,7 @@ SET work_mem = '512MB';
 SET effective_cache_size = '16GB';
 SET temp_buffers = '256MB';
 
-CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);  
+CREATE INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);  
 CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos); 
 CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas); 
 CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes); 
@@ -71,6 +71,7 @@ DELETE FROM clientes c
 USING temp_clientes_a_borrar tcb
 WHERE c.clienteid = tcb.clienteid;
 
-VACUUM FULL ANALYZE;
-
 COMMIT;
+
+
+VACUUM FULL ANALYZE;

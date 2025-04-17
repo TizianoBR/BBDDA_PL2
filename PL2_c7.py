@@ -67,7 +67,7 @@ def gen_reservas_y_pagos_csv():
                     except KeyError:
                         diccionario_propiedades_vehiculos[int(fila[-1])] = [int(fila[0])]
         except FileNotFoundError:
-            print("No se ha encontrado el archivo vehiculos.csv. Genera vehiculos.csv primero.")
+            print("No se ha encontrado el archivo vehiculos.csv. Genera vehiculos primero.")
             return
     with open("reservas.csv", "w") as fres:
         with open("pagos.csv", "w") as fpag:

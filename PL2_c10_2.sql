@@ -1,4 +1,4 @@
-\c telpark
+\c telpark_bak
 
 SHOW work_mem;
 SHOW effective_cache_size;

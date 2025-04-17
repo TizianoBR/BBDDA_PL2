@@ -1,0 +1,48 @@
+                                                                                                                                  QUERY PLAN                                                                                                                                  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=2814779.57..2814779.59 rows=1 width=32) (actual time=55833.824..55833.829 rows=1 loops=1)
+   InitPlan 1 (returns $0)
+     ->  Aggregate  (cost=77616.31..77616.32 rows=1 width=8) (actual time=393.996..393.997 rows=1 loops=1)
+           ->  Seq Scan on clientes  (cost=0.00..70116.05 rows=3000105 width=0) (actual time=0.028..302.686 rows=3000000 loops=1)
+   ->  Sort  (cost=2737029.13..2737096.19 rows=26823 width=4) (actual time=55350.536..55406.839 rows=743459 loops=1)
+         Sort Key: c.clienteid
+         Sort Method: external merge  Disk: 8752kB
+         ->  Nested Loop Left Join  (cost=1568110.98..2735056.14 rows=26823 width=4) (actual time=21501.077..55175.209 rows=743459 loops=1)
+               Filter: ((i.* IS NULL) OR (i.estado <> 'Cerrada'::text) OR (v.color <> 'Negro'::text))
+               Rows Removed by Filter: 2155
+               ->  Nested Loop  (cost=1568110.55..2638272.33 rows=27607 width=14) (actual time=21501.030..50070.592 rows=742088 loops=1)
+                     ->  Hash Join  (cost=1568110.12..2540481.36 rows=27607 width=12) (actual time=21500.966..39651.693 rows=742088 loops=1)
+                           Hash Cond: (p.reservaid_reservas = r.reservaid)
+                           ->  Seq Scan on pagos p  (cost=0.00..854086.60 rows=31468952 width=4) (actual time=1186.040..6115.839 rows=31662942 loops=1)
+                                 Filter: (cantidad > '150'::numeric)
+                                 Rows Removed by Filter: 8337058
+                           ->  Hash  (cost=1567671.47..1567671.47 rows=35092 width=12) (actual time=20312.830..20312.832 rows=926884 loops=1)
+                                 Buckets: 262144 (originally 65536)  Batches: 8 (originally 1)  Memory Usage: 7028kB
+                                 ->  Hash Join  (cost=28701.65..1567671.47 rows=35092 width=12) (actual time=6114.807..20145.642 rows=926884 loops=1)
+                                       Hash Cond: (r.clienteid_clientes = c.clienteid)
+                                       ->  Hash Join  (cost=4233.70..1538617.50 rows=217150 width=12) (actual time=5951.088..18493.975 rows=5802093 loops=1)
+                                             Hash Cond: (r.plazaid_plazas = pl.plazaid)
+                                             ->  Seq Scan on reservas r  (cost=0.00..1533336.40 rows=399001 width=16) (actual time=5927.940..16416.277 rows=10631403 loops=1)
+                                                   Filter: (((EXTRACT(month FROM fechainicio) >= '6'::numeric) AND (EXTRACT(month FROM fechainicio) <= '8'::numeric)) OR ((EXTRACT(month FROM fechafin) >= '6'::numeric) AND (EXTRACT(month FROM fechafin) <= '8'::numeric)))
+                                                   Rows Removed by Filter: 29368597
+                                             ->  Hash  (cost=2873.12..2873.12 rows=108847 width=4) (actual time=22.904..22.904 rows=109108 loops=1)
+                                                   Buckets: 131072  Batches: 1  Memory Usage: 4860kB
+                                                   ->  Index Scan using idx_plazas_nivel on plazas pl  (cost=0.29..2873.12 rows=108847 width=4) (actual time=0.039..12.958 rows=109108 loops=1)
+                                                         Index Cond: (nivel < '-4'::integer)
+                                       ->  Hash  (cost=16513.73..16513.73 rows=484817 width=4) (actual time=159.757..159.757 rows=479016 loops=1)
+                                             Buckets: 262144  Batches: 4  Memory Usage: 6271kB
+                                             ->  Index Scan using idx_clientes_provincia on clientes c  (cost=0.43..16513.73 rows=484817 width=4) (actual time=0.124..104.647 rows=479016 loops=1)
+                                                   Index Cond: (provincia = ANY ('{Huelva,Cadiz,Sevilla,Malaga,Granada,Almeria,Jaen,Cordoba}'::text[]))
+                     ->  Index Scan using vehiculos_pkey on vehiculos v  (cost=0.43..3.54 rows=1 width=10) (actual time=0.014..0.014 rows=1 loops=742088)
+                           Index Cond: (vehiculoid = r.vehiculoid_vehiculos)
+               ->  Index Scan using idx_incidencias_reservaid on incidencias i  (cost=0.43..3.49 rows=1 width=78) (actual time=0.006..0.006 rows=0 loops=742088)
+                     Index Cond: (reservaid_reservas = r.reservaid)
+ Planning Time: 12.671 ms
+ Execution Time: 55839.478 ms
+(39 filas)
+
+      resultado      
+---------------------
+ 11.0256666666666667
+(1 fila)
+
