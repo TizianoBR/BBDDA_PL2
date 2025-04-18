@@ -1,4 +1,4 @@
-\c telpark_bak
+\c telpark
 
 SHOW work_mem;
 SHOW effective_cache_size;
@@ -27,3 +27,4 @@ DROP INDEX IF EXISTS idx_reservas_fechainicio;
 DROP INDEX IF EXISTS idx_reservas_fechafin;
 DROP INDEX IF EXISTS idx_pagos_cantidad;
 DROP INDEX IF EXISTS idx_plazas_nivel;
+DROP INDEX IF EXISTS idx_incidencias_reservaid;

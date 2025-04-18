@@ -1,0 +1,46 @@
+                                                                                                                                  QUERY PLAN                                                                                                                                  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=4136431.01..4136431.03 rows=1 width=32)
+   InitPlan 1 (returns $0)
+     ->  Aggregate  (cost=77612.55..77612.56 rows=1 width=8)
+           ->  Seq Scan on clientes  (cost=0.00..70113.04 rows=2999804 width=0)
+   ->  Sort  (cost=4058687.11..4058752.78 rows=26268 width=4)
+         Sort Key: c.clienteid
+         ->  Hash Right Anti Join  (cost=2760354.96..4056758.90 rows=26268 width=4)
+               Hash Cond: (r2.clienteid_clientes = c.clienteid)
+               ->  Hash Join  (cost=220095.55..1516063.41 rows=113532 width=4)
+                     Hash Cond: (r2.vehiculoid_vehiculos = v.vehiculoid)
+                     ->  Hash Join  (cost=100320.31..1385245.58 rows=788417 width=8)
+                           Hash Cond: (r2.reservaid = i.reservaid_reservas)
+                           ->  Seq Scan on reservas r2  (cost=0.00..733334.80 rows=40000080 width=12)
+                           ->  Hash  (cost=87385.10..87385.10 rows=788417 width=4)
+                                 ->  Seq Scan on incidencias i  (cost=0.00..87385.10 rows=788417 width=4)
+                                       Filter: (estado = 'Cerrada'::text)
+                     ->  Hash  (cost=107961.45..107961.45 rows=720063 width=4)
+                           ->  Seq Scan on vehiculos v  (cost=0.00..107961.45 rows=720063 width=4)
+                                 Filter: (color = 'Negro'::text)
+               ->  Hash  (cost=2539918.14..2539918.14 rows=27302 width=4)
+                     ->  Hash Join  (cost=1567228.75..2539918.14 rows=27302 width=4)
+                           Hash Cond: (p.reservaid_reservas = r.reservaid)
+                           ->  Seq Scan on pagos p  (cost=0.00..854084.20 rows=31555247 width=4)
+                                 Filter: (cantidad > '150'::numeric)
+                           ->  Hash  (cost=1566796.15..1566796.15 rows=34608 width=8)
+                                 ->  Hash Join  (cost=28273.79..1566796.15 rows=34608 width=8)
+                                       Hash Cond: (r.clienteid_clientes = c.clienteid)
+                                       ->  Hash Join  (cost=4251.28..1538635.08 rows=218120 width=8)
+                                             Hash Cond: (r.plazaid_plazas = pl.plazaid)
+                                             ->  Seq Scan on reservas r  (cost=0.00..1533336.40 rows=399001 width=12)
+                                                   Filter: (((EXTRACT(month FROM fechainicio) >= '6'::numeric) AND (EXTRACT(month FROM fechainicio) <= '8'::numeric)) OR ((EXTRACT(month FROM fechafin) >= '6'::numeric) AND (EXTRACT(month FROM fechafin) <= '8'::numeric)))
+                                             ->  Hash  (cost=2884.62..2884.62 rows=109333 width=4)
+                                                   ->  Index Scan using idx_plazas_nivel on plazas pl  (cost=0.29..2884.62 rows=109333 width=4)
+                                                         Index Cond: (nivel < '-4'::integer)
+                                       ->  Hash  (cost=16212.89..16212.89 rows=475969 width=4)
+                                             ->  Index Scan using idx_clientes_provincia on clientes c  (cost=0.43..16212.89 rows=475969 width=4)
+                                                   Index Cond: (provincia = ANY ('{Huelva,Cadiz,Sevilla,Malaga,Granada,Almeria,Jaen,Cordoba}'::text[]))
+(37 filas)
+
+      resultado      
+---------------------
+ 10.5620666666666667
+(1 fila)
+

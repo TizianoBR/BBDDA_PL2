@@ -11,6 +11,6 @@ SET temp_buffers = '256MB';
 
 \q
 
-SET work_mem = '4MB';
-SET effective_cache_size = '4GB';
-SET temp_buffers = '8MB';
+-- SET work_mem = '4MB';
+-- SET effective_cache_size = '4GB';
+-- SET temp_buffers = '8MB';
