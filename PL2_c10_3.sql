@@ -1,21 +1,21 @@
-\c telpark
+\c telpark_bak
 
-SHOW work_mem;
-SHOW effective_cache_size;
-SHOW shared_buffers;
-SHOW temp_buffers;
+-- SHOW work_mem;
+-- SHOW effective_cache_size;
+-- SHOW shared_buffers;
+-- SHOW temp_buffers;
 
-SET work_mem = '512MB';
-SET effective_cache_size = '16GB';
-SET temp_buffers = '256MB';
+-- SET work_mem = '512MB';
+-- SET effective_cache_size = '16GB';
+-- SET temp_buffers = '256MB';
 
-CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
-CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
-CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(EXTRACT(MONTH FROM fechainicio));
-CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(EXTRACT(MONTH FROM fechafin));
-CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
-CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
-CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid ON incidencias(reservaid_reservas);
+-- CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+-- CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
+-- CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(EXTRACT(MONTH FROM fechainicio));
+-- CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(EXTRACT(MONTH FROM fechafin));
+-- CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+-- CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+-- CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid ON incidencias(reservaid_reservas);
 
 
 
@@ -24,7 +24,7 @@ CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid ON incidencias(reservaid_re
 -- CLUSTER pagos USING idx_pagos_cantidad;
 -- CLUSTER plazas USING idx_plazas_nivel;
 -- CLUSTER incidencias USING idx_incidencias_reservaid;
-\q
+-- \q
 
 SET work_mem = '4MB';
 SET effective_cache_size = '4GB';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
