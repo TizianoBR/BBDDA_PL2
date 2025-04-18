@@ -1,8 +1,8 @@
-\c telpark_bak
+\c telpark
 
 SET log_statement = 'all';
 ANALYZE;
-\o PL2_c9_salida.txt
+\o PL2_c12_salida.txt
 EXPLAIN SELECT COUNT(DISTINCT c.clienteid)  * 100.0 / (SELECT COUNT(*) FROM clientes) AS resultado
     FROM
     clientes c
