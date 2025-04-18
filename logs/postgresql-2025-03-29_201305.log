@@ -1,0 +1,7 @@
+[09066309P 08134385K]  2025-03-29 20:13:05.761 CETLOG:  el sistema de bases de datos fue interrumpido; última vez en funcionamiento en 2025-03-28 10:24:56 CET
+[09066309P 08134385K]  2025-03-29 20:13:07.647 CETLOG:  el sistema de bases de datos no fue apagado apropiadamente; se está efectuando la recuperación automática
+[09066309P 08134385K]  2025-03-29 20:13:07.660 CETLOG:  redo comienza en 2D/EFAA51F0
+[09066309P 08134385K]  2025-03-29 20:13:07.660 CETLOG:  largo de registro no válido en 2D/EFAA52D8: se esperaba al menos 24, se obtuvo 0
+[09066309P 08134385K]  2025-03-29 20:13:07.660 CETLOG:  redo listo en 2D/EFAA52A0 utilización del sistema: CPU: usuario: 0.00 s, sistema: 0.00 s, transcurrido: 0.00 s
+[09066309P 08134385K]  2025-03-29 20:13:07.675 CETLOG:  empezando checkpoint: end-of-recovery immediate wait
+[09066309P 08134385K]  2025-03-29 20:13:07.691 CETLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.003 s, total=0.020 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=2D/EFAA52D8, lsn de redo=2D/EFAA52D8

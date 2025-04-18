@@ -1,0 +1,48 @@
+[09066309P 08134385K]  2025-03-18 13:14:08.898 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-18 13:14:03 CET
+[09066309P 08134385K] ::1(60893) 2025-03-18 13:14:25.353 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 13:14:25.358 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 13:14:25.374 CETLOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.005 s, sync=0.003 s, total=0.018 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=4 kB, estimación=4 kB; lsn=29/BC9C8050, lsn de redo=29/BC9C8018
+[09066309P 08134385K] ::1(60893) 2025-03-18 13:14:25.543 CETLOG:  duración: 192.476 ms
+[09066309P 08134385K] ::1(60893) 2025-03-18 13:14:25.545 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(60893) 2025-03-18 13:14:25.822 CETLOG:  duración: 277.048 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.875 CETLOG:  duración: 0.075 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.875 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.887 CETLOG:  duración: 11.512 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.888 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.891 CETLOG:  duración: 3.567 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.892 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.897 CETLOG:  duración: 5.448 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:25.898 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:34.984 CETLOG:  duración: 9085.533 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:34.985 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:35.580 CETLOG:  duración: 594.904 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:14:35.582 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:15:52.190 CETLOG:  duración: 76608.453 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:15:52.193 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:15:57.176 CETLOG:  duración: 4983.761 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:15:57.179 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:15:59.992 CETLOG:  duración: 2814.066 ms
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:16:01.283 CETLOG:  duración: 1288.307 ms  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(60894) 2025-03-18 13:16:01.284 CETLOG:  duración: 0.021 ms  sentencia: SET maintenance_work_mem = '64MB';
+[09066309P 08134385K]  2025-03-18 13:19:25.284 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-03-18 13:22:48.423 CETLOG:  checkpoint completo: escritos 8633 búfers (52.7%); 0 archivos WAL añadidos, 0 eliminados, 87 reciclados; write=202.663 s, sync=0.241 s, total=203.139 s; archivos sincronizados=318, más largo=0.103 s, promedio=0.001 s; distancia=1426460 kB, estimación=1426460 kB; lsn=2A/13ACF148, lsn de redo=2A/13ACF110
+[09066309P 08134385K]  2025-03-18 13:22:48.424 CETLOG:  apagando
+[09066309P 08134385K]  2025-03-18 13:22:48.425 CETLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-03-18 13:22:48.434 CETLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.010 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=1283814 kB; lsn=2A/13ACF1C0, lsn de redo=2A/13ACF1C0

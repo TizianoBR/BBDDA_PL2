@@ -1,0 +1,5 @@
+[09066309P 08134385K]  2025-03-18 13:22:55.517 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-18 13:22:48 CET
+[09066309P 08134385K]  2025-03-18 13:27:55.521 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-03-18 13:27:55.536 CETLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.002 s, total=0.018 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.001 s; distancia=0 kB, estimación=0 kB; lsn=2A/13ACF2A8, lsn de redo=2A/13ACF270
+[09066309P 08134385K] ::1(61857) 2025-03-18 13:55:03.167 CETLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	

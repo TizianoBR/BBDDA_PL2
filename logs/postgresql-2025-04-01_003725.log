@@ -1,0 +1,256 @@
+[09066309P 08134385K]  2025-04-01 00:37:25.681 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-01 00:36:18 CEST
+[09066309P 08134385K]  2025-04-01 00:42:25.678 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 00:42:25.726 CESTLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.003 s, total=0.051 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=2D/EFAA5470, lsn de redo=2D/EFAA5438
+[09066309P 08134385K] ::1(62311) 2025-04-01 00:50:09.507 CESTLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-04-01 00:50:09.512 CESTLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-04-01 00:50:09.522 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.001 s, total=0.010 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=5 kB, estimación=5 kB; lsn=2D/EFAA6890, lsn de redo=2D/EFAA6858
+[09066309P 08134385K] ::1(62311) 2025-04-01 00:50:09.615 CESTLOG:  duración: 113.496 ms
+[09066309P 08134385K] ::1(62311) 2025-04-01 00:50:09.617 CESTLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(62311) 2025-04-01 00:50:09.983 CESTLOG:  duración: 367.028 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.043 CESTLOG:  duración: 0.598 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.044 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.067 CESTLOG:  duración: 23.581 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.067 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.072 CESTLOG:  duración: 4.703 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.073 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.079 CESTLOG:  duración: 5.888 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.080 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.084 CESTLOG:  duración: 3.488 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.085 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.088 CESTLOG:  duración: 3.884 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.090 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.095 CESTLOG:  duración: 5.652 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:50:10.334 CESTLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:02.578 CESTLOG:  duración: 52243.973 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:02.592 CESTLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:48.083 CESTLOG:  duración: 45491.293 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:48.096 CESTLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:48.471 CESTLOG:  duración: 375.395 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:51:48.483 CESTLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 00:51:55.953 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 00:53:19.435 CESTLOG:  checkpoint completo: escritos 1553 búfers (9.5%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=82.494 s, sync=0.557 s, total=83.482 s; archivos sincronizados=332, más largo=0.156 s, promedio=0.002 s; distancia=2184761 kB, estimación=2184761 kB; lsn=2E/EE73F878, lsn de redo=2E/75034EF0
+[09066309P 08134385K]  2025-04-01 00:53:26.997 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:54:50.252 CESTLOG:  duración: 181769.000 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:54:50.263 CESTLOG:  sentencia: COPY  incidencias FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 00:54:51.226 CESTLOG:  checkpoint completo: escritos 44 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=83.502 s, sync=0.350 s, total=84.229 s; archivos sincronizados=16, más largo=0.164 s, promedio=0.022 s; distancia=2195700 kB, estimación=2195700 kB; lsn=2F/74597340, lsn de redo=2E/FB0721B0
+[09066309P 08134385K]  2025-04-01 00:54:57.094 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:06.004 CESTLOG:  duración: 15740.797 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:06.019 CESTLOG:  sentencia: COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:06.022 CESTERROR:  faltan datos en la columna «reservaid_reservas»
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:06.022 CESTCONTEXTO:  COPY pagos, línea 1: «1,576.0,2022-04-23 00:00:00,Efectivo»
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:06.022 CESTSENTENCIA:  COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:20.690 CESTLOG:  sentencia: ALTER TABLE vehiculos
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:23.711 CESTLOG:  duración: 3022.013 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:23.713 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 00:55:24.729 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 00:55:24.729 CESTCONTEXTO:  recorriendo el bloque 7348 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:43.957 CESTLOG:  duración: 20243.579 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:43.959 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (plazaid_plazas) REFERENCES plazas(plazaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:57.050 CESTLOG:  duración: 13091.559 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:55:57.052 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 00:56:09.715 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:56:12.816 CESTLOG:  duración: 15764.260 ms
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:56:12.818 CESTLOG:  sentencia: ALTER TABLE incidencias
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 00:56:13.822 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 00:56:13.822 CESTCONTEXTO:  recorriendo el bloque 27948 de la relación «public.incidencias»
+	vacuum automático de la tabla «telepark.public.incidencias»
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:56:22.691 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:56:22.691 CESTCONTEXTO:  sentencia SQL: «SELECT fk."reservaid_reservas" FROM ONLY "public"."incidencias" fk LEFT OUTER JOIN ONLY "public"."reservas" pk ON ( pk."reservaid" OPERATOR(pg_catalog.=) fk."reservaid_reservas") WHERE pk."reservaid" IS NULL AND (fk."reservaid_reservas" IS NOT NULL)»
+[09066309P 08134385K] ::1(62314) 2025-04-01 00:56:22.691 CESTSENTENCIA:  ALTER TABLE incidencias
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 00:59:27.570 CESTLOG:  checkpoint completo: escritos 5207 búfers (31.8%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.987 s, sync=0.074 s, total=270.478 s; archivos sincronizados=21, más largo=0.057 s, promedio=0.004 s; distancia=2195866 kB, estimación=2195866 kB; lsn=2F/907F0E60, lsn de redo=2F/810D8C50
+[09066309P 08134385K]  2025-04-01 00:59:57.896 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:04:27.275 CESTLOG:  checkpoint completo: escritos 7813 búfers (47.7%); 0 archivos WAL añadidos, 0 eliminados, 15 reciclados; write=269.168 s, sync=0.072 s, total=269.380 s; archivos sincronizados=31, más largo=0.058 s, promedio=0.003 s; distancia=254122 kB, estimación=2001692 kB; lsn=2F/91271520, lsn de redo=2F/909034A0
+[09066309P 08134385K]  2025-04-01 01:04:57.959 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:05:02.376 CESTLOG:  checkpoint completo: escritos 8 búfers (0.0%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=4.320 s, sync=0.004 s, total=4.418 s; archivos sincronizados=3, más largo=0.003 s, promedio=0.002 s; distancia=10762 kB, estimación=1802599 kB; lsn=2F/913AE7A8, lsn de redo=2F/91385D78
+[09066309P 08134385K]  2025-04-01 01:09:57.468 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:10:06.979 CESTLOG:  checkpoint completo: escritos 87 búfers (0.5%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=9.498 s, sync=0.005 s, total=9.511 s; archivos sincronizados=7, más largo=0.002 s, promedio=0.001 s; distancia=4437 kB, estimación=1622783 kB; lsn=2F/917DB380, lsn de redo=2F/917DB348
+[09066309P 08134385K] ::1(64913) 2025-04-01 01:16:13.471 CESTLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-04-01 01:16:13.479 CESTLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-04-01 01:16:13.488 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.001 s, total=0.010 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=5 kB, estimación=1460505 kB; lsn=2F/917DC848, lsn de redo=2F/917DC810
+[09066309P 08134385K] ::1(64913) 2025-04-01 01:16:14.186 CESTLOG:  duración: 716.272 ms
+[09066309P 08134385K] ::1(64913) 2025-04-01 01:16:14.188 CESTLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(64913) 2025-04-01 01:16:15.170 CESTLOG:  duración: 981.850 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.235 CESTLOG:  duración: 0.056 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.236 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.253 CESTLOG:  duración: 17.394 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.254 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.259 CESTLOG:  duración: 4.807 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.259 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.265 CESTLOG:  duración: 5.646 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.267 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.270 CESTLOG:  duración: 3.205 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.271 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.275 CESTLOG:  duración: 4.102 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.276 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.280 CESTLOG:  duración: 4.483 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:16:15.516 CESTLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:04.784 CESTLOG:  duración: 49267.956 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:04.797 CESTLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:48.306 CESTLOG:  duración: 43509.280 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:48.322 CESTLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:48.723 CESTLOG:  duración: 401.162 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:17:48.733 CESTLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 01:17:56.114 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 01:19:15.092 CESTLOG:  checkpoint completo: escritos 1482 búfers (9.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=78.088 s, sync=0.525 s, total=78.979 s; archivos sincronizados=332, más largo=0.146 s, promedio=0.002 s; distancia=2191499 kB, estimación=2191499 kB; lsn=30/9098B8A0, lsn de redo=30/173FF6A0
+[09066309P 08134385K]  2025-04-01 01:19:22.763 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:20:41.669 CESTLOG:  duración: 172936.337 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:20:41.794 CESTLOG:  sentencia: COPY  incidencias FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 01:20:43.130 CESTLOG:  checkpoint completo: escritos 45 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=79.451 s, sync=0.435 s, total=80.367 s; archivos sincronizados=18, más largo=0.315 s, promedio=0.025 s; distancia=2191795 kB, estimación=2191795 kB; lsn=31/164D95F8, lsn de redo=30/9D06C2A8
+[09066309P 08134385K]  2025-04-01 01:20:49.122 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:20:56.346 CESTLOG:  duración: 14551.995 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:20:56.357 CESTLOG:  sentencia: COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 01:21:55.181 CESTLOG:  checkpoint completo: escritos 29 búfers (0.2%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=64.357 s, sync=1.252 s, total=66.060 s; archivos sincronizados=18, más largo=1.035 s, promedio=0.070 s; distancia=2198217 kB, estimación=2198217 kB; lsn=31/9D402A88, lsn de redo=31/2331E730
+[09066309P 08134385K]  2025-04-01 01:22:01.164 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 01:23:07.970 CESTLOG:  checkpoint completo: escritos 38 búfers (0.2%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=65.496 s, sync=0.878 s, total=66.807 s; archivos sincronizados=15, más largo=0.406 s, promedio=0.059 s; distancia=2196359 kB, estimación=2198031 kB; lsn=32/2340D720, lsn de redo=31/A9400378
+[09066309P 08134385K]  2025-04-01 01:23:13.935 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:28.127 CESTLOG:  duración: 151770.369 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:28.131 CESTLOG:  sentencia: ALTER TABLE vehiculos
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:31.391 CESTLOG:  duración: 3260.944 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:31.392 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 01:23:32.413 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 01:23:32.413 CESTCONTEXTO:  recorriendo el bloque 49218 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K]  2025-04-01 01:23:39.933 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:52.699 CESTLOG:  duración: 21306.348 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:23:52.701 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (plazaid_plazas) REFERENCES plazas(plazaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:04.672 CESTLOG:  duración: 11971.760 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:04.675 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:21.987 CESTLOG:  duración: 17312.121 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:21.989 CESTLOG:  sentencia: ALTER TABLE incidencias
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 01:24:22.996 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 01:24:22.996 CESTCONTEXTO:  recorriendo el bloque 34393 de la relación «public.incidencias»
+	vacuum automático de la tabla «telepark.public.incidencias»
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:39.574 CESTLOG:  duración: 17585.598 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:24:39.577 CESTLOG:  sentencia: ALTER TABLE pagos
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 01:24:40.589 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 01:24:40.589 CESTCONTEXTO:  recorriendo el bloque 23449 de la relación «public.pagos»
+	vacuum automático de la tabla «telepark.public.pagos»
+[09066309P 08134385K]  2025-04-01 01:24:41.594 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 01:24:41.594 CESTCONTEXTO:  recorriendo el bloque 50002 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:25:16.984 CESTLOG:  duración: 37407.130 ms
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:25:19.840 CESTLOG:  duración: 2854.487 ms  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(64916) 2025-04-01 01:25:19.842 CESTLOG:  duración: 0.028 ms  sentencia: SET maintenance_work_mem = '64MB';
+[09066309P 08134385K]  2025-04-01 01:27:43.645 CESTLOG:  checkpoint completo: escritos 88 búfers (0.5%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.145 s, sync=0.152 s, total=269.711 s; archivos sincronizados=22, más largo=0.110 s, promedio=0.007 s; distancia=2193552 kB, estimación=2197583 kB; lsn=32/49D38988, lsn de redo=32/2F224550
+[09066309P 08134385K]  2025-04-01 01:28:13.092 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:32:43.349 CESTLOG:  checkpoint completo: escritos 12071 búfers (73.7%); 0 archivos WAL añadidos, 0 eliminados, 26 reciclados; write=269.977 s, sync=0.122 s, total=270.258 s; archivos sincronizados=38, más largo=0.051 s, promedio=0.004 s; distancia=438516 kB, estimación=2021676 kB; lsn=32/4A8F4760, lsn de redo=32/49E61618
+[09066309P 08134385K]  2025-04-01 01:33:13.930 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:33:21.917 CESTLOG:  checkpoint completo: escritos 8 búfers (0.0%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=7.811 s, sync=0.082 s, total=7.988 s; archivos sincronizados=4, más largo=0.044 s, promedio=0.021 s; distancia=12053 kB, estimación=1820714 kB; lsn=32/4AA798B0, lsn de redo=32/4AA26C60
+[09066309P 08134385K]  2025-04-01 01:38:13.173 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:38:21.280 CESTLOG:  checkpoint completo: escritos 9 búfers (0.1%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=7.950 s, sync=0.073 s, total=8.107 s; archivos sincronizados=5, más largo=0.050 s, promedio=0.015 s; distancia=11996 kB, estimación=1639842 kB; lsn=32/4B631C58, lsn de redo=32/4B5DDFF8
+[09066309P 08134385K]  2025-04-01 01:39:44.192 CESTLOG:  vacuum automático de la tabla «telepark.public.reservas»: recorridos de índice: 0
+	páginas: 0 eliminadas, 333384 quedan, 283382 recorridas (85.00% del total)
+	tuplas: 0 eliminadas, 39999200 permanecen, 0 están muertas pero aún no se pueden quitar
+	punto de corte de eliminación: 3703, que era 0 XIDs de antiguo cuando la operación terminó
+	congelado: 0 páginas de la tabla (0.00% del total) tuvieron 0 tuplas congeladas
+	recorrido de índice no necesario: en 0 páginas de la tabla (0.00% del total) se eliminaron 0 identificadores de elementos muertos
+	tasa lectura promedio: 2.622 MB/s, tasa escritura promedio: 2.622 MB/s
+	uso de búfers: 283594 aciertos, 283303 fallos, 283346 ensuciados
+	uso de WAL: 283333 registros, 13 imágenes de página completa, 16822001 bytes
+	uso de sistema: CPU: usuario: 3.56 s, sistema: 5.14 s, transcurrido: 844.26 s
+[09066309P 08134385K]  2025-04-01 01:42:05.951 CESTLOG:  vacuum automático de la tabla «telepark.public.pagos»: recorridos de índice: 0
+	páginas: 0 eliminadas, 354056 quedan, 330607 recorridas (93.38% del total)
+	tuplas: 0 eliminadas, 39999738 permanecen, 0 están muertas pero aún no se pueden quitar
+	punto de corte de eliminación: 3703, que era 0 XIDs de antiguo cuando la operación terminó
+	congelado: 0 páginas de la tabla (0.00% del total) tuvieron 0 tuplas congeladas
+	recorrido de índice no necesario: en 0 páginas de la tabla (0.00% del total) se eliminaron 0 identificadores de elementos muertos
+	tasa lectura promedio: 2.772 MB/s, tasa escritura promedio: 2.789 MB/s
+	uso de búfers: 332757 aciertos, 328601 fallos, 330594 ensuciados
+	uso de WAL: 330581 registros, 13 imágenes de página completa, 19610969 bytes
+	uso de sistema: CPU: usuario: 3.89 s, sistema: 6.07 s, transcurrido: 926.02 s
+[09066309P 08134385K]  2025-04-01 01:43:13.161 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 01:47:19.290 CESTLOG:  checkpoint completo: escritos 2237 búfers (13.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=246.100 s, sync=0.022 s, total=246.130 s; archivos sincronizados=8, más largo=0.018 s, promedio=0.003 s; distancia=8782 kB, estimación=1476736 kB; lsn=32/4BE71AB8, lsn de redo=32/4BE71A80
+[09066309P 08134385K] ::1(64916) 2025-04-01 03:16:27.555 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K]  2025-04-01 03:16:35.726 CESTLOG:  apagando
+[09066309P 08134385K]  2025-04-01 03:16:35.728 CESTLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-04-01 03:16:35.736 CESTLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.011 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=1329063 kB; lsn=32/4BE71B68, lsn de redo=32/4BE71B68

@@ -1,0 +1,7 @@
+[09066309P 08134385K] LOG:  el sistema de bases de datos fue interrumpido; última vez en funcionamiento en 2025-03-13 19:39:17 CET
+[09066309P 08134385K] LOG:  el sistema de bases de datos no fue apagado apropiadamente; se está efectuando la recuperación automática
+[09066309P 08134385K] LOG:  redo comienza en 25/C30A2CE0
+[09066309P 08134385K] LOG:  largo de registro no válido en 25/C30A2DC8: se esperaba al menos 24, se obtuvo 0
+[09066309P 08134385K] LOG:  redo listo en 25/C30A2D90 utilización del sistema: CPU: usuario: 0.00 s, sistema: 0.00 s, transcurrido: 0.00 s
+[09066309P 08134385K] LOG:  empezando checkpoint: end-of-recovery immediate wait
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.003 s, total=0.015 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=25/C30A2DC8, lsn de redo=25/C30A2DC8

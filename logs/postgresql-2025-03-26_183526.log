@@ -1,0 +1,163 @@
+[09066309P 08134385K]  2025-03-26 18:35:26.729 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-26 18:34:02 CET
+[09066309P 08134385K] ::1(31618) 2025-03-26 18:35:44.270 CETLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-03-26 18:35:44.276 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-26 18:35:44.292 CETLOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.007 s, sync=0.003 s, total=0.019 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=4 kB, estimación=4 kB; lsn=2B/B29121C8, lsn de redo=2B/B2912190
+[09066309P 08134385K] ::1(31618) 2025-03-26 18:35:44.472 CETLOG:  duración: 203.181 ms
+[09066309P 08134385K] ::1(31618) 2025-03-26 18:35:44.474 CETLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(31618) 2025-03-26 18:35:44.826 CETLOG:  duración: 352.325 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:44.991 CETLOG:  duración: 0.072 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:44.992 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.009 CETLOG:  duración: 17.183 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.010 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.017 CETLOG:  duración: 6.591 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.017 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.023 CETLOG:  duración: 5.831 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.025 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.028 CETLOG:  duración: 3.332 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.029 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.033 CETLOG:  duración: 4.486 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.034 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.040 CETLOG:  duración: 5.735 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:35:45.041 CETLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:36:34.864 CETLOG:  duración: 49822.268 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:36:34.866 CETLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:37:19.212 CETLOG:  duración: 44346.510 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:37:19.223 CETLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:37:19.597 CETLOG:  duración: 373.804 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:37:19.606 CETLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-26 18:37:26.576 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-03-26 18:38:59.245 CETLOG:  checkpoint completo: escritos 1594 búfers (9.7%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=91.761 s, sync=0.520 s, total=92.669 s; archivos sincronizados=332, más largo=0.139 s, promedio=0.002 s; distancia=2187121 kB, estimación=2187121 kB; lsn=2C/B14ED488, lsn de redo=2C/380EE840
+[09066309P 08134385K]  2025-03-26 18:39:08.794 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:34.617 CETLOG:  duración: 195010.752 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:34.643 CETLOG:  sentencia: COPY  incidencias FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-26 18:40:35.979 CETLOG:  checkpoint completo: escritos 59 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=86.257 s, sync=0.406 s, total=87.186 s; archivos sincronizados=16, más largo=0.334 s, promedio=0.026 s; distancia=2198108 kB, estimación=2198108 kB; lsn=2D/376345C8, lsn de redo=2C/BE385A78
+[09066309P 08134385K]  2025-03-26 18:40:42.885 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:50.756 CETLOG:  duración: 16113.541 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:50.769 CETLOG:  sentencia: COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:50.770 CETERROR:  faltan datos en la columna «reservaid_reservas»
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:50.770 CETCONTEXTO:  COPY pagos, línea 1: «1,24436959.76,2007-06-15 00:00:00,Tarjeta de debito»
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:40:50.770 CETSENTENCIA:  COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:06.428 CETLOG:  sentencia: ALTER TABLE vehiculos
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:10.328 CETLOG:  duración: 3901.163 ms
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:10.330 CETLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-03-26 18:41:11.337 CETERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-03-26 18:41:11.337 CETCONTEXTO:  recorriendo el bloque 12889 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:17.329 CETERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:17.329 CETCONTEXTO:  sentencia SQL: «SELECT fk."vehiculoid_vehiculos" FROM ONLY "public"."reservas" fk LEFT OUTER JOIN ONLY "public"."vehiculos" pk ON ( pk."vehiculoid" OPERATOR(pg_catalog.=) fk."vehiculoid_vehiculos") WHERE pk."vehiculoid" IS NULL AND (fk."vehiculoid_vehiculos" IS NOT NULL)»
+[09066309P 08134385K] ::1(31620) 2025-03-26 18:41:17.329 CETSENTENCIA:  ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(31969) 2025-03-26 18:42:26.119 CETLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-03-26 18:42:26.121 CETFATAL:  terminando el proceso autovacuum debido a una orden del administrador
+[09066309P 08134385K]  2025-03-26 18:42:26.121 CETCONTEXTO:  recorriendo el bloque 35782 de la relación «public.reservas»
+[09066309P 08134385K]  2025-03-26 18:42:26.568 CETLOG:  checkpoint completo: escritos 62 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=103.346 s, sync=0.001 s, total=103.684 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=2192276 kB, estimación=2197525 kB; lsn=2D/531A1690, lsn de redo=2D/4406AD80
+[09066309P 08134385K]  2025-03-26 18:42:26.568 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-26 18:42:26.688 CETLOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 15 reciclados; write=0.002 s, sync=0.002 s, total=0.121 s; archivos sincronizados=2, más largo=0.001 s, promedio=0.001 s; distancia=247002 kB, estimación=2002473 kB; lsn=2D/531A1740, lsn de redo=2D/531A1708
+[09066309P 08134385K] ::1(31969) 2025-03-26 18:42:27.501 CETLOG:  duración: 1383.155 ms
+[09066309P 08134385K] ::1(31969) 2025-03-26 18:42:27.503 CETLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(31969) 2025-03-26 18:42:27.816 CETLOG:  duración: 313.346 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.881 CETLOG:  duración: 0.058 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.882 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.897 CETLOG:  duración: 15.571 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.898 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.906 CETLOG:  duración: 7.258 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.906 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.912 CETLOG:  duración: 5.546 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.913 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.916 CETLOG:  duración: 2.978 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.917 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.922 CETLOG:  duración: 4.992 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.923 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.928 CETLOG:  duración: 5.231 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:42:27.929 CETLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:43:19.025 CETLOG:  duración: 51096.133 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:43:19.027 CETLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:04.507 CETLOG:  duración: 45479.851 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:04.510 CETLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:04.869 CETLOG:  duración: 359.673 ms
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:04.871 CETLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-26 18:44:12.292 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:23.519 CETERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:23.519 CETCONTEXTO:  COPY reservas, línea 4422687: «4422687,2011-04-11 00:00:00,2011-04-18 00:00:00,1902728,41463,196742»
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:44:23.519 CETSENTENCIA:  COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(31972) 2025-03-26 18:47:26.969 CETLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K]  2025-03-26 18:48:42.915 CETLOG:  checkpoint completo: escritos 7171 búfers (43.8%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.761 s, sync=0.261 s, total=270.625 s; archivos sincronizados=333, más largo=0.005 s, promedio=0.001 s; distancia=2197903 kB, estimación=2197903 kB; lsn=2D/EFAA5090, lsn de redo=2D/D9405570

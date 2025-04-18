@@ -1,0 +1,177 @@
+[09066309P 08134385K] LOG:  el sistema de bases de datos fue apagado en 2025-03-18 10:19:42 CET
+[09066309P 08134385K] LOG:  empezando checkpoint: time
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.002 s, total=0.016 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.001 s; distancia=0 kB, estimación=0 kB; lsn=25/C30A2F60, lsn de redo=25/C30A2F28
+[09066309P 08134385K] ::1(58003)LOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K] ::1(58003)LOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(58004)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(58004)LOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(58004)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(58004)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58004)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58019)LOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K] LOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.005 s, sync=0.004 s, total=0.018 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.001 s; distancia=4621 kB, estimación=4621 kB; lsn=25/C3526400, lsn de redo=25/C35263C8
+[09066309P 08134385K] ::1(58019)LOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(58021)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(58021)LOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(58021)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(58021)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58021)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58042)LOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K] LOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.003 s, total=0.014 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=4621 kB, estimación=4621 kB; lsn=25/C39A9970, lsn de redo=25/C39A9938
+[09066309P 08134385K] ::1(58042)LOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] LOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 18 segundos)
+[09066309P 08134385K] HINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 3076 búfers (18.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=26.467 s, sync=0.594 s, total=27.170 s; archivos sincronizados=315, más largo=0.308 s, promedio=0.002 s; distancia=532593 kB, estimación=532593 kB; lsn=26/2204FA0, lsn de redo=25/E41C6038
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2796 búfers (17.1%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=39.991 s, sync=0.542 s, total=40.642 s; archivos sincronizados=5, más largo=0.452 s, promedio=0.109 s; distancia=539192 kB, estimación=539192 kB; lsn=26/22E1EAD0, lsn de redo=26/5054238
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K] CONTEXTO:  recorriendo el bloque 19328 de la relación «public.investigadores»
+	vacuum automático de la tabla «investigar.public.investigadores»
+[09066309P 08134385K] ::1(58043)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2848 búfers (17.4%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=269.257 s, sync=0.007 s, total=269.359 s; archivos sincronizados=11, más largo=0.002 s, promedio=0.001 s; distancia=541248 kB, estimación=541248 kB; lsn=26/2C8C9E20, lsn de redo=26/260E4310
+[09066309P 08134385K] ::1(58495)LOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K] LOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 6 reciclados; write=0.002 s, sync=0.002 s, total=0.054 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.001 s; distancia=106393 kB, estimación=497762 kB; lsn=26/2C8CA828, lsn de redo=26/2C8CA7F0
+[09066309P 08134385K] ::1(58495)LOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] LOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 17 segundos)
+[09066309P 08134385K] HINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 5202 búfers (31.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=24.984 s, sync=0.470 s, total=25.548 s; archivos sincronizados=315, más largo=0.211 s, promedio=0.002 s; distancia=532240 kB, estimación=532240 kB; lsn=26/6B0925D0, lsn de redo=26/4D08EB60
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2752 búfers (16.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=37.887 s, sync=0.559 s, total=38.554 s; archivos sincronizados=5, más largo=0.478 s, promedio=0.112 s; distancia=540670 kB, estimación=540670 kB; lsn=26/8BE44890, lsn de redo=26/6E08E6D8
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K] CONTEXTO:  recorriendo el bloque 15723 de la relación «public.investigadores»
+	vacuum automático de la tabla «investigar.public.investigadores»
+[09066309P 08134385K] ::1(58496)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58660)LOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K] FATAL:  terminando el proceso autovacuum debido a una orden del administrador
+[09066309P 08134385K] CONTEXTO:  recorriendo el bloque 28162 de la relación «public.investigadores_contratos»
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2260 búfers (13.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=110.817 s, sync=0.001 s, total=110.919 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=540291 kB, estimación=540632 kB; lsn=26/950C1DC0, lsn de redo=26/8F02F530
+[09066309P 08134385K] LOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 6 reciclados; write=0.002 s, sync=0.002 s, total=0.046 s; archivos sincronizados=2, más largo=0.001 s, promedio=0.001 s; distancia=98890 kB, estimación=496458 kB; lsn=26/950C1E70, lsn de redo=26/950C1E38
+[09066309P 08134385K] ::1(58660)LOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] LOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 16 segundos)
+[09066309P 08134385K] HINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 4830 búfers (29.5%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=24.107 s, sync=0.514 s, total=24.711 s; archivos sincronizados=316, más largo=0.219 s, promedio=0.002 s; distancia=542532 kB, estimación=542532 kB; lsn=26/D43222F8, lsn de redo=26/B6292F80
+[09066309P 08134385K] LOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K] HINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 2692 búfers (16.4%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=37.971 s, sync=0.407 s, total=38.478 s; archivos sincronizados=10, más largo=0.393 s, promedio=0.041 s; distancia=538561 kB, estimación=542135 kB; lsn=26/F4DFA3E8, lsn de redo=26/D7083408
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(58662)LOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] LOG:  empezando checkpoint: wal
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 8586 búfers (52.4%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=207.789 s, sync=0.107 s, total=207.980 s; archivos sincronizados=31, más largo=0.093 s, promedio=0.004 s; distancia=540150 kB, estimación=541936 kB; lsn=26/F82DC080, lsn de redo=26/F8001000
+[09066309P 08134385K] LOG:  apagando
+[09066309P 08134385K] LOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 1353 búfers (8.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.012 s, sync=0.011 s, total=0.030 s; archivos sincronizados=11, más largo=0.006 s, promedio=0.001 s; distancia=2924 kB, estimación=488035 kB; lsn=26/F82DC0F8, lsn de redo=26/F82DC0F8

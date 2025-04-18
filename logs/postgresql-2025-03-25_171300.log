@@ -1,0 +1,82 @@
+[09066309P 08134385K]  2025-03-25 17:13:00.742 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-25 17:12:51 CET
+[09066309P 08134385K] ::1(27559) 2025-03-25 17:13:23.830 CETLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K] ::1(27559) 2025-03-25 17:13:23.838 CETLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.360 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.389 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.396 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.403 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.407 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.413 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:13:24.419 CETLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:18.551 CETLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:18.604 CETERROR:  llave duplicada viola restricción de unicidad «clientes_telefono_key»
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:18.604 CETDETALLE:  Ya existe la llave (telefono)=(41891916).
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:18.604 CETCONTEXTO:  COPY clientes, línea 4488
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:18.604 CETSENTENCIA:  COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:20.898 CETLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:14:21.296 CETLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-25 17:15:13.002 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-03-25 17:16:36.833 CETLOG:  checkpoint completo: escritos 14 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=82.716 s, sync=0.536 s, total=83.834 s; archivos sincronizados=334, más largo=0.210 s, promedio=0.002 s; distancia=2184483 kB, estimación=2184483 kB; lsn=2B/12548A60, lsn de redo=2A/99018368
+[09066309P 08134385K]  2025-03-25 17:16:45.061 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:16:46.711 CETERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:16:46.711 CETCONTEXTO:  COPY reservas, línea 31751846: «31751846,2011-07-11 00:00:00,2011-07-15 00:00:00,4362445,2904,1503821»
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:16:46.711 CETSENTENCIA:  COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-25 17:21:15.524 CETLOG:  checkpoint completo: escritos 9443 búfers (57.6%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.933 s, sync=0.049 s, total=270.463 s; archivos sincronizados=7, más largo=0.037 s, promedio=0.007 s; distancia=2198348 kB, estimación=2198348 kB; lsn=2B/347F5418, lsn de redo=2B/1F2EB6C0
+[09066309P 08134385K]  2025-03-25 17:21:45.031 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K] ::1(27560) 2025-03-25 17:25:25.944 CETLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K]  2025-03-25 17:26:15.286 CETLOG:  checkpoint completo: escritos 11105 búfers (67.8%); 0 archivos WAL añadidos, 0 eliminados, 21 reciclados; write=270.039 s, sync=0.075 s, total=270.255 s; archivos sincronizados=6, más largo=0.070 s, promedio=0.013 s; distancia=355179 kB, estimación=2014031 kB; lsn=2B/38AA42E8, lsn de redo=2B/34DC6558
+[09066309P 08134385K]  2025-03-25 17:26:45.296 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-03-25 17:31:15.206 CETLOG:  checkpoint completo: escritos 207 búfers (1.3%); 0 archivos WAL añadidos, 12 eliminados, 0 reciclados; write=269.722 s, sync=0.062 s, total=269.911 s; archivos sincronizados=5, más largo=0.059 s, promedio=0.013 s; distancia=184663 kB, estimación=1831095 kB; lsn=2B/4A6516F8, lsn de redo=2B/4021C390
+[09066309P 08134385K]  2025-03-25 17:31:45.590 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-03-25 17:35:19.016 CETLOG:  vacuum automático de la tabla «telepark.public.reservas»: recorridos de índice: 3
+	páginas: 264648 eliminadas, 0 quedan, 264648 recorridas (100.00% del total)
+	tuplas: 31751846 eliminadas, 0 permanecen, 0 están muertas pero aún no se pueden quitar
+	punto de corte de eliminación: 3565, que era 1 XIDs de antiguo cuando la operación terminó
+	nuevo relfrozenxid: 3565, que está 10 XIDs más adelante del valor anterior
+	congelado: 0 páginas de la tabla (0.00% del total) tuvieron 0 tuplas congeladas
+	recorrido de índice necesario: en 264599 páginas de la tabla (99.98% del total) se eliminaron 31751846 identificadores de elementos muertos
+	índice «reservas_pkey»: páginas: 87060 en total, 87056 recientemente eliminadas, 87056 eliminadas hasta ahora, 0 reusables
+	tasa lectura promedio: 7.481 MB/s, tasa escritura promedio: 4.508 MB/s
+	uso de búfers: 818530 aciertos, 1022753 fallos, 616349 ensuciados
+	uso de WAL: 1054367 registros, 581753 imágenes de página completa, 918064425 bytes
+	uso de sistema: CPU: usuario: 9.73 s, sistema: 12.70 s, transcurrido: 1068.03 s
+[09066309P 08134385K]  2025-03-25 17:36:15.117 CETLOG:  checkpoint completo: escritos 1651 búfers (10.1%); 0 archivos WAL añadidos, 11 eliminados, 0 reciclados; write=269.413 s, sync=0.003 s, total=269.528 s; archivos sincronizados=6, más largo=0.001 s, promedio=0.001 s; distancia=179027 kB, estimación=1665888 kB; lsn=2B/591E6FB0, lsn de redo=2B/4B0F1318

@@ -1,0 +1,3 @@
+[09066309P 08134385K]  2025-04-08 12:35:47.966 CESTLOG:  apagando
+[09066309P 08134385K]  2025-04-08 12:35:47.968 CESTLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-04-08 12:35:48.002 CESTLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.036 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=0 kB; lsn=37/C05C87A8, lsn de redo=37/C05C87A8

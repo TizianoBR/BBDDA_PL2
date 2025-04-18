@@ -1,0 +1,107 @@
+[09066309P 08134385K]  2025-04-14 21:25:29.896 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-14 21:24:58 CEST
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:50.485 CESTLOG:  duración: 0.137 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:50.486 CESTLOG:  duración: 0.052 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:50.487 CESTLOG:  duración: 0.061 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:50.487 CESTLOG:  duración: 0.019 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:50.488 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:53.432 CESTLOG:  duración: 2944.431 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:25:53.434 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:11.779 CESTLOG:  duración: 18345.568 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:11.781 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:28.610 CESTLOG:  duración: 16829.305 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:28.611 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:45.620 CESTLOG:  duración: 17008.671 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:45.622 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:47.611 CESTLOG:  duración: 1989.143 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:26:47.613 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:08.413 CESTLOG:  duración: 20800.285 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:08.415 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:10.797 CESTLOG:  duración: 2382.213 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:10.799 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:29.501 CESTLOG:  duración: 18702.574 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:29.504 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_clientes_a_borrar ON temp_clientes_a_borrar(clienteid);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:29.860 CESTLOG:  duración: 356.155 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:29.861 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_reservas_a_borrar ON temp_reservas_a_borrar(reservaid);
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.329 CESTLOG:  duración: 6467.308 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.341 CESTLOG:  duración: 9.754 ms  sentencia: EXPLAIN DELETE FROM pagos p
+	USING temp_reservas_a_borrar trb
+	WHERE p.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.344 CESTLOG:  duración: 3.417 ms  sentencia: EXPLAIN DELETE FROM incidencias i
+	USING temp_reservas_a_borrar trb
+	WHERE i.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.345 CESTLOG:  duración: 0.209 ms  sentencia: EXPLAIN DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.349 CESTLOG:  duración: 3.664 ms  sentencia: EXPLAIN DELETE FROM vehiculos v
+	USING temp_clientes_a_borrar tcb
+	WHERE v.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.350 CESTLOG:  duración: 0.309 ms  sentencia: EXPLAIN DELETE FROM clientes c
+	USING temp_clientes_a_borrar tcb
+	WHERE c.clienteid = tcb.clienteid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:27:36.350 CESTLOG:  sentencia: DELETE FROM pagos p
+	USING temp_reservas_a_borrar trb
+	WHERE p.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:29:13.961 CESTLOG:  duración: 97610.934 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:29:13.962 CESTLOG:  sentencia: DELETE FROM incidencias i
+	USING temp_reservas_a_borrar trb
+	WHERE i.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:29:32.088 CESTLOG:  duración: 18126.288 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:29:32.090 CESTLOG:  sentencia: DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K]  2025-04-14 21:29:52.619 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-14 21:34:25.085 CESTLOG:  checkpoint completo: escritos 174 búfers (1.1%); 0 archivos WAL añadidos, 0 eliminados, 404 reciclados; write=269.422 s, sync=2.145 s, total=272.495 s; archivos sincronizados=37, más largo=0.890 s, promedio=0.058 s; distancia=6616309 kB, estimación=6616309 kB; lsn=BC/C231AAD8, lsn de redo=BB/F7401AF8
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:45:25.755 CESTLOG:  duración: 953664.416 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:45:25.757 CESTLOG:  sentencia: DELETE FROM vehiculos v
+	USING temp_clientes_a_borrar tcb
+	WHERE v.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:48:08.746 CESTLOG:  duración: 162988.593 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:48:08.748 CESTLOG:  sentencia: DELETE FROM clientes c
+	USING temp_clientes_a_borrar tcb
+	WHERE c.clienteid = tcb.clienteid;
+[09066309P 08134385K]  2025-04-14 21:49:52.626 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-14 21:49:53.435 CESTLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 252 reciclados; write=0.001 s, sync=0.005 s, total=0.810 s; archivos sincronizados=6, más largo=0.001 s, promedio=0.001 s; distancia=4139037 kB, estimación=6368582 kB; lsn=BC/F3E091A0, lsn de redo=BC/F3E090D0
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:51:03.823 CESTLOG:  duración: 175075.357 ms
+[09066309P 08134385K] ::1(32028) 2025-04-14 21:51:03.826 CESTLOG:  duración: 0.437 ms  sentencia: COMMIT;
+[09066309P 08134385K]  2025-04-14 21:51:45.301 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:52:45.309 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:53:09.180 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-14 21:53:45.310 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:55:11.126 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-14 21:55:11.126 CESTCONTEXTO:  mientras se hacía «vacuum» al índice «vehiculos_matricula_key» de la relación «public.vehiculos»
+	vacuum automático de la tabla «telpark_bak_2.public.vehiculos»
+[09066309P 08134385K]  2025-04-14 21:55:33.729 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-14 21:55:33.729 CESTCONTEXTO:  mientras se hacía «vacuum» al índice «incidencias_pkey» de la relación «public.incidencias»
+	vacuum automático de la tabla «telpark_bak_2.public.incidencias»
+[09066309P 08134385K]  2025-04-14 21:55:33.891 CESTLOG:  omitiendo el vacuum de «incidencias»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:55:45.000 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-14 21:55:45.000 CESTCONTEXTO:  recorriendo el bloque 22824 de la relación «public.clientes»
+	vacuum automático de la tabla «telpark_bak_2.public.clientes»
+[09066309P 08134385K]  2025-04-14 21:56:18.554 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-14 21:56:18.554 CESTCONTEXTO:  recorriendo el bloque 27700 de la relación «public.pagos»
+	vacuum automático de la tabla «telpark_bak_2.public.pagos»
+[09066309P 08134385K]  2025-04-14 21:56:21.695 CESTLOG:  checkpoint completo: escritos 14 búfers (0.1%); 0 archivos WAL añadidos, 1 eliminados, 403 reciclados; write=191.186 s, sync=0.314 s, total=192.515 s; archivos sincronizados=66, más largo=0.092 s, promedio=0.005 s; distancia=6605714 kB, estimación=6605714 kB; lsn=BF/F3D6ABC8, lsn de redo=BE/870EDBA0
+[09066309P 08134385K]  2025-04-14 21:56:29.904 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-14 21:57:18.896 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:58:18.881 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 21:59:18.891 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:00:18.895 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:01:00.133 CESTLOG:  checkpoint completo: escritos 606 búfers (3.7%); 0 archivos WAL añadidos, 0 eliminados, 404 reciclados; write=269.081 s, sync=0.064 s, total=270.230 s; archivos sincronizados=28, más largo=0.021 s, promedio=0.003 s; distancia=6618385 kB, estimación=6618385 kB; lsn=C0/BB22E168, lsn de redo=C0/1B032250
+[09066309P 08134385K]  2025-04-14 22:01:18.909 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:01:29.080 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-14 22:02:18.910 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:03:18.911 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:04:18.921 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:05:18.922 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:05:59.864 CESTLOG:  checkpoint completo: escritos 56 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 167 reciclados; write=269.977 s, sync=0.018 s, total=270.785 s; archivos sincronizados=3, más largo=0.015 s, promedio=0.006 s; distancia=2739972 kB, estimación=6230544 kB; lsn=C0/FF6725F8, lsn de redo=C0/C23F3420
+[09066309P 08134385K]  2025-04-14 22:06:18.926 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-14 22:06:29.865 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K] ::1(32028) 2025-04-14 22:06:38.016 CESTLOG:  duración: 934189.853 ms  sentencia: VACUUM FULL ANALYZE;
+[09066309P 08134385K]  2025-04-14 22:10:59.674 CESTLOG:  checkpoint completo: escritos 7812 búfers (47.7%); 0 archivos WAL añadidos, 23 eliminados, 108 reciclados; write=269.134 s, sync=0.145 s, total=269.809 s; archivos sincronizados=302, más largo=0.012 s, promedio=0.001 s; distancia=2148979 kB, estimación=5822387 kB; lsn=C1/45C5DB40, lsn de redo=C1/45690150

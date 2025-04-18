@@ -1,0 +1,597 @@
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:52:51.568 CESTERROR:  error de sintaxis en o cerca de «DATAABSE» en carácter 8
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:52:51.568 CESTSENTENCIA:  CREATE DATAABSE telpark_bak WITH TEMPLATE telpark;
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:53:00.417 CESTERROR:  error de sintaxis en o cerca de «DATAASE» en carácter 8
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:53:00.417 CESTSENTENCIA:  CREATE DATAASE telpark_bak WITH TEMPLATE telpark;
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:53:11.790 CESTLOG:  sentencia: CREATE DATABASE telpark_bak WITH TEMPLATE telpark;
+[09066309P 08134385K]  2025-04-13 09:53:33.069 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 09:53:52.806 CESTLOG:  checkpoint completo: escritos 6219 búfers (38.0%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=18.902 s, sync=0.426 s, total=19.739 s; archivos sincronizados=17, más largo=0.251 s, promedio=0.026 s; distancia=2190416 kB, estimación=2190416 kB; lsn=3F/372B5FF8, lsn de redo=3E/BD415FF0
+[09066309P 08134385K]  2025-04-13 09:53:54.393 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 21 segundos)
+[09066309P 08134385K]  2025-04-13 09:53:54.393 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 09:53:54.395 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 09:54:17.246 CESTLOG:  checkpoint completo: escritos 6712 búfers (41.0%); 0 archivos WAL añadidos, 2 eliminados, 132 reciclados; write=21.164 s, sync=1.272 s, total=22.853 s; archivos sincronizados=12, más largo=0.694 s, promedio=0.106 s; distancia=2195401 kB, estimación=2195401 kB; lsn=3F/BE0E2090, lsn de redo=3F/43408620
+[09066309P 08134385K]  2025-04-13 09:54:18.450 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 24 segundos)
+[09066309P 08134385K]  2025-04-13 09:54:18.450 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 09:54:18.451 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 09:54:41.052 CESTLOG:  checkpoint completo: escritos 2049 búfers (12.5%); 0 archivos WAL añadidos, 2 eliminados, 132 reciclados; write=20.837 s, sync=1.346 s, total=22.602 s; archivos sincronizados=16, más largo=1.045 s, promedio=0.085 s; distancia=2195501 kB, estimación=2195501 kB; lsn=40/44319E20, lsn de redo=3F/C9413C28
+[09066309P 08134385K]  2025-04-13 09:54:42.867 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 24 segundos)
+[09066309P 08134385K]  2025-04-13 09:54:42.867 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 09:54:42.868 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 09:55:09.046 CESTLOG:  checkpoint completo: escritos 6579 búfers (40.2%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=23.753 s, sync=1.961 s, total=26.179 s; archivos sincronizados=52, más largo=1.758 s, promedio=0.038 s; distancia=2195462 kB, estimación=2195497 kB; lsn=40/C94E2890, lsn de redo=40/4F4155F8
+[09066309P 08134385K] ::1(32453) 2025-04-13 09:55:09.637 CESTLOG:  duración: 117846.948 ms
+[09066309P 08134385K]  2025-04-13 09:59:42.403 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-13 10:04:12.435 CESTLOG:  checkpoint completo: escritos 4917 búfers (30.0%); 0 archivos WAL añadidos, 0 eliminados, 127 reciclados; write=269.598 s, sync=0.093 s, total=270.033 s; archivos sincronizados=265, más largo=0.001 s, promedio=0.001 s; distancia=2081858 kB, estimación=2184133 kB; lsn=40/CE5260D8, lsn de redo=40/CE5260A0
+[09066309P 08134385K] ::1(33878) 2025-04-13 10:40:30.136 CESTLOG:  duración: 18.163 ms  sentencia: SELECT conname
+	FROM pg_constraint
+	WHERE conrelid = 'incidencias'::regclass
+	AND contype = 'f';
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:28.305 CESTLOG:  duración: 0.035 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:28.306 CESTLOG:  duración: 0.035 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:28.306 CESTLOG:  duración: 0.017 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:28.307 CESTLOG:  duración: 0.019 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:28.308 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:31.177 CESTLOG:  duración: 2869.754 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:31.179 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:49.828 CESTLOG:  duración: 18649.441 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:43:49.830 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:10.274 CESTLOG:  duración: 20443.740 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:10.276 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:28.245 CESTLOG:  duración: 17969.390 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:28.247 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:30.536 CESTLOG:  duración: 2288.890 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:30.538 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K]  2025-04-13 18:44:44.619 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-13 18:44:46.904 CESTLOG:  checkpoint completo: escritos 15 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 84 reciclados; write=1.625 s, sync=0.352 s, total=2.286 s; archivos sincronizados=20, más largo=0.320 s, promedio=0.018 s; distancia=1377441 kB, estimación=2103464 kB; lsn=41/2AEA45A8, lsn de redo=41/2264E600
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:51.511 CESTLOG:  duración: 20973.496 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:51.514 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:54.257 CESTLOG:  duración: 2744.075 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:44:54.259 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:45:12.815 CESTLOG:  duración: 18555.876 ms
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:45:12.817 CESTLOG:  sentencia: DELETE FROM pagos p
+	WHERE p.reservaid_reservas IN (SELECT reservaid FROM temp_reservas_a_borrar);
+[09066309P 08134385K]  2025-04-13 18:45:40.145 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:46:11.904 CESTLOG:  checkpoint completo: escritos 121 búfers (0.7%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=28.180 s, sync=3.220 s, total=31.759 s; archivos sincronizados=22, más largo=1.414 s, promedio=0.147 s; distancia=2193093 kB, estimación=2193093 kB; lsn=42/2890BB60, lsn de redo=41/A83FFA10
+[09066309P 08134385K]  2025-04-13 18:46:13.383 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:46:44.856 CESTLOG:  checkpoint completo: escritos 126 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=27.988 s, sync=3.075 s, total=31.473 s; archivos sincronizados=3, más largo=1.580 s, promedio=1.025 s; distancia=2195449 kB, estimación=2195449 kB; lsn=42/ADE2F3E0, lsn de redo=42/2E3FE1A0
+[09066309P 08134385K]  2025-04-13 18:46:46.523 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:47:18.145 CESTLOG:  checkpoint completo: escritos 153 búfers (0.9%); 0 archivos WAL añadidos, 5 eliminados, 129 reciclados; write=28.647 s, sync=2.409 s, total=31.622 s; archivos sincronizados=3, más largo=1.417 s, promedio=0.803 s; distancia=2193211 kB, estimación=2195226 kB; lsn=43/32252BA8, lsn de redo=42/B41CCFB0
+[09066309P 08134385K]  2025-04-13 18:47:20.214 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:47:53.393 CESTLOG:  checkpoint completo: escritos 129 búfers (0.8%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=29.091 s, sync=3.634 s, total=33.180 s; archivos sincronizados=3, más largo=1.791 s, promedio=1.211 s; distancia=2194392 kB, estimación=2195142 kB; lsn=43/BA415EA0, lsn de redo=43/3A0C3248
+[09066309P 08134385K]  2025-04-13 18:47:54.888 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:48:28.427 CESTLOG:  checkpoint completo: escritos 113 búfers (0.7%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=29.493 s, sync=3.635 s, total=33.539 s; archivos sincronizados=3, más largo=1.727 s, promedio=1.212 s; distancia=2198769 kB, estimación=2198769 kB; lsn=44/4089F7B8, lsn de redo=43/C03FF8F8
+[09066309P 08134385K]  2025-04-13 18:48:29.877 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:49:02.087 CESTLOG:  checkpoint completo: escritos 108 búfers (0.7%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=27.857 s, sync=3.831 s, total=32.214 s; archivos sincronizados=3, más largo=1.454 s, promedio=1.277 s; distancia=2194775 kB, estimación=2198370 kB; lsn=44/C66B70C0, lsn de redo=44/46355870
+[09066309P 08134385K]  2025-04-13 18:49:03.770 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:49:35.680 CESTLOG:  checkpoint completo: escritos 124 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=28.194 s, sync=3.304 s, total=31.911 s; archivos sincronizados=3, más largo=1.256 s, promedio=1.102 s; distancia=2196137 kB, estimación=2198146 kB; lsn=45/4B73F4A8, lsn de redo=44/CC3FFDB0
+[09066309P 08134385K]  2025-04-13 18:49:37.493 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:50:09.524 CESTLOG:  checkpoint completo: escritos 128 búfers (0.8%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=28.279 s, sync=3.369 s, total=32.031 s; archivos sincronizados=3, más largo=1.570 s, promedio=1.123 s; distancia=2195453 kB, estimación=2197877 kB; lsn=45/D2425428, lsn de redo=45/523FF2A8
+[09066309P 08134385K]  2025-04-13 18:50:11.061 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:50:43.130 CESTLOG:  checkpoint completo: escritos 131 búfers (0.8%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=27.737 s, sync=3.956 s, total=32.070 s; archivos sincronizados=3, más largo=1.999 s, promedio=1.319 s; distancia=2195452 kB, estimación=2197635 kB; lsn=46/59C75520, lsn de redo=45/D83FE558
+[09066309P 08134385K]  2025-04-13 18:50:44.165 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:51:16.522 CESTLOG:  checkpoint completo: escritos 113 búfers (0.7%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=27.925 s, sync=4.015 s, total=32.358 s; archivos sincronizados=3, más largo=2.315 s, promedio=1.339 s; distancia=2194522 kB, estimación=2197323 kB; lsn=46/DF467438, lsn de redo=46/5E314F40
+[09066309P 08134385K]  2025-04-13 18:51:17.778 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:51:48.491 CESTLOG:  checkpoint completo: escritos 125 búfers (0.8%); 0 archivos WAL añadidos, 5 eliminados, 129 reciclados; write=27.740 s, sync=2.562 s, total=30.713 s; archivos sincronizados=3, más largo=1.471 s, promedio=0.854 s; distancia=2195016 kB, estimación=2197093 kB; lsn=47/62B867D8, lsn de redo=46/E42A6FF8
+[09066309P 08134385K]  2025-04-13 18:51:50.537 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:52:22.490 CESTLOG:  checkpoint completo: escritos 119 búfers (0.7%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=28.462 s, sync=3.086 s, total=31.954 s; archivos sincronizados=3, más largo=1.583 s, promedio=1.029 s; distancia=2196838 kB, estimación=2197067 kB; lsn=47/E9464508, lsn de redo=47/6A4008C0
+[09066309P 08134385K]  2025-04-13 18:52:24.300 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:52:55.191 CESTLOG:  checkpoint completo: escritos 121 búfers (0.7%); 0 archivos WAL añadidos, 5 eliminados, 129 reciclados; write=27.760 s, sync=2.747 s, total=30.892 s; archivos sincronizados=3, más largo=1.303 s, promedio=0.916 s; distancia=2195449 kB, estimación=2196905 kB; lsn=48/6E435DA8, lsn de redo=47/F03FEE30
+[09066309P 08134385K]  2025-04-13 18:52:57.283 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:53:28.736 CESTLOG:  checkpoint completo: escritos 126 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=28.074 s, sync=2.997 s, total=31.453 s; archivos sincronizados=3, más largo=1.665 s, promedio=0.999 s; distancia=2195454 kB, estimación=2196760 kB; lsn=48/F579FEF8, lsn de redo=48/763FE880
+[09066309P 08134385K]  2025-04-13 18:53:30.453 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:54:01.678 CESTLOG:  checkpoint completo: escritos 144 búfers (0.9%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=27.538 s, sync=3.198 s, total=31.226 s; archivos sincronizados=3, más largo=1.621 s, promedio=1.066 s; distancia=2192337 kB, estimación=2196318 kB; lsn=49/7B1FB0A8, lsn de redo=48/FC0F2E68
+[09066309P 08134385K]  2025-04-13 18:54:03.637 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:54:36.312 CESTLOG:  checkpoint completo: escritos 123 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=29.268 s, sync=3.012 s, total=32.676 s; archivos sincronizados=3, más largo=1.550 s, promedio=1.004 s; distancia=2198575 kB, estimación=2198575 kB; lsn=4A/198D100, lsn de redo=49/823FEA90
+[09066309P 08134385K]  2025-04-13 18:54:38.002 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:55:10.146 CESTLOG:  checkpoint completo: escritos 139 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=28.950 s, sync=2.776 s, total=32.144 s; archivos sincronizados=3, más largo=1.515 s, promedio=0.926 s; distancia=2191903 kB, estimación=2197907 kB; lsn=4A/874012B0, lsn de redo=4A/80869C0
+[09066309P 08134385K]  2025-04-13 18:55:11.988 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:55:45.132 CESTLOG:  checkpoint completo: escritos 140 búfers (0.9%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=28.720 s, sync=4.033 s, total=33.145 s; archivos sincronizados=3, más largo=1.945 s, promedio=1.345 s; distancia=2196261 kB, estimación=2197743 kB; lsn=4B/F8E3570, lsn de redo=4A/8E14FF58
+[09066309P 08134385K]  2025-04-13 18:55:46.220 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:56:20.157 CESTLOG:  checkpoint completo: escritos 130 búfers (0.8%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=28.521 s, sync=4.685 s, total=33.938 s; archivos sincronizados=3, más largo=2.037 s, promedio=1.562 s; distancia=2196186 kB, estimación=2197587 kB; lsn=4B/9442ACA8, lsn de redo=4B/142069E0
+[09066309P 08134385K]  2025-04-13 18:56:21.694 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:56:53.978 CESTLOG:  checkpoint completo: escritos 125 búfers (0.8%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=28.908 s, sync=2.922 s, total=32.285 s; archivos sincronizados=3, más largo=1.252 s, promedio=0.974 s; distancia=2194168 kB, estimación=2197245 kB; lsn=4C/1908DDB0, lsn de redo=4B/9A0C4A30
+[09066309P 08134385K]  2025-04-13 18:56:55.958 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:57:29.822 CESTLOG:  checkpoint completo: escritos 139 búfers (0.8%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=30.024 s, sync=3.466 s, total=33.865 s; archivos sincronizados=3, más largo=1.747 s, promedio=1.156 s; distancia=2198760 kB, estimación=2198760 kB; lsn=4C/A0C3A6A0, lsn de redo=4C/203FEB58
+[09066309P 08134385K]  2025-04-13 18:57:31.272 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 18:58:04.443 CESTLOG:  checkpoint completo: escritos 119 búfers (0.7%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=29.706 s, sync=3.087 s, total=33.172 s; archivos sincronizados=3, más largo=1.769 s, promedio=1.029 s; distancia=2191721 kB, estimación=2198056 kB; lsn=4D/2592A068, lsn de redo=4C/A60591A8
+[09066309P 08134385K]  2025-04-13 18:58:06.216 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:58:37.487 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:58:37.487 CESTSENTENCIA:  DELETE FROM pagos p
+	WHERE p.reservaid_reservas IN (SELECT reservaid FROM temp_reservas_a_borrar);
+[09066309P 08134385K]  2025-04-13 18:58:39.216 CESTLOG:  checkpoint completo: escritos 134 búfers (0.8%); 0 archivos WAL añadidos, 2 eliminados, 132 reciclados; write=30.210 s, sync=2.359 s, total=33.001 s; archivos sincronizados=3, más largo=1.225 s, promedio=0.787 s; distancia=2199189 kB, estimación=2199189 kB; lsn=4D/A7401A80, lsn de redo=4D/2C3FE958
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:58:43.385 CESTLOG:  duración: 0.281 ms  sentencia: ROLLBACK;
+[09066309P 08134385K] ::1(45874) 2025-04-13 18:59:06.528 CESTLOG:  duración: 314.415 ms  sentencia: SELECT COUNT(*) FROM clientes;
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:36.846 CESTLOG:  duración: 0.038 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:36.846 CESTLOG:  duración: 0.033 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:36.847 CESTLOG:  duración: 0.021 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:36.848 CESTLOG:  duración: 0.031 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:36.849 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:40.921 CESTLOG:  duración: 4072.630 ms
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:08:40.923 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K]  2025-04-13 19:08:57.970 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:09:02.821 CESTLOG:  duración: 21898.208 ms
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:09:02.822 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:09:17.526 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:09:17.526 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(46637) 2025-04-13 19:09:38.611 CESTLOG:  duración: 0.033 ms  sentencia: ROLLBACK;
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:09:58.971 CESTLOG:  duración: 0.033 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:09:58.972 CESTLOG:  duración: 0.037 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:09:58.972 CESTLOG:  duración: 0.026 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:09:58.973 CESTLOG:  duración: 0.035 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:09:58.974 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:01.701 CESTLOG:  duración: 2727.145 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:01.702 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:19.843 CESTLOG:  duración: 18141.321 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:19.845 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:36.899 CESTLOG:  duración: 17054.717 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:36.901 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:55.934 CESTLOG:  duración: 19033.381 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:55.936 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:57.673 CESTLOG:  duración: 1737.594 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:10:57.675 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K]  2025-04-13 19:11:16.769 CESTLOG:  checkpoint completo: escritos 4096 búfers (25.0%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=137.947 s, sync=0.453 s, total=138.800 s; archivos sincronizados=26, más largo=0.357 s, promedio=0.018 s; distancia=2195457 kB, estimación=2198816 kB; lsn=4E/2C3F6A38, lsn de redo=4D/B23FF038
+[09066309P 08134385K]  2025-04-13 19:11:19.118 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:20.011 CESTLOG:  duración: 22335.885 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:20.012 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:21.972 CESTLOG:  duración: 1960.336 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:21.974 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:39.810 CESTLOG:  duración: 17835.719 ms
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:11:39.812 CESTLOG:  sentencia: DELETE FROM pagos p
+	WHERE p.reservaid_reservas IN (SELECT reservaid FROM temp_reservas_a_borrar);
+[09066309P 08134385K]  2025-04-13 19:12:15.385 CESTLOG:  checkpoint completo: escritos 681 búfers (4.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=51.705 s, sync=4.200 s, total=56.267 s; archivos sincronizados=26, más largo=2.056 s, promedio=0.162 s; distancia=2195458 kB, estimación=2198480 kB; lsn=4E/BB513B50, lsn de redo=4E/383FFB50
+[09066309P 08134385K]  2025-04-13 19:12:16.023 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:12:47.940 CESTLOG:  checkpoint completo: escritos 118 búfers (0.7%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=27.388 s, sync=4.165 s, total=31.918 s; archivos sincronizados=3, más largo=1.790 s, promedio=1.389 s; distancia=2195456 kB, estimación=2198178 kB; lsn=4F/41075488, lsn de redo=4E/BE3FFB90
+[09066309P 08134385K]  2025-04-13 19:12:48.560 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:13:21.196 CESTLOG:  checkpoint completo: escritos 116 búfers (0.7%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=29.459 s, sync=2.760 s, total=32.637 s; archivos sincronizados=3, más largo=2.196 s, promedio=0.920 s; distancia=2192016 kB, estimación=2197562 kB; lsn=4F/C30CA2D0, lsn de redo=4F/440A3D88
+[09066309P 08134385K]  2025-04-13 19:13:23.145 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:13:50.382 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:13:50.382 CESTSENTENCIA:  DELETE FROM pagos p
+	WHERE p.reservaid_reservas IN (SELECT reservaid FROM temp_reservas_a_borrar);
+[09066309P 08134385K] ::1(46708) 2025-04-13 19:13:57.226 CESTLOG:  duración: 0.040 ms  sentencia: ROLLBACK;
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:11.836 CESTLOG:  duración: 0.026 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:11.837 CESTLOG:  duración: 0.035 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:11.838 CESTLOG:  duración: 0.024 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:11.838 CESTLOG:  duración: 0.025 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:11.839 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:14.503 CESTLOG:  duración: 2664.302 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:14.505 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K]  2025-04-13 19:14:29.044 CESTLOG:  checkpoint completo: escritos 131 búfers (0.8%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=65.425 s, sync=0.105 s, total=65.900 s; archivos sincronizados=5, más largo=0.081 s, promedio=0.021 s; distancia=2195687 kB, estimación=2197374 kB; lsn=50/4326E978, lsn de redo=4F/CA0DDA28
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:32.470 CESTLOG:  duración: 17965.220 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:32.471 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K]  2025-04-13 19:14:44.025 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:48.878 CESTLOG:  duración: 16407.323 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:14:48.879 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:05.900 CESTLOG:  duración: 17020.287 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:05.901 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:07.694 CESTLOG:  duración: 1793.004 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:07.695 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:30.443 CESTLOG:  duración: 22747.337 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:30.444 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:32.446 CESTLOG:  duración: 2002.373 ms
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:32.448 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:15:50.270 CESTLOG:  duración: 17821.547 ms
+[09066309P 08134385K]  2025-04-13 19:17:42.530 CESTLOG:  checkpoint completo: escritos 4148 búfers (25.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=178.159 s, sync=0.030 s, total=178.506 s; archivos sincronizados=21, más largo=0.016 s, promedio=0.002 s; distancia=2198657 kB, estimación=2198657 kB; lsn=50/A73093A8, lsn de redo=50/503FE0E8
+[09066309P 08134385K] ::1(46824) 2025-04-13 19:40:56.157 CESTLOG:  duración: 352.652 ms  sentencia: ROLLBACK;
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:01.224 CESTLOG:  duración: 0.030 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:01.225 CESTLOG:  duración: 0.025 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:01.225 CESTLOG:  duración: 0.017 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:01.226 CESTLOG:  duración: 0.015 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:01.226 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:03.948 CESTLOG:  duración: 2721.893 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:03.950 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:23.797 CESTLOG:  duración: 19847.177 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:23.799 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:41.120 CESTLOG:  duración: 17320.477 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:41.121 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K]  2025-04-13 19:41:54.361 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:58.735 CESTLOG:  duración: 17614.431 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:41:58.737 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:00.759 CESTLOG:  duración: 2022.253 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:00.760 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:23.076 CESTLOG:  duración: 22315.303 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:23.077 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:25.426 CESTLOG:  duración: 2349.270 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:25.428 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:44.522 CESTLOG:  duración: 19093.931 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:44.524 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_clientes_a_borrar ON temp_clientes_a_borrar(clienteid);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:44.887 CESTLOG:  duración: 362.998 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:44.889 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_reservas_a_borrar ON temp_reservas_a_borrar(reservaid);
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:51.263 CESTLOG:  duración: 6374.226 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:42:51.265 CESTLOG:  sentencia: DELETE FROM pagos p
+	USING temp_reservas_a_borrar trb
+	WHERE p.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K]  2025-04-13 19:43:16.599 CESTLOG:  checkpoint completo: escritos 3402 búfers (20.8%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=78.745 s, sync=3.038 s, total=82.239 s; archivos sincronizados=29, más largo=1.632 s, promedio=0.105 s; distancia=2195462 kB, estimación=2198338 kB; lsn=51/5A025838, lsn de redo=50/D63FFAC8
+[09066309P 08134385K]  2025-04-13 19:43:16.727 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:43:42.283 CESTLOG:  checkpoint completo: escritos 508 búfers (3.1%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=22.814 s, sync=2.387 s, total=25.557 s; archivos sincronizados=3, más largo=2.033 s, promedio=0.796 s; distancia=2195457 kB, estimación=2198050 kB; lsn=51/DBA34800, lsn de redo=51/5C3FFF80
+[09066309P 08134385K]  2025-04-13 19:43:43.794 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 19:43:43.794 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:43:43.794 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:44:13.572 CESTLOG:  checkpoint completo: escritos 527 búfers (3.2%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=24.373 s, sync=5.019 s, total=29.778 s; archivos sincronizados=3, más largo=2.091 s, promedio=1.673 s; distancia=2194450 kB, estimación=2197690 kB; lsn=52/661BB178, lsn de redo=51/E2304958
+[09066309P 08134385K]  2025-04-13 19:44:13.770 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:44:43.594 CESTLOG:  checkpoint completo: escritos 537 búfers (3.3%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.674 s, sync=4.746 s, total=29.826 s; archivos sincronizados=3, más largo=2.616 s, promedio=1.582 s; distancia=2196484 kB, estimación=2197569 kB; lsn=52/EBB826D8, lsn de redo=52/68405B70
+[09066309P 08134385K]  2025-04-13 19:44:43.810 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:45:12.728 CESTLOG:  checkpoint completo: escritos 549 búfers (3.4%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.229 s, sync=4.253 s, total=28.920 s; archivos sincronizados=3, más largo=1.578 s, promedio=1.418 s; distancia=2192322 kB, estimación=2197044 kB; lsn=53/715CE250, lsn de redo=52/EE0F6720
+[09066309P 08134385K]  2025-04-13 19:45:13.090 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:45:41.798 CESTLOG:  checkpoint completo: escritos 524 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=24.347 s, sync=3.940 s, total=28.709 s; archivos sincronizados=3, más largo=2.323 s, promedio=1.313 s; distancia=2198561 kB, estimación=2198561 kB; lsn=53/F6F644D8, lsn de redo=53/743FEDE0
+[09066309P 08134385K]  2025-04-13 19:45:42.236 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:45:42.236 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:45:42.236 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:46:12.928 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=26.045 s, sync=4.278 s, total=30.693 s; archivos sincronizados=3, más largo=1.652 s, promedio=1.426 s; distancia=2193672 kB, estimación=2198072 kB; lsn=54/7DBC3B58, lsn de redo=53/FA240FE0
+[09066309P 08134385K]  2025-04-13 19:46:13.199 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:46:42.823 CESTLOG:  checkpoint completo: escritos 545 búfers (3.3%); 0 archivos WAL añadidos, 12 eliminados, 122 reciclados; write=23.519 s, sync=5.742 s, total=29.627 s; archivos sincronizados=3, más largo=3.118 s, promedio=1.914 s; distancia=2195294 kB, estimación=2197794 kB; lsn=55/541F7E0, lsn de redo=54/80218B38
+[09066309P 08134385K]  2025-04-13 19:46:42.824 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:46:42.824 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:46:42.824 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:47:11.477 CESTLOG:  checkpoint completo: escritos 516 búfers (3.1%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.122 s, sync=4.141 s, total=28.654 s; archivos sincronizados=3, más largo=2.224 s, promedio=1.381 s; distancia=2203275 kB, estimación=2203275 kB; lsn=55/89886290, lsn de redo=55/69BBA20
+[09066309P 08134385K]  2025-04-13 19:47:11.784 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:47:11.784 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:47:11.785 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:47:39.558 CESTLOG:  checkpoint completo: escritos 545 búfers (3.3%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=24.767 s, sync=2.580 s, total=27.775 s; archivos sincronizados=3, más largo=0.920 s, promedio=0.860 s; distancia=2189588 kB, estimación=2201907 kB; lsn=56/BBF0AB8, lsn de redo=55/8C400E10
+[09066309P 08134385K]  2025-04-13 19:47:40.800 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:47:40.800 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:47:40.800 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:48:08.705 CESTLOG:  checkpoint completo: escritos 527 búfers (3.2%); 0 archivos WAL añadidos, 12 eliminados, 122 reciclados; write=22.937 s, sync=4.592 s, total=27.906 s; archivos sincronizados=3, más largo=2.119 s, promedio=1.531 s; distancia=2194844 kB, estimación=2201200 kB; lsn=56/97926850, lsn de redo=56/12367ED0
+[09066309P 08134385K]  2025-04-13 19:48:08.706 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 19:48:08.706 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:48:08.706 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:48:37.365 CESTLOG:  checkpoint completo: escritos 523 búfers (3.2%); 0 archivos WAL añadidos, 12 eliminados, 122 reciclados; write=23.819 s, sync=4.333 s, total=28.660 s; archivos sincronizados=3, más largo=1.892 s, promedio=1.445 s; distancia=2207005 kB, estimación=2207005 kB; lsn=57/1DDD48A8, lsn de redo=56/98EAF358
+[09066309P 08134385K]  2025-04-13 19:48:37.365 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:48:37.365 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:48:37.365 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:49:06.577 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 126 reciclados; write=25.445 s, sync=3.372 s, total=29.212 s; archivos sincronizados=3, más largo=1.552 s, promedio=1.124 s; distancia=2207922 kB, estimación=2207922 kB; lsn=57/A0E95610, lsn de redo=57/1FADBC40
+[09066309P 08134385K]  2025-04-13 19:49:07.346 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:49:33.753 CESTLOG:  checkpoint completo: escritos 536 búfers (3.3%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=23.682 s, sync=2.104 s, total=26.407 s; archivos sincronizados=3, más largo=1.163 s, promedio=0.702 s; distancia=2188426 kB, estimación=2205972 kB; lsn=58/1F97B8B8, lsn de redo=57/A53FE4A8
+[09066309P 08134385K]  2025-04-13 19:49:36.146 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:49:36.146 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:49:36.146 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:50:03.808 CESTLOG:  checkpoint completo: escritos 541 búfers (3.3%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=23.595 s, sync=3.655 s, total=27.663 s; archivos sincronizados=3, más largo=1.684 s, promedio=1.219 s; distancia=2195469 kB, estimación=2204922 kB; lsn=58/AD562E80, lsn de redo=58/2B401C30
+[09066309P 08134385K]  2025-04-13 19:50:04.463 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 19:50:04.463 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:50:04.463 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:50:32.691 CESTLOG:  checkpoint completo: escritos 550 búfers (3.4%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.988 s, sync=3.822 s, total=28.228 s; archivos sincronizados=3, más largo=2.300 s, promedio=1.274 s; distancia=2194686 kB, estimación=2203898 kB; lsn=59/3286B2A0, lsn de redo=58/B1341728
+[09066309P 08134385K]  2025-04-13 19:50:33.515 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:50:33.515 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:50:33.515 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:51:02.940 CESTLOG:  checkpoint completo: escritos 560 búfers (3.4%); 0 archivos WAL añadidos, 16 eliminados, 118 reciclados; write=23.385 s, sync=5.656 s, total=29.426 s; archivos sincronizados=3, más largo=2.414 s, promedio=1.886 s; distancia=2196218 kB, estimación=2203130 kB; lsn=59/C0894300, lsn de redo=59/374001C8
+[09066309P 08134385K]  2025-04-13 19:51:02.941 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:51:02.941 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:51:02.941 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:51:31.339 CESTLOG:  checkpoint completo: escritos 547 búfers (3.3%); 0 archivos WAL añadidos, 15 eliminados, 123 reciclados; write=23.777 s, sync=4.227 s, total=28.399 s; archivos sincronizados=3, más largo=2.659 s, promedio=1.409 s; distancia=2270916 kB, estimación=2270916 kB; lsn=5A/4519C220, lsn de redo=59/C1DB12D0
+[09066309P 08134385K]  2025-04-13 19:51:31.530 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:51:31.530 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:51:31.531 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:52:01.158 CESTLOG:  checkpoint completo: escritos 505 búfers (3.1%); 0 archivos WAL añadidos, 12 eliminados, 122 reciclados; write=25.087 s, sync=3.963 s, total=29.629 s; archivos sincronizados=3, más largo=2.144 s, promedio=1.321 s; distancia=2185534 kB, estimación=2262378 kB; lsn=5A/CC0916A8, lsn de redo=5A/47400AD0
+[09066309P 08134385K]  2025-04-13 19:52:01.159 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:52:29.026 CESTLOG:  checkpoint completo: escritos 526 búfers (3.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=23.593 s, sync=3.850 s, total=27.868 s; archivos sincronizados=3, más largo=2.285 s, promedio=1.284 s; distancia=2206768 kB, estimación=2256817 kB; lsn=5B/50659D30, lsn de redo=5A/CDF0CB20
+[09066309P 08134385K]  2025-04-13 19:52:29.349 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 19:52:29.349 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:52:29.349 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:52:56.182 CESTLOG:  checkpoint completo: escritos 536 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=22.700 s, sync=3.755 s, total=26.833 s; archivos sincronizados=3, más largo=2.170 s, promedio=1.252 s; distancia=2184139 kB, estimación=2249549 kB; lsn=5B/D4A22CE0, lsn de redo=5B/533FFAB0
+[09066309P 08134385K]  2025-04-13 19:52:56.993 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 19:52:56.993 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:52:56.993 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:53:25.267 CESTLOG:  checkpoint completo: escritos 519 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=24.329 s, sync=3.580 s, total=28.275 s; archivos sincronizados=3, más largo=2.259 s, promedio=1.194 s; distancia=2195457 kB, estimación=2244140 kB; lsn=5C/5B6C95A0, lsn de redo=5B/D93FFF08
+[09066309P 08134385K]  2025-04-13 19:53:25.945 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:53:25.945 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:53:25.948 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:53:52.600 CESTLOG:  checkpoint completo: escritos 534 búfers (3.3%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=23.366 s, sync=2.807 s, total=26.655 s; archivos sincronizados=3, más largo=1.666 s, promedio=0.936 s; distancia=2194334 kB, estimación=2239159 kB; lsn=5C/DF2AC998, lsn de redo=5C/5F2E7730
+[09066309P 08134385K]  2025-04-13 19:53:53.762 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 19:53:53.762 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:53:53.763 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:54:21.170 CESTLOG:  checkpoint completo: escritos 530 búfers (3.2%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=23.044 s, sync=3.994 s, total=27.408 s; archivos sincronizados=3, más largo=2.279 s, promedio=1.331 s; distancia=2196572 kB, estimación=2234900 kB; lsn=5D/6960B3B8, lsn de redo=5C/E53FEA90
+[09066309P 08134385K]  2025-04-13 19:54:21.312 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 19:54:21.312 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:54:21.313 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:54:24.886 CESTLOG:  duración: 693620.963 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:54:24.888 CESTLOG:  sentencia: DELETE FROM incidencias i
+	USING temp_reservas_a_borrar trb
+	WHERE i.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:54:42.604 CESTLOG:  duración: 17715.889 ms
+[09066309P 08134385K] ::1(47667) 2025-04-13 19:54:42.606 CESTLOG:  sentencia: DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K]  2025-04-13 19:55:09.820 CESTLOG:  checkpoint completo: escritos 527 búfers (3.2%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=44.927 s, sync=3.211 s, total=48.508 s; archivos sincronizados=9, más largo=2.261 s, promedio=0.357 s; distancia=2195462 kB, estimación=2230956 kB; lsn=5D/EF7D3350, lsn de redo=5D/6B400440
+[09066309P 08134385K]  2025-04-13 19:55:09.877 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:55:37.297 CESTLOG:  checkpoint completo: escritos 538 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.663 s, sync=3.391 s, total=27.421 s; archivos sincronizados=3, más largo=1.514 s, promedio=1.131 s; distancia=2195392 kB, estimación=2227400 kB; lsn=5E/72404EB0, lsn de redo=5D/F13F06D0
+[09066309P 08134385K]  2025-04-13 19:55:38.395 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:55:38.395 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:55:38.395 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:56:07.059 CESTLOG:  checkpoint completo: escritos 552 búfers (3.4%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.898 s, sync=4.387 s, total=28.664 s; archivos sincronizados=3, más largo=2.718 s, promedio=1.463 s; distancia=2195513 kB, estimación=2224211 kB; lsn=5E/F8ABDC00, lsn de redo=5E/773FEE80
+[09066309P 08134385K]  2025-04-13 19:56:08.051 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:56:36.737 CESTLOG:  checkpoint completo: escritos 508 búfers (3.1%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=24.457 s, sync=3.858 s, total=28.687 s; archivos sincronizados=3, más largo=2.365 s, promedio=1.286 s; distancia=2195469 kB, estimación=2221337 kB; lsn=5F/7F022630, lsn de redo=5E/FD402490
+[09066309P 08134385K]  2025-04-13 19:56:37.612 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:56:37.612 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:56:37.613 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:57:06.688 CESTLOG:  checkpoint completo: escritos 565 búfers (3.4%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=25.191 s, sync=3.477 s, total=29.076 s; archivos sincronizados=3, más largo=2.607 s, promedio=1.159 s; distancia=2191751 kB, estimación=2218379 kB; lsn=60/28CB3F8, lsn de redo=5F/830643E0
+[09066309P 08134385K]  2025-04-13 19:57:08.136 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:57:37.682 CESTLOG:  checkpoint completo: escritos 573 búfers (3.5%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.927 s, sync=4.214 s, total=29.547 s; archivos sincronizados=3, más largo=2.634 s, promedio=1.405 s; distancia=2195999 kB, estimación=2216141 kB; lsn=60/8C62C340, lsn de redo=60/90EC030
+[09066309P 08134385K]  2025-04-13 19:57:39.753 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:58:09.206 CESTLOG:  checkpoint completo: escritos 563 búfers (3.4%); 0 archivos WAL añadidos, 12 eliminados, 122 reciclados; write=23.975 s, sync=5.094 s, total=29.454 s; archivos sincronizados=3, más largo=2.455 s, promedio=1.698 s; distancia=2194779 kB, estimación=2214004 kB; lsn=61/14323008, lsn de redo=60/8F043010
+[09066309P 08134385K]  2025-04-13 19:58:09.206 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:58:37.337 CESTLOG:  checkpoint completo: escritos 551 búfers (3.4%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.944 s, sync=3.733 s, total=28.131 s; archivos sincronizados=3, más largo=2.225 s, promedio=1.245 s; distancia=2201221 kB, estimación=2212726 kB; lsn=61/965E50E8, lsn de redo=61/155E4738
+[09066309P 08134385K]  2025-04-13 19:58:38.252 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 19:58:38.252 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 19:58:38.252 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:59:08.053 CESTLOG:  checkpoint completo: escritos 573 búfers (3.5%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=24.411 s, sync=5.022 s, total=29.802 s; archivos sincronizados=3, más largo=2.229 s, promedio=1.674 s; distancia=2193519 kB, estimación=2210805 kB; lsn=62/1FBB6690, lsn de redo=61/9B400680
+[09066309P 08134385K]  2025-04-13 19:59:08.112 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 19:59:37.459 CESTLOG:  checkpoint completo: escritos 555 búfers (3.4%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=24.912 s, sync=3.960 s, total=29.348 s; archivos sincronizados=3, más largo=2.469 s, promedio=1.320 s; distancia=2192237 kB, estimación=2208949 kB; lsn=62/A3403E98, lsn de redo=62/210DBDE8
+[09066309P 08134385K]  2025-04-13 19:59:38.232 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:00:08.575 CESTLOG:  checkpoint completo: escritos 540 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=25.774 s, sync=4.130 s, total=30.344 s; archivos sincronizados=3, más largo=2.095 s, promedio=1.377 s; distancia=2198679 kB, estimación=2207922 kB; lsn=63/28AFC988, lsn de redo=62/A7401C28
+[09066309P 08134385K]  2025-04-13 20:00:09.566 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:00:40.265 CESTLOG:  checkpoint completo: escritos 536 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=26.004 s, sync=4.280 s, total=30.700 s; archivos sincronizados=3, más largo=2.508 s, promedio=1.427 s; distancia=2195455 kB, estimación=2206675 kB; lsn=63/AEEBE778, lsn de redo=63/2D401A10
+[09066309P 08134385K]  2025-04-13 20:00:41.087 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:01:10.009 CESTLOG:  checkpoint completo: escritos 507 búfers (3.1%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=24.175 s, sync=4.296 s, total=28.923 s; archivos sincronizados=3, más largo=1.980 s, promedio=1.432 s; distancia=2195445 kB, estimación=2205552 kB; lsn=64/35A59358, lsn de redo=63/B33FF158
+[09066309P 08134385K]  2025-04-13 20:01:10.617 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:01:10.617 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:01:10.618 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:01:38.890 CESTLOG:  checkpoint completo: escritos 551 búfers (3.4%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=24.155 s, sync=3.720 s, total=28.273 s; archivos sincronizados=3, más largo=1.883 s, promedio=1.240 s; distancia=2193023 kB, estimación=2204299 kB; lsn=64/BA9C7390, lsn de redo=64/3919F110
+[09066309P 08134385K]  2025-04-13 20:01:39.772 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:01:39.772 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:01:39.773 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:02:09.661 CESTLOG:  checkpoint completo: escritos 570 búfers (3.5%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.226 s, sync=4.234 s, total=29.889 s; archivos sincronizados=3, más largo=2.297 s, promedio=1.412 s; distancia=2194408 kB, estimación=2203310 kB; lsn=65/4151B590, lsn de redo=64/BF099400
+[09066309P 08134385K]  2025-04-13 20:02:10.385 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:02:40.672 CESTLOG:  checkpoint completo: escritos 534 búfers (3.3%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.427 s, sync=4.416 s, total=30.288 s; archivos sincronizados=3, más largo=2.607 s, promedio=1.472 s; distancia=2198942 kB, estimación=2202873 kB; lsn=65/C79CA850, lsn de redo=65/45400E50
+[09066309P 08134385K]  2025-04-13 20:02:41.298 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:03:10.269 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=25.022 s, sync=3.586 s, total=28.972 s; archivos sincronizados=3, más largo=1.684 s, promedio=1.196 s; distancia=2195459 kB, estimación=2202132 kB; lsn=66/4BE89BA8, lsn de redo=65/CB401D18
+[09066309P 08134385K]  2025-04-13 20:03:12.580 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:03:42.034 CESTLOG:  checkpoint completo: escritos 559 búfers (3.4%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.739 s, sync=4.278 s, total=29.455 s; archivos sincronizados=3, más largo=2.214 s, promedio=1.426 s; distancia=2195451 kB, estimación=2201464 kB; lsn=66/D4612080, lsn de redo=66/51400CE0
+[09066309P 08134385K]  2025-04-13 20:03:42.458 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:04:11.511 CESTLOG:  checkpoint completo: escritos 526 búfers (3.2%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=24.816 s, sync=3.803 s, total=29.053 s; archivos sincronizados=3, más largo=2.391 s, promedio=1.268 s; distancia=2195446 kB, estimación=2200862 kB; lsn=67/58DBF930, lsn de redo=66/D73FE500
+[09066309P 08134385K]  2025-04-13 20:04:12.324 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:04:40.791 CESTLOG:  checkpoint completo: escritos 578 búfers (3.5%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=24.607 s, sync=3.412 s, total=28.468 s; archivos sincronizados=3, más largo=2.217 s, promedio=1.138 s; distancia=2191544 kB, estimación=2199930 kB; lsn=67/DDA50AF8, lsn de redo=67/5D02C790
+[09066309P 08134385K]  2025-04-13 20:04:41.998 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:04:41.998 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:04:41.998 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:05:11.595 CESTLOG:  checkpoint completo: escritos 523 búfers (3.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.828 s, sync=4.309 s, total=29.597 s; archivos sincronizados=3, más largo=1.696 s, promedio=1.437 s; distancia=2199378 kB, estimación=2199875 kB; lsn=68/66DC5380, lsn de redo=67/E3401038
+[09066309P 08134385K]  2025-04-13 20:05:11.853 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:05:41.998 CESTLOG:  checkpoint completo: escritos 550 búfers (3.4%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=25.294 s, sync=4.445 s, total=30.146 s; archivos sincronizados=3, más largo=1.663 s, promedio=1.482 s; distancia=2195446 kB, estimación=2199432 kB; lsn=68/EC4BA728, lsn de redo=68/693FEA48
+[09066309P 08134385K]  2025-04-13 20:05:42.436 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:06:56.517 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:06:56.517 CESTCONTEXTO:  sentencia SQL: «SELECT 1 FROM ONLY "public"."pagos" x WHERE $1 OPERATOR(pg_catalog.=) "reservaid_reservas" FOR KEY SHARE OF x»
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:06:56.517 CESTSENTENCIA:  DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:07:00.813 CESTLOG:  duración: 0.024 ms  sentencia: ROLLBACK;
+[09066309P 08134385K]  2025-04-13 20:10:12.350 CESTLOG:  checkpoint completo: escritos 550 búfers (3.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.580 s, sync=0.003 s, total=269.915 s; archivos sincronizados=3, más largo=0.001 s, promedio=0.001 s; distancia=2192759 kB, estimación=2198765 kB; lsn=69/3AA48350, lsn de redo=68/EF15C670
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:10:21.861 CESTLOG:  duración: 0.048 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:10:45.571 CESTLOG:  duración: 17.402 ms  sentencia: EXPLAIN DELETE FROM pagos WHERE cantidad>500;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:11:17.958 CESTLOG:  duración: 7258.766 ms  sentencia: SELECT COUNT(*) FROM pagos;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:11:20.334 CESTLOG:  duración: 0.244 ms  sentencia: EXPLAIN DELETE FROM pagos WHERE cantidad>500;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:11:29.173 CESTLOG:  duración: 5354.338 ms  sentencia: SELECT COUNT(*) FROM pagos;
+[09066309P 08134385K] ::1(47667) 2025-04-13 20:12:56.948 CESTLOG:  duración: 0.101 ms  sentencia: ROLLBACK;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:00.293 CESTLOG:  duración: 0.046 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:00.293 CESTLOG:  duración: 0.021 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:00.294 CESTLOG:  duración: 0.046 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:00.295 CESTLOG:  duración: 0.015 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:00.295 CESTLOG:  sentencia: CREATE  INDEX IF NOT EXISTS idx_vehiculos_cleinteid_clientes ON vehiculos(clienteid_clientes);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:03.132 CESTLOG:  duración: 2836.894 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:03.133 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_vehiculoid_vehiculos ON reservas(vehiculoid_vehiculos);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:23.651 CESTLOG:  duración: 20517.240 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:23.653 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_plazaid_plazas ON reservas(plazaid_plazas);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:40.895 CESTLOG:  duración: 17242.520 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:40.896 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_clienteid_clientes ON reservas(clienteid_clientes);
+[09066309P 08134385K]  2025-04-13 20:13:57.892 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:58.731 CESTLOG:  duración: 17835.244 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:13:58.733 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_reservas ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:00.721 CESTLOG:  duración: 1987.197 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:00.722 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_reservaid_reservas ON pagos(reservaid_reservas);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:21.357 CESTLOG:  duración: 20635.197 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:21.359 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_clientes_a_borrar AS
+	    SELECT clienteid
+	    FROM clientes c 
+	    ORDER BY random()
+	    LIMIT (SELECT ceil(COUNT(*) * 0.3) FROM clientes);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:23.915 CESTLOG:  duración: 2556.146 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:23.917 CESTLOG:  sentencia: CREATE TEMP TABLE IF NOT EXISTS temp_reservas_a_borrar AS   
+	    SELECT r.reservaid
+	    FROM reservas r 
+	    JOIN temp_clientes_a_borrar tcb ON r.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:44.698 CESTLOG:  duración: 20781.781 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:44.700 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_clientes_a_borrar ON temp_clientes_a_borrar(clienteid);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:45.048 CESTLOG:  duración: 347.788 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:45.049 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_temp_reservas_a_borrar ON temp_reservas_a_borrar(reservaid);
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.383 CESTLOG:  duración: 6334.174 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.622 CESTLOG:  duración: 7.598 ms  sentencia: EXPLAIN DELETE FROM pagos p
+	USING temp_reservas_a_borrar trb
+	WHERE p.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.625 CESTLOG:  duración: 2.552 ms  sentencia: EXPLAIN DELETE FROM incidencias i
+	USING temp_reservas_a_borrar trb
+	WHERE i.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.626 CESTLOG:  duración: 0.193 ms  sentencia: EXPLAIN DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.630 CESTLOG:  duración: 4.248 ms  sentencia: EXPLAIN DELETE FROM vehiculos v
+	USING temp_clientes_a_borrar tcb
+	WHERE v.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.631 CESTLOG:  duración: 0.197 ms  sentencia: EXPLAIN DELETE FROM clientes c
+	USING temp_clientes_a_borrar tcb
+	WHERE c.clienteid = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:14:51.631 CESTLOG:  sentencia: DELETE FROM pagos p
+	USING temp_reservas_a_borrar trb
+	WHERE p.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K]  2025-04-13 20:15:20.327 CESTLOG:  checkpoint completo: escritos 4766 búfers (29.1%); 0 archivos WAL añadidos, 19 eliminados, 115 reciclados; write=76.977 s, sync=5.117 s, total=82.436 s; archivos sincronizados=34, más largo=2.307 s, promedio=0.151 s; distancia=2198157 kB, estimación=2198704 kB; lsn=6A/1BB7DD8, lsn de redo=69/753FFDA0
+[09066309P 08134385K]  2025-04-13 20:15:20.328 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:15:47.881 CESTLOG:  checkpoint completo: escritos 532 búfers (3.2%); 0 archivos WAL añadidos, 16 eliminados, 126 reciclados; write=23.780 s, sync=3.381 s, total=27.554 s; archivos sincronizados=3, más largo=2.002 s, promedio=1.127 s; distancia=2326849 kB, estimación=2326849 kB; lsn=6A/84FC3B08, lsn de redo=6A/3450260
+[09066309P 08134385K]  2025-04-13 20:15:48.549 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:15:48.549 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:15:48.549 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:16:16.412 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=24.437 s, sync=3.030 s, total=27.864 s; archivos sincronizados=3, más largo=1.952 s, promedio=1.010 s; distancia=2193432 kB, estimación=2313507 kB; lsn=6B/943B020, lsn de redo=6A/89256360
+[09066309P 08134385K]  2025-04-13 20:16:17.683 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:16:17.683 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:16:17.683 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:16:45.865 CESTLOG:  checkpoint completo: escritos 532 búfers (3.2%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=23.356 s, sync=4.453 s, total=28.183 s; archivos sincronizados=3, más largo=2.068 s, promedio=1.484 s; distancia=2196201 kB, estimación=2301776 kB; lsn=6B/93F10398, lsn de redo=6B/F310AC0
+[09066309P 08134385K]  2025-04-13 20:16:45.866 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:16:45.866 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:16:45.866 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:17:15.466 CESTLOG:  checkpoint completo: escritos 513 búfers (3.1%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=25.642 s, sync=3.583 s, total=29.601 s; archivos sincronizados=3, más largo=1.757 s, promedio=1.194 s; distancia=2196408 kB, estimación=2291240 kB; lsn=6C/16510B58, lsn de redo=6B/953FEE70
+[09066309P 08134385K]  2025-04-13 20:17:16.406 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:17:45.516 CESTLOG:  checkpoint completo: escritos 536 búfers (3.3%); 0 archivos WAL añadidos, 13 eliminados, 121 reciclados; write=24.122 s, sync=4.544 s, total=29.111 s; archivos sincronizados=3, más largo=1.875 s, promedio=1.515 s; distancia=2195458 kB, estimación=2281662 kB; lsn=6C/A115D858, lsn de redo=6C/1B3FFA20
+[09066309P 08134385K]  2025-04-13 20:17:45.516 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:17:45.516 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:17:45.516 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:18:16.988 CESTLOG:  checkpoint completo: escritos 533 búfers (3.3%); 0 archivos WAL añadidos, 14 eliminados, 121 reciclados; write=25.562 s, sync=5.536 s, total=31.472 s; archivos sincronizados=3, más largo=2.518 s, promedio=1.846 s; distancia=2216186 kB, estimación=2275114 kB; lsn=6D/28468908, lsn de redo=6C/A283E4B0
+[09066309P 08134385K]  2025-04-13 20:18:16.988 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:18:43.296 CESTLOG:  checkpoint completo: escritos 565 búfers (3.4%); 0 archivos WAL añadidos, 9 eliminados, 126 reciclados; write=22.930 s, sync=2.956 s, total=26.308 s; archivos sincronizados=3, más largo=1.795 s, promedio=0.986 s; distancia=2213988 kB, estimación=2269001 kB; lsn=6D/AAF42148, lsn de redo=6D/29A575D0
+[09066309P 08134385K]  2025-04-13 20:18:44.004 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:18:44.004 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:18:44.005 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:19:11.499 CESTLOG:  checkpoint completo: escritos 535 búfers (3.3%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=22.936 s, sync=4.128 s, total=27.495 s; archivos sincronizados=3, más largo=1.993 s, promedio=1.376 s; distancia=2188985 kB, estimación=2261000 kB; lsn=6E/33F5DF30, lsn de redo=6D/AF405C60
+[09066309P 08134385K]  2025-04-13 20:19:11.500 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 20:19:11.500 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:19:11.500 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:19:38.899 CESTLOG:  checkpoint completo: escritos 523 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=23.354 s, sync=3.670 s, total=27.400 s; archivos sincronizados=3, más largo=2.656 s, promedio=1.224 s; distancia=2200149 kB, estimación=2254915 kB; lsn=6E/B7813AB0, lsn de redo=6E/3589B208
+[09066309P 08134385K]  2025-04-13 20:19:39.514 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:19:39.514 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:19:39.515 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:20:05.861 CESTLOG:  checkpoint completo: escritos 547 búfers (3.3%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=23.613 s, sync=2.309 s, total=26.347 s; archivos sincronizados=3, más largo=2.132 s, promedio=0.770 s; distancia=2190755 kB, estimación=2248499 kB; lsn=6F/3A2DF878, lsn de redo=6E/BB404128
+[09066309P 08134385K]  2025-04-13 20:20:07.293 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:20:07.293 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:20:07.293 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:20:34.266 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 4 eliminados, 130 reciclados; write=23.601 s, sync=2.984 s, total=26.974 s; archivos sincronizados=3, más largo=1.334 s, promedio=0.995 s; distancia=2195445 kB, estimación=2243193 kB; lsn=6F/BEC055E0, lsn de redo=6F/41401850
+[09066309P 08134385K]  2025-04-13 20:20:36.048 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:20:36.048 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:20:36.048 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:21:04.106 CESTLOG:  checkpoint completo: escritos 536 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=24.378 s, sync=3.289 s, total=28.058 s; archivos sincronizados=3, más largo=1.497 s, promedio=1.097 s; distancia=2195443 kB, estimación=2238418 kB; lsn=70/487D6498, lsn de redo=6F/C73FE458
+[09066309P 08134385K]  2025-04-13 20:21:04.912 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:21:04.912 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:21:04.912 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:21:31.447 CESTLOG:  checkpoint completo: escritos 528 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=22.452 s, sync=3.658 s, total=26.535 s; archivos sincronizados=3, más largo=1.865 s, promedio=1.220 s; distancia=2195456 kB, estimación=2234122 kB; lsn=70/CF538688, lsn de redo=70/4D3FE688
+[09066309P 08134385K]  2025-04-13 20:21:32.044 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:21:32.044 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:21:32.044 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:21:57.658 CESTLOG:  checkpoint completo: escritos 527 búfers (3.2%); 0 archivos WAL añadidos, 1 eliminados, 133 reciclados; write=22.727 s, sync=2.477 s, total=25.614 s; archivos sincronizados=3, más largo=1.622 s, promedio=0.826 s; distancia=2195460 kB, estimación=2230256 kB; lsn=71/4D1A11B8, lsn de redo=70/D33FF690
+[09066309P 08134385K]  2025-04-13 20:22:00.366 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:22:00.366 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:22:00.367 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:22:27.297 CESTLOG:  checkpoint completo: escritos 545 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.372 s, sync=3.183 s, total=26.931 s; archivos sincronizados=3, más largo=1.871 s, promedio=1.061 s; distancia=2195465 kB, estimación=2226777 kB; lsn=71/DA7DED70, lsn de redo=71/59401AB0
+[09066309P 08134385K]  2025-04-13 20:22:28.152 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:22:28.152 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:22:28.152 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:22:56.313 CESTLOG:  checkpoint completo: escritos 534 búfers (3.3%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=23.360 s, sync=4.396 s, total=28.162 s; archivos sincronizados=3, más largo=1.705 s, promedio=1.466 s; distancia=2195447 kB, estimación=2223644 kB; lsn=72/625113C0, lsn de redo=71/DF3FF8F0
+[09066309P 08134385K]  2025-04-13 20:22:56.695 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:22:56.695 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:22:56.696 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:23:24.520 CESTLOG:  checkpoint completo: escritos 542 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=23.704 s, sync=3.712 s, total=27.825 s; archivos sincronizados=3, más largo=1.345 s, promedio=1.238 s; distancia=2195478 kB, estimación=2220827 kB; lsn=72/E6E50F70, lsn de redo=72/65405410
+[09066309P 08134385K]  2025-04-13 20:23:25.353 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-04-13 20:23:25.353 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:23:25.353 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:23:54.506 CESTLOG:  checkpoint completo: escritos 532 búfers (3.2%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=25.122 s, sync=3.635 s, total=29.153 s; archivos sincronizados=3, más largo=1.349 s, promedio=1.212 s; distancia=2193663 kB, estimación=2218111 kB; lsn=73/6C48FAA0, lsn de redo=72/EB245398
+[09066309P 08134385K]  2025-04-13 20:23:55.381 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:24:22.141 CESTLOG:  checkpoint completo: escritos 527 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=22.813 s, sync=3.577 s, total=26.761 s; archivos sincronizados=3, más largo=2.133 s, promedio=1.193 s; distancia=2197126 kB, estimación=2216012 kB; lsn=73/F3CEA110, lsn de redo=73/713E6DB8
+[09066309P 08134385K]  2025-04-13 20:24:22.611 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 20:24:22.611 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:24:22.611 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:24:49.422 CESTLOG:  checkpoint completo: escritos 572 búfers (3.5%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=22.925 s, sync=3.442 s, total=26.811 s; archivos sincronizados=3, más largo=1.191 s, promedio=1.148 s; distancia=2193731 kB, estimación=2213784 kB; lsn=74/790AB030, lsn de redo=73/F7237CF8
+[09066309P 08134385K]  2025-04-13 20:24:50.074 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:24:50.074 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:24:50.074 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:25:16.341 CESTLOG:  checkpoint completo: escritos 553 búfers (3.4%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=23.172 s, sync=2.669 s, total=26.268 s; archivos sincronizados=3, más largo=1.986 s, promedio=0.890 s; distancia=2194656 kB, estimación=2211871 kB; lsn=74/FDCBD588, lsn de redo=74/7D16FE78
+[09066309P 08134385K]  2025-04-13 20:25:17.346 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 20:25:17.346 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:25:17.346 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:25:43.884 CESTLOG:  checkpoint completo: escritos 576 búfers (3.5%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=23.140 s, sync=2.931 s, total=26.538 s; archivos sincronizados=3, más largo=2.303 s, promedio=0.977 s; distancia=2197245 kB, estimación=2210409 kB; lsn=75/8333FCA0, lsn de redo=75/332F620
+[09066309P 08134385K]  2025-04-13 20:25:45.268 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 28 segundos)
+[09066309P 08134385K]  2025-04-13 20:25:45.268 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:25:45.269 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:26:12.339 CESTLOG:  checkpoint completo: escritos 529 búfers (3.2%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=22.758 s, sync=3.937 s, total=27.071 s; archivos sincronizados=3, más largo=2.210 s, promedio=1.312 s; distancia=2196296 kB, estimación=2208997 kB; lsn=76/D162F28, lsn de redo=75/894016D0
+[09066309P 08134385K]  2025-04-13 20:26:12.555 CESTLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 27 segundos)
+[09066309P 08134385K]  2025-04-13 20:26:12.555 CESTHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-04-13 20:26:12.557 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:26:13.148 CESTLOG:  duración: 681516.651 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:26:13.150 CESTLOG:  sentencia: DELETE FROM incidencias i
+	USING temp_reservas_a_borrar trb
+	WHERE i.reservaid_reservas = trb.reservaid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:26:31.495 CESTLOG:  duración: 18344.557 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:26:31.497 CESTLOG:  sentencia: DELETE FROM reservas r
+	USING temp_reservas_a_borrar trb
+	WHERE r.reservaid = trb.reservaid;
+[09066309P 08134385K]  2025-04-13 20:27:03.965 CESTLOG:  checkpoint completo: escritos 538 búfers (3.3%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=47.336 s, sync=3.706 s, total=51.410 s; archivos sincronizados=7, más largo=1.989 s, promedio=0.530 s; distancia=2195460 kB, estimación=2207644 kB; lsn=76/9234DB80, lsn de redo=76/F402AC0
+[09066309P 08134385K]  2025-04-13 20:27:04.409 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:27:32.840 CESTLOG:  checkpoint completo: escritos 535 búfers (3.3%); 0 archivos WAL añadidos, 4 eliminados, 130 reciclados; write=25.594 s, sync=2.462 s, total=28.433 s; archivos sincronizados=3, más largo=1.030 s, promedio=0.821 s; distancia=2195447 kB, estimación=2206424 kB; lsn=77/12FE5A18, lsn de redo=76/95400740
+[09066309P 08134385K]  2025-04-13 20:27:34.871 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:28:05.602 CESTLOG:  checkpoint completo: escritos 525 búfers (3.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=25.374 s, sync=4.894 s, total=30.732 s; archivos sincronizados=3, más largo=2.249 s, promedio=1.632 s; distancia=2195455 kB, estimación=2205327 kB; lsn=77/9E2B2410, lsn de redo=77/1B400348
+[09066309P 08134385K]  2025-04-13 20:28:06.054 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:28:33.534 CESTLOG:  checkpoint completo: escritos 565 búfers (3.4%); 0 archivos WAL añadidos, 2 eliminados, 132 reciclados; write=24.867 s, sync=2.238 s, total=27.481 s; archivos sincronizados=3, más largo=1.793 s, promedio=0.746 s; distancia=2191528 kB, estimación=2203947 kB; lsn=78/1C9DB198, lsn de redo=77/A102A680
+[09066309P 08134385K]  2025-04-13 20:28:36.298 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:29:07.082 CESTLOG:  checkpoint completo: escritos 531 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.375 s, sync=5.046 s, total=30.786 s; archivos sincronizados=3, más largo=3.274 s, promedio=1.682 s; distancia=2199383 kB, estimación=2203491 kB; lsn=78/A90CCB48, lsn de redo=78/27400318
+[09066309P 08134385K]  2025-04-13 20:29:07.940 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:29:38.205 CESTLOG:  checkpoint completo: escritos 560 búfers (3.4%); 0 archivos WAL añadidos, 5 eliminados, 129 reciclados; write=25.698 s, sync=4.196 s, total=30.265 s; archivos sincronizados=3, más largo=1.920 s, promedio=1.399 s; distancia=2195448 kB, estimación=2202686 kB; lsn=79/2B8BD070, lsn de redo=78/AD3FE560
+[09066309P 08134385K]  2025-04-13 20:29:39.962 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:30:10.014 CESTLOG:  checkpoint completo: escritos 554 búfers (3.4%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=24.148 s, sync=5.542 s, total=30.053 s; archivos sincronizados=3, más largo=3.491 s, promedio=1.848 s; distancia=2191954 kB, estimación=2201613 kB; lsn=79/B60907E8, lsn de redo=79/33092E78
+[09066309P 08134385K]  2025-04-13 20:30:10.587 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:30:40.411 CESTLOG:  checkpoint completo: escritos 535 búfers (3.3%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.873 s, sync=3.589 s, total=29.824 s; archivos sincronizados=3, más largo=1.897 s, promedio=1.197 s; distancia=2198957 kB, estimación=2201348 kB; lsn=7A/3B114CA0, lsn de redo=79/B93FE2B0
+[09066309P 08134385K]  2025-04-13 20:30:41.282 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:31:11.864 CESTLOG:  checkpoint completo: escritos 540 búfers (3.3%); 0 archivos WAL añadidos, 11 eliminados, 123 reciclados; write=25.659 s, sync=4.557 s, total=30.583 s; archivos sincronizados=3, más largo=2.129 s, promedio=1.519 s; distancia=2195459 kB, estimación=2200759 kB; lsn=7A/C31F8720, lsn de redo=7A/3F3FEFA0
+[09066309P 08134385K]  2025-04-13 20:31:12.120 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:31:42.609 CESTLOG:  checkpoint completo: escritos 547 búfers (3.3%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.652 s, sync=4.465 s, total=30.489 s; archivos sincronizados=3, más largo=2.483 s, promedio=1.489 s; distancia=2195452 kB, estimación=2200228 kB; lsn=7B/47CEED48, lsn de redo=7A/C53FE248
+[09066309P 08134385K]  2025-04-13 20:31:43.242 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:32:12.971 CESTLOG:  checkpoint completo: escritos 554 búfers (3.4%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=26.140 s, sync=3.215 s, total=29.730 s; archivos sincronizados=3, más largo=1.295 s, promedio=1.072 s; distancia=2195461 kB, estimación=2199751 kB; lsn=7B/CC4C2978, lsn de redo=7B/4B3FF718
+[09066309P 08134385K]  2025-04-13 20:32:13.969 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:32:45.358 CESTLOG:  checkpoint completo: escritos 542 búfers (3.3%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=28.021 s, sync=2.996 s, total=31.390 s; archivos sincronizados=3, más largo=1.761 s, promedio=0.999 s; distancia=2195455 kB, estimación=2199322 kB; lsn=7C/5140CED0, lsn de redo=7B/D13FF498
+[09066309P 08134385K]  2025-04-13 20:32:46.659 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:33:16.450 CESTLOG:  checkpoint completo: escritos 550 búfers (3.4%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.187 s, sync=4.231 s, total=29.792 s; archivos sincronizados=3, más largo=2.397 s, promedio=1.411 s; distancia=2193058 kB, estimación=2198695 kB; lsn=7C/D9B81A08, lsn de redo=7C/571A7E00
+[09066309P 08134385K]  2025-04-13 20:33:17.080 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:33:45.823 CESTLOG:  checkpoint completo: escritos 518 búfers (3.2%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=25.680 s, sync=2.709 s, total=28.744 s; archivos sincronizados=3, más largo=1.604 s, promedio=0.903 s; distancia=2197852 kB, estimación=2198611 kB; lsn=7D/5CC9B378, lsn de redo=7C/DD3FEFA0
+[09066309P 08134385K]  2025-04-13 20:33:47.247 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:34:17.167 CESTLOG:  checkpoint completo: escritos 543 búfers (3.3%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=25.697 s, sync=3.853 s, total=29.920 s; archivos sincronizados=3, más largo=1.904 s, promedio=1.285 s; distancia=2195453 kB, estimación=2198295 kB; lsn=7D/E6B0FD60, lsn de redo=7D/633FE430
+[09066309P 08134385K]  2025-04-13 20:34:17.534 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:34:47.790 CESTLOG:  checkpoint completo: escritos 537 búfers (3.3%); 0 archivos WAL añadidos, 8 eliminados, 126 reciclados; write=26.423 s, sync=3.478 s, total=30.256 s; archivos sincronizados=3, más largo=1.379 s, promedio=1.159 s; distancia=2195460 kB, estimación=2198012 kB; lsn=7E/6A6B0680, lsn de redo=7D/E93FF730
+[09066309P 08134385K]  2025-04-13 20:34:48.788 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:35:20.443 CESTLOG:  checkpoint completo: escritos 522 búfers (3.2%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=27.419 s, sync=3.877 s, total=31.656 s; archivos sincronizados=3, más largo=2.034 s, promedio=1.293 s; distancia=2195463 kB, estimación=2197757 kB; lsn=7E/F2235B50, lsn de redo=7E/6F401458
+[09066309P 08134385K]  2025-04-13 20:35:21.003 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:35:50.067 CESTLOG:  checkpoint completo: escritos 542 búfers (3.3%); 0 archivos WAL añadidos, 6 eliminados, 128 reciclados; write=25.844 s, sync=2.863 s, total=29.064 s; archivos sincronizados=3, más largo=1.827 s, promedio=0.955 s; distancia=2195447 kB, estimación=2197526 kB; lsn=7F/74197C20, lsn de redo=7E/F53FF360
+[09066309P 08134385K]  2025-04-13 20:35:51.700 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:36:21.372 CESTLOG:  checkpoint completo: escritos 535 búfers (3.3%); 0 archivos WAL añadidos, 10 eliminados, 124 reciclados; write=25.132 s, sync=4.169 s, total=29.672 s; archivos sincronizados=3, más largo=2.160 s, promedio=1.390 s; distancia=2195457 kB, estimación=2197319 kB; lsn=7F/FE40F9D8, lsn de redo=7F/7B3FF950
+[09066309P 08134385K]  2025-04-13 20:36:21.854 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:36:50.777 CESTLOG:  checkpoint completo: escritos 563 búfers (3.4%); 0 archivos WAL añadidos, 7 eliminados, 127 reciclados; write=25.479 s, sync=3.085 s, total=28.924 s; archivos sincronizados=3, más largo=2.037 s, promedio=1.028 s; distancia=2192429 kB, estimación=2196830 kB; lsn=80/817F1CD8, lsn de redo=80/110AF50
+[09066309P 08134385K]  2025-04-13 20:36:52.075 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:37:22.344 CESTLOG:  checkpoint completo: escritos 550 búfers (3.4%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.703 s, sync=4.185 s, total=30.269 s; archivos sincronizados=3, más largo=1.918 s, promedio=1.395 s; distancia=2197696 kB, estimación=2197696 kB; lsn=81/9E21888, lsn de redo=80/8733AF70
+[09066309P 08134385K]  2025-04-13 20:37:22.978 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:37:52.556 CESTLOG:  checkpoint completo: escritos 528 búfers (3.2%); 0 archivos WAL añadidos, 9 eliminados, 125 reciclados; write=25.362 s, sync=3.835 s, total=29.579 s; archivos sincronizados=3, más largo=2.020 s, promedio=1.278 s; distancia=2196240 kB, estimación=2197550 kB; lsn=81/8FBC0B80, lsn de redo=81/D3FEFF0
+[09066309P 08134385K]  2025-04-13 20:37:53.213 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-13 20:42:23.520 CESTLOG:  checkpoint completo: escritos 557 búfers (3.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.877 s, sync=0.003 s, total=270.308 s; archivos sincronizados=3, más largo=0.001 s, promedio=0.001 s; distancia=2191477 kB, estimación=2196943 kB; lsn=81/C3DF1718, lsn de redo=81/9301C520
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:48:48.431 CESTLOG:  duración: 1336934.144 ms
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:48:48.433 CESTLOG:  sentencia: DELETE FROM vehiculos v
+	USING temp_clientes_a_borrar tcb
+	WHERE v.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:09.989 CESTERROR:  update o delete en «vehiculos» viola la llave foránea «reservas_vehiculoid_vehiculos_fkey» en la tabla «reservas»
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:09.989 CESTDETALLE:  La llave (vehiculoid)=(4149830) todavía es referida desde la tabla «reservas».
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:09.989 CESTSENTENCIA:  DELETE FROM vehiculos v
+	USING temp_clientes_a_borrar tcb
+	WHERE v.clienteid_clientes = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:10.234 CESTLOG:  sentencia: DELETE FROM clientes c
+	USING temp_clientes_a_borrar tcb
+	WHERE c.clienteid = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:10.235 CESTERROR:  transacción abortada, las órdenes serán ignoradas hasta el fin de bloque de transacción
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:10.235 CESTSENTENCIA:  DELETE FROM clientes c
+	USING temp_clientes_a_borrar tcb
+	WHERE c.clienteid = tcb.clienteid;
+[09066309P 08134385K] ::1(48597) 2025-04-13 20:49:10.241 CESTLOG:  duración: 0.021 ms  sentencia: COMMIT;
+[09066309P 08134385K]  2025-04-13 20:52:53.128 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-13 20:57:23.348 CESTLOG:  checkpoint completo: escritos 12089 búfers (73.8%); 0 archivos WAL añadidos, 0 eliminados, 76 reciclados; write=269.975 s, sync=0.007 s, total=270.220 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=1245922 kB, estimación=2101841 kB; lsn=81/DF0D5138, lsn de redo=81/DF0D5100
