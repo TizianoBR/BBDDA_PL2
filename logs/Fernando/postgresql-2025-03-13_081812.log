@@ -1,0 +1,8 @@
+[09066309P 08134385K] LOG:  el sistema de bases de datos fue apagado en 2025-03-13 08:17:09 CET
+[09066309P 08134385K] LOG:  empezando checkpoint: time
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.003 s, total=0.020 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=25/C30A2AD0, lsn de redo=25/C30A2A98
+[09066309P 08134385K] ERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] LOG:  apagando
+[09066309P 08134385K] LOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.013 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=0 kB; lsn=25/C30A2B80, lsn de redo=25/C30A2B80

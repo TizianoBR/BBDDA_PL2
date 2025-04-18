@@ -1,0 +1,958 @@
+[09066309P 08134385K]  2025-04-01 10:08:16.207 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-01 03:16:35 CEST
+[09066309P 08134385K]  2025-04-01 10:13:16.196 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 10:13:16.232 CESTLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.002 s, total=0.039 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.001 s; distancia=0 kB, estimación=0 kB; lsn=32/4BE71C50, lsn de redo=32/4BE71C18
+[09066309P 08134385K] ::1(29140) 2025-04-01 10:45:12.557 CESTFATAL:  la autentificación password falló para el usuario «postgres»
+[09066309P 08134385K] ::1(29140) 2025-04-01 10:45:12.557 CESTDETALLE:  La conexión coincidió con el archivo «C:/Program Files/PostgreSQL/16/data/pg_hba.conf» línea 117: «host    all             all             ::1/128                 scram-sha-256»
+[09066309P 08134385K] ::1(29146) 2025-04-01 10:45:16.877 CESTFATAL:  la autentificación password falló para el usuario «postgres»
+[09066309P 08134385K] ::1(29146) 2025-04-01 10:45:16.877 CESTDETALLE:  La conexión coincidió con el archivo «C:/Program Files/PostgreSQL/16/data/pg_hba.conf» línea 117: «host    all             all             ::1/128                 scram-sha-256»
+[09066309P 08134385K] ::1(29166) 2025-04-01 10:45:46.762 CESTLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-04-01 10:45:46.767 CESTLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-04-01 10:45:46.775 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.001 s, total=0.009 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=5 kB, estimación=5 kB; lsn=32/4BE731C8, lsn de redo=32/4BE73190
+[09066309P 08134385K] ::1(29166) 2025-04-01 10:45:46.910 CESTLOG:  duración: 153.934 ms
+[09066309P 08134385K] ::1(29166) 2025-04-01 10:45:46.912 CESTLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(29166) 2025-04-01 10:45:47.256 CESTLOG:  duración: 344.857 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.314 CESTLOG:  duración: 0.661 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.316 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.336 CESTLOG:  duración: 20.849 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.337 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.390 CESTLOG:  duración: 53.789 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.391 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.426 CESTLOG:  duración: 34.327 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.427 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.430 CESTLOG:  duración: 2.907 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.431 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.436 CESTLOG:  duración: 5.573 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.439 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.460 CESTLOG:  duración: 22.555 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:45:47.702 CESTLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:46:42.132 CESTLOG:  duración: 54430.591 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:46:42.145 CESTLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:47:31.646 CESTLOG:  duración: 49500.399 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:47:31.664 CESTLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:47:32.084 CESTLOG:  duración: 420.010 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:47:32.097 CESTLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 10:47:38.992 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 10:49:00.811 CESTLOG:  checkpoint completo: escritos 1537 búfers (9.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=80.900 s, sync=0.551 s, total=81.820 s; archivos sincronizados=332, más largo=0.140 s, promedio=0.002 s; distancia=2182977 kB, estimación=2182977 kB; lsn=33/4A81A5C8, lsn de redo=32/D1243810
+[09066309P 08134385K]  2025-04-01 10:49:08.535 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:50:24.879 CESTLOG:  duración: 172782.167 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:50:25.120 CESTLOG:  sentencia: COPY  incidencias FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 10:50:26.101 CESTLOG:  checkpoint completo: escritos 44 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=76.781 s, sync=0.344 s, total=77.566 s; archivos sincronizados=16, más largo=0.241 s, promedio=0.022 s; distancia=2196712 kB, estimación=2196712 kB; lsn=33/D081A020, lsn de redo=33/5737DAB8
+[09066309P 08134385K]  2025-04-01 10:50:31.461 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:50:38.156 CESTLOG:  duración: 13036.032 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:50:38.169 CESTLOG:  sentencia: COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 10:51:33.561 CESTLOG:  checkpoint completo: escritos 28 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=60.929 s, sync=0.803 s, total=62.101 s; archivos sincronizados=22, más largo=0.629 s, promedio=0.037 s; distancia=2195860 kB, estimación=2196627 kB; lsn=34/569EE478, lsn de redo=33/DD3E2C80
+[09066309P 08134385K]  2025-04-01 10:51:39.462 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 10:52:41.573 CESTLOG:  checkpoint completo: escritos 59 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=61.190 s, sync=0.544 s, total=62.112 s; archivos sincronizados=10, más largo=0.202 s, promedio=0.055 s; distancia=2193716 kB, estimación=2196336 kB; lsn=34/DCCA6DD8, lsn de redo=34/6322FD40
+[09066309P 08134385K]  2025-04-01 10:52:47.239 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:00.995 CESTLOG:  duración: 142826.089 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:00.998 CESTLOG:  sentencia: ALTER TABLE vehiculos
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:03.824 CESTLOG:  duración: 2826.733 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:03.825 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 10:53:04.832 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 10:53:04.832 CESTCONTEXTO:  recorriendo el bloque 57441 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:22.567 CESTLOG:  duración: 18741.652 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:22.570 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (plazaid_plazas) REFERENCES plazas(plazaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:32.370 CESTLOG:  duración: 9799.939 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:32.371 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:47.678 CESTLOG:  duración: 15306.400 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:53:47.680 CESTLOG:  sentencia: ALTER TABLE incidencias
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:54:00.095 CESTLOG:  duración: 12415.473 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:54:00.097 CESTLOG:  sentencia: ALTER TABLE pagos
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 10:54:01.114 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 10:54:01.114 CESTCONTEXTO:  recorriendo el bloque 7876 de la relación «public.pagos»
+	vacuum automático de la tabla «telepark.public.pagos»
+[09066309P 08134385K]  2025-04-01 10:54:01.115 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:54:31.843 CESTLOG:  duración: 31745.891 ms
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:54:34.248 CESTLOG:  duración: 2403.348 ms  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(29167) 2025-04-01 10:54:34.250 CESTLOG:  duración: 0.024 ms  sentencia: SET maintenance_work_mem = '64MB';
+[09066309P 08134385K]  2025-04-01 10:57:17.510 CESTLOG:  checkpoint completo: escritos 28 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.822 s, sync=0.096 s, total=270.272 s; archivos sincronizados=22, más largo=0.044 s, promedio=0.005 s; distancia=2197314 kB, estimación=2197314 kB; lsn=35/44539C0, lsn de redo=34/E9400588
+[09066309P 08134385K]  2025-04-01 10:57:47.950 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 11:02:17.291 CESTLOG:  checkpoint completo: escritos 12219 búfers (74.6%); 0 archivos WAL añadidos, 0 eliminados, 27 reciclados; write=269.122 s, sync=0.073 s, total=269.342 s; archivos sincronizados=37, más largo=0.038 s, promedio=0.002 s; distancia=443927 kB, estimación=2021975 kB; lsn=35/500BE20, lsn de redo=35/4586498
+[09066309P 08134385K]  2025-04-01 11:02:47.939 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 11:02:55.882 CESTLOG:  checkpoint completo: escritos 8 búfers (0.0%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=7.839 s, sync=0.006 s, total=7.944 s; archivos sincronizados=4, más largo=0.003 s, promedio=0.002 s; distancia=12001 kB, estimación=1820978 kB; lsn=35/5190A88, lsn de redo=35/513EAB8
+[09066309P 08134385K]  2025-04-01 11:07:47.245 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 11:07:55.239 CESTLOG:  checkpoint completo: escritos 9 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=7.942 s, sync=0.046 s, total=7.995 s; archivos sincronizados=5, más largo=0.027 s, promedio=0.010 s; distancia=11953 kB, estimación=1640075 kB; lsn=35/5D3E660, lsn de redo=35/5CEAFF8
+[09066309P 08134385K]  2025-04-01 11:08:28.857 CESTLOG:  vacuum automático de la tabla «telepark.public.reservas»: recorridos de índice: 0
+	páginas: 0 eliminadas, 333384 quedan, 275943 recorridas (82.77% del total)
+	tuplas: 0 eliminadas, 39999081 permanecen, 0 están muertas pero aún no se pueden quitar
+	punto de corte de eliminación: 3773, que era 0 XIDs de antiguo cuando la operación terminó
+	congelado: 0 páginas de la tabla (0.00% del total) tuvieron 0 tuplas congeladas
+	recorrido de índice no necesario: en 0 páginas de la tabla (0.00% del total) se eliminaron 0 identificadores de elementos muertos
+	tasa lectura promedio: 2.623 MB/s, tasa escritura promedio: 2.624 MB/s
+	uso de búfers: 276155 aciertos, 275864 fallos, 275906 ensuciados
+	uso de WAL: 275894 registros, 13 imágenes de página completa, 16383100 bytes
+	uso de sistema: CPU: usuario: 3.70 s, sistema: 5.65 s, transcurrido: 821.58 s
+[09066309P 08134385K]  2025-04-01 11:11:32.164 CESTLOG:  vacuum automático de la tabla «telepark.public.pagos»: recorridos de índice: 0
+	páginas: 0 eliminadas, 354056 quedan, 346180 recorridas (97.78% del total)
+	tuplas: 0 eliminadas, 39999870 permanecen, 0 están muertas pero aún no se pueden quitar
+	punto de corte de eliminación: 3773, que era 0 XIDs de antiguo cuando la operación terminó
+	congelado: 0 páginas de la tabla (0.00% del total) tuvieron 0 tuplas congeladas
+	recorrido de índice no necesario: en 0 páginas de la tabla (0.00% del total) se eliminaron 0 identificadores de elementos muertos
+	tasa lectura promedio: 2.846 MB/s, tasa escritura promedio: 2.862 MB/s
+	uso de búfers: 348327 aciertos, 344177 fallos, 346171 ensuciados
+	uso de WAL: 346157 registros, 13 imágenes de página completa, 20529953 bytes
+	uso de sistema: CPU: usuario: 4.34 s, sistema: 7.32 s, transcurrido: 944.89 s
+[09066309P 08134385K]  2025-04-01 11:12:47.453 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 11:16:55.182 CESTLOG:  checkpoint completo: escritos 2241 búfers (13.7%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=247.627 s, sync=0.022 s, total=247.729 s; archivos sincronizados=8, más largo=0.018 s, promedio=0.003 s; distancia=8264 kB, estimación=1476894 kB; lsn=35/64FD270, lsn de redo=35/64FD238
+[09066309P 08134385K] ::1(29167) 2025-04-01 11:19:37.194 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K] ::1(32438) 2025-04-01 12:13:35.099 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K] ::1(32561) 2025-04-01 12:14:21.890 CESTLOG:  sentencia: DROP DATABASE IF EXISTS telepark;
+[09066309P 08134385K]  2025-04-01 12:14:21.903 CESTLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-04-01 12:14:21.931 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.001 s, total=0.028 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=5 kB, estimación=1329205 kB; lsn=35/64FE890, lsn de redo=35/64FE858
+[09066309P 08134385K] ::1(32561) 2025-04-01 12:14:22.067 CESTLOG:  duración: 183.854 ms
+[09066309P 08134385K] ::1(32561) 2025-04-01 12:14:22.068 CESTLOG:  sentencia: CREATE DATABASE telepark;
+[09066309P 08134385K] ::1(32561) 2025-04-01 12:14:22.415 CESTLOG:  duración: 347.052 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.472 CESTLOG:  duración: 0.812 ms  sentencia: SET maintenance_work_mem = '512MB';
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.474 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS clientes(
+	    clienteid INTEGER PRIMARY KEY,
+	    nombre TEXT NOT NULL,
+	    apellido TEXT NOT NULL,
+	    email TEXT UNIQUE NOT NULL,
+	    telefono INTEGER UNIQUE NOT NULL,
+	    provincia TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.499 CESTLOG:  duración: 26.185 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.500 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS vehiculos(
+	    vehiculoid INTEGER PRIMARY KEY,
+	    matricula TEXT UNIQUE NOT NULL,
+	    marca TEXT NOT NULL,
+	    modelo TEXT NOT NULL,
+	    color TEXT NOT NULL,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.506 CESTLOG:  duración: 5.908 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.508 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS plazas(
+	    plazaid INTEGER PRIMARY KEY,
+	    numero INTEGER NOT NULL,
+	    nivel INTEGER NOT NULL,
+	    seccion TEXT NOT NULL
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.514 CESTLOG:  duración: 6.289 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.515 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS reservas(
+	    reservaid INTEGER PRIMARY KEY,
+	    fechainicio TIMESTAMP NOT NULL,
+	    fechafin TIMESTAMP NOT NULL,
+	    vehiculoid_vehiculos INTEGER,
+	    plazaid_plazas INTEGER,
+	    clienteid_clientes INTEGER
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.517 CESTLOG:  duración: 2.741 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.518 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS incidencias(
+	    incidenciaid INTEGER PRIMARY KEY,
+	    descripcion TEXT NOT NULL,
+	    fechaincidencia TIMESTAMP NOT NULL,
+	    estado TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.522 CESTLOG:  duración: 4.006 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.524 CESTLOG:  sentencia: CREATE TABLE IF NOT EXISTS pagos(
+	    pagoid INTEGER PRIMARY KEY,
+	    cantidad NUMERIC(10, 2) NOT NULL,
+	    fechapago TIMESTAMP NOT NULL,
+	    metodo_pago TEXT NOT NULL,
+	    reservaid_reservas INTEGER
+	);
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.529 CESTLOG:  duración: 5.709 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:14:22.530 CESTLOG:  sentencia: COPY  vehiculos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:10.405 CESTLOG:  duración: 47874.696 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:10.407 CESTLOG:  sentencia: COPY  clientes FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:55.329 CESTLOG:  duración: 44921.739 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:55.331 CESTLOG:  sentencia: COPY  plazas FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:55.914 CESTLOG:  duración: 583.401 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:15:55.916 CESTLOG:  sentencia: COPY  reservas FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 12:16:03.213 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 12:17:20.008 CESTLOG:  checkpoint completo: escritos 1531 búfers (9.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=75.900 s, sync=0.540 s, total=76.795 s; archivos sincronizados=332, más largo=0.138 s, promedio=0.002 s; distancia=2192000 kB, estimación=2192000 kB; lsn=36/593A840, lsn de redo=35/8C19E970
+[09066309P 08134385K]  2025-04-01 12:17:27.693 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:18:46.071 CESTLOG:  duración: 170154.386 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:18:46.074 CESTLOG:  sentencia: COPY  incidencias FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 12:18:47.502 CESTLOG:  checkpoint completo: escritos 53 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=79.063 s, sync=0.365 s, total=79.811 s; archivos sincronizados=18, más largo=0.206 s, promedio=0.021 s; distancia=2197895 kB, estimación=2197895 kB; lsn=36/8B729BB0, lsn de redo=36/124008C8
+[09066309P 08134385K]  2025-04-01 12:18:52.937 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:18:59.226 CESTLOG:  duración: 13152.747 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:18:59.230 CESTLOG:  sentencia: COPY  pagos FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-04-01 12:19:55.867 CESTLOG:  checkpoint completo: escritos 58 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=61.642 s, sync=0.813 s, total=62.931 s; archivos sincronizados=23, más largo=0.585 s, promedio=0.036 s; distancia=2195449 kB, estimación=2197651 kB; lsn=37/11CCC938, lsn de redo=36/983FEFD8
+[09066309P 08134385K]  2025-04-01 12:20:01.640 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-01 12:20:59.849 CESTLOG:  checkpoint completo: escritos 55 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=57.193 s, sync=0.662 s, total=58.210 s; archivos sincronizados=10, más largo=0.234 s, promedio=0.067 s; distancia=2192469 kB, estimación=2197133 kB; lsn=37/97DAC808, lsn de redo=37/1E114640
+[09066309P 08134385K]  2025-04-01 12:21:05.058 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:18.228 CESTLOG:  duración: 138998.437 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:18.230 CESTLOG:  sentencia: ALTER TABLE vehiculos
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:21.370 CESTLOG:  duración: 3141.391 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:21.372 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (vehiculoid_vehiculos) REFERENCES vehiculos(vehiculoid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 12:21:22.389 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 12:21:22.389 CESTCONTEXTO:  recorriendo el bloque 62117 de la relación «public.reservas»
+	vacuum automático de la tabla «telepark.public.reservas»
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:42.010 CESTLOG:  duración: 20637.926 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:42.012 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (plazaid_plazas) REFERENCES plazas(plazaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:53.229 CESTLOG:  duración: 11217.158 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:21:53.231 CESTLOG:  sentencia: ALTER TABLE reservas
+	ADD FOREIGN KEY (clienteid_clientes) REFERENCES clientes(clienteid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:09.200 CESTLOG:  duración: 15969.128 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:09.203 CESTLOG:  sentencia: ALTER TABLE incidencias
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:22.500 CESTLOG:  duración: 13297.236 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:22.502 CESTLOG:  sentencia: ALTER TABLE pagos
+	ADD FOREIGN KEY (reservaid_reservas) REFERENCES reservas(reservaid) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-04-01 12:22:23.515 CESTERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-04-01 12:22:23.515 CESTCONTEXTO:  recorriendo el bloque 19702 de la relación «public.pagos»
+	vacuum automático de la tabla «telepark.public.pagos»
+[09066309P 08134385K]  2025-04-01 12:22:23.515 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K]  2025-04-01 12:22:49.022 CESTLOG:  omitiendo el vacuum de «pagos»: el candado no está disponible
+[09066309P 08134385K]  2025-04-01 12:22:49.022 CESTLOG:  omitiendo el vacuum de «reservas»: el candado no está disponible
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:56.056 CESTLOG:  duración: 33553.763 ms
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:58.842 CESTLOG:  duración: 2784.306 ms  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(32563) 2025-04-01 12:22:58.843 CESTLOG:  duración: 0.024 ms  sentencia: SET maintenance_work_mem = '64MB';
+[09066309P 08134385K]  2025-04-01 12:25:35.472 CESTLOG:  checkpoint completo: escritos 39 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.969 s, sync=0.102 s, total=270.415 s; archivos sincronizados=22, más largo=0.050 s, promedio=0.005 s; distancia=2198446 kB, estimación=2198446 kB; lsn=37/BE465598, lsn de redo=37/A4400168
+[09066309P 08134385K]  2025-04-01 12:26:05.033 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 12:30:35.316 CESTLOG:  checkpoint completo: escritos 12040 búfers (73.5%); 0 archivos WAL añadidos, 0 eliminados, 26 reciclados; write=270.066 s, sync=0.078 s, total=270.284 s; archivos sincronizados=36, más largo=0.031 s, promedio=0.003 s; distancia=427591 kB, estimación=2021361 kB; lsn=37/BF0206D8, lsn de redo=37/BE591F40
+[09066309P 08134385K]  2025-04-01 12:31:05.887 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 12:31:13.904 CESTLOG:  checkpoint completo: escritos 9 búfers (0.1%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=7.914 s, sync=0.007 s, total=8.018 s; archivos sincronizados=5, más largo=0.004 s, promedio=0.002 s; distancia=12042 kB, estimación=1820429 kB; lsn=37/BF1A7D40, lsn de redo=37/BF154B30
+[09066309P 08134385K] ::1(33868) 2025-04-01 12:33:41.109 CESTLOG:  sentencia: ALTER DATABASE telepark RENAME TO telpark;
+[09066309P 08134385K]  2025-04-01 12:33:41.111 CESTFATAL:  terminando el proceso autovacuum debido a una orden del administrador
+[09066309P 08134385K]  2025-04-01 12:33:41.111 CESTCONTEXTO:  recorriendo el bloque 188637 de la relación «public.pagos»
+[09066309P 08134385K]  2025-04-01 12:33:41.112 CESTFATAL:  terminando el proceso autovacuum debido a una orden del administrador
+[09066309P 08134385K]  2025-04-01 12:33:41.112 CESTCONTEXTO:  recorriendo el bloque 265350 de la relación «public.reservas»
+[09066309P 08134385K] ::1(33868) 2025-04-01 12:33:41.219 CESTLOG:  duración: 112.067 ms
+[09066309P 08134385K]  2025-04-01 12:36:05.456 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 12:36:20.785 CESTLOG:  checkpoint completo: escritos 75 búfers (0.5%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=15.232 s, sync=0.088 s, total=15.329 s; archivos sincronizados=9, más largo=0.063 s, promedio=0.010 s; distancia=11449 kB, estimación=1639531 kB; lsn=37/BFD21248, lsn de redo=37/BFC82FB0
+[09066309P 08134385K]  2025-04-01 12:41:05.370 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-01 12:45:07.154 CESTLOG:  checkpoint completo: escritos 2202 búfers (13.4%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=241.652 s, sync=0.028 s, total=241.785 s; archivos sincronizados=8, más largo=0.024 s, promedio=0.004 s; distancia=9493 kB, estimación=1476527 kB; lsn=37/C05C8648, lsn de redo=37/C05C8610
+[09066309P 08134385K] ::1(35133) 2025-04-01 12:59:25.339 CESTERROR:  error de sintaxis en o cerca de «OUTER» en carácter 214
+[09066309P 08134385K] ::1(35133) 2025-04-01 12:59:25.339 CESTSENTENCIA:  SELECT * FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    OUTER RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35157) 2025-04-01 13:00:01.643 CESTERROR:  falta una entrada para la tabla «pl» en la cláusula FROM en carácter 694
+[09066309P 08134385K] ::1(35157) 2025-04-01 13:00:01.643 CESTSENTENCIA:  SELECT * FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35175) 2025-04-01 13:00:28.564 CESTERROR:  no existe la columna p.plazaid en carácter 232
+[09066309P 08134385K] ::1(35175) 2025-04-01 13:00:28.564 CESTHINT:  Probablemente quiera hacer referencia a la columna «pl.plazaid».
+[09066309P 08134385K] ::1(35175) 2025-04-01 13:00:28.564 CESTSENTENCIA:  SELECT * FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON p.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35181) 2025-04-01 13:01:22.310 CESTLOG:  duración: 44276.791 ms  sentencia: SELECT * FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35237) 2025-04-01 13:02:44.193 CESTLOG:  duración: 44665.111 ms  sentencia: SELECT * FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35366) 2025-04-01 13:06:05.148 CESTLOG:  duración: 48823.491 ms  sentencia: SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35542) 2025-04-01 13:09:05.627 CESTLOG:  duración: 0.030 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(35542) 2025-04-01 13:09:05.628 CESTERROR:  error de sintaxis en o cerca de «FILTER» en carácter 35
+[09066309P 08134385K] ::1(35542) 2025-04-01 13:09:05.628 CESTSENTENCIA:  SELECT COUNT(DISTINCT c.clienteid FILTER (WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4
+	)) - COUNT(DISTINCT c.clienteid) FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35564) 2025-04-01 13:09:31.628 CESTLOG:  duración: 0.030 ms  sentencia: BEGIN;
+[09066309P 08134385K] ::1(35564) 2025-04-01 13:09:31.628 CESTERROR:  error de sintaxis en o cerca de «FILTER» en carácter 35
+[09066309P 08134385K] ::1(35564) 2025-04-01 13:09:31.628 CESTSENTENCIA:  SELECT COUNT(DISTINCT c.clienteid FILTER (WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4)) - COUNT(DISTINCT c.clienteid) FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35587) 2025-04-01 13:10:05.248 CESTERROR:  error de sintaxis en o cerca de «FILTER» en carácter 36
+[09066309P 08134385K] ::1(35587) 2025-04-01 13:10:05.248 CESTSENTENCIA:  SELECT (COUNT(DISTINCT c.clienteid FILTER (WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4)) - COUNT(DISTINCT c.clienteid)) FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35642) 2025-04-01 13:13:40.578 CESTLOG:  duración: 125891.680 ms  sentencia: SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    - COUNT(DISTINCT c.clienteid)) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35759) 2025-04-01 13:16:25.932 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(35759) 2025-04-01 13:16:25.932 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35860) 2025-04-01 13:17:01.401 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 861
+[09066309P 08134385K] ::1(35860) 2025-04-01 13:17:01.401 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35874) 2025-04-01 13:17:16.532 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 863
+[09066309P 08134385K] ::1(35874) 2025-04-01 13:17:16.532 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	
+	SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35887) 2025-04-01 13:17:33.023 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 863
+[09066309P 08134385K] ::1(35887) 2025-04-01 13:17:33.023 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	
+	SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35907) 2025-04-01 13:18:02.745 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 864
+[09066309P 08134385K] ::1(35907) 2025-04-01 13:18:02.745 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	
+	SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35947) 2025-04-01 13:19:09.974 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 866
+[09066309P 08134385K] ::1(35947) 2025-04-01 13:19:09.974 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	
+	
+	SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35953) 2025-04-01 13:19:27.725 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(35953) 2025-04-01 13:19:27.725 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    RIGHT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	
+	-- \o
+	-- \o PL2_c9_salida_debug.txt
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35970) 2025-04-01 13:20:37.705 CESTLOG:  duración: 54130.441 ms  sentencia: SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(36053) 2025-04-01 13:22:26.630 CESTLOG:  duración: 53633.454 ms  sentencia: SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(36128) 2025-04-01 13:26:05.983 CESTLOG:  duración: 177300.745 ms  sentencia: SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    / COUNT(DISTINCT c.clienteid) * 100) AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(36287) 2025-04-01 13:27:21.475 CESTERROR:  error de sintaxis en o cerca de «AS» en carácter 528
+[09066309P 08134385K] ::1(36287) 2025-04-01 13:27:21.475 CESTSENTENCIA:  SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    --/ COUNT(DISTINCT c.clienteid) * 100)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+	
+	
+	
+	-- \o PL2_c9_salida_debug.txt
+	
+	-- SELECT c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	--     clientes c
+	--     JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	--     JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	--     JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	--     JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	--     LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	-- WHERE 
+	--     (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4;
+[09066309P 08134385K] ::1(36295) 2025-04-01 13:30:13.712 CESTLOG:  duración: 160617.127 ms  sentencia: SELECT
+	    (COUNT(DISTINCT CASE 
+	        WHEN (c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	        THEN c.clienteid 
+	        ELSE NULL 
+	    END) 
+	    --/ COUNT(DISTINCT c.clienteid) * 100)
+	    )AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(36524) 2025-04-01 13:35:03.760 CESTLOG:  duración: 141000.705 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    -- * 100 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(36734) 2025-04-01 13:39:35.641 CESTLOG:  duración: 139160.231 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(36734) 2025-04-01 13:39:35.650 CESTERROR:  error de sintaxis en o cerca de «.» en carácter 21
+[09066309P 08134385K] ::1(36734) 2025-04-01 13:39:35.650 CESTSENTENCIA:  SELECT c.clienteid c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4
+	
+	ORDER BY c.clienteid;
+[09066309P 08134385K] ::1(36848) 2025-04-01 13:40:45.682 CESTLOG:  duración: 50997.778 ms  sentencia: SELECT c.clienteid, c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4
+	
+	ORDER BY c.clienteid;
+[09066309P 08134385K] ::1(37067) 2025-04-01 13:45:27.028 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(37067) 2025-04-01 13:45:27.028 CESTSENTENCIA:  SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:48:25.505 CESTLOG:  duración: 142118.487 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:49:17.101 CESTLOG:  duración: 51584.763 ms  sentencia: SELECT c.clienteid, c.provincia, r.fechainicio, r.fechafin, p.cantidad, pl.nivel, i.estado, v.color FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	
+	WHERE 
+	    (c.provincia = 'Huelva' OR c.provincia = 'Cadiz' OR c.provincia = 'Sevilla' OR c.provincia = 'Malaga' OR c.provincia = 'Granada' OR c.provincia = 'Almeria' OR c.provincia = 'Jaen' OR c.provincia = 'Cordoba') AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) AND p.cantidad > 150 AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') AND pl.nivel < -4
+	
+	ORDER BY c.clienteid;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:12.515 CESTERROR:  error de sintaxis en o cerca de «WHERE» en carácter 57
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:12.515 CESTSENTENCIA:  SELECT c.clienteid FROM clientes c LEFT JOIN reservas r WHERE r IS NULL;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:30.194 CESTERROR:  error de sintaxis en o cerca de «WHERE» en carácter 57
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:30.194 CESTSENTENCIA:  SELECT c.clienteid FROM clientes c LEFT JOIN reservas r WHERE r.reservaid IS NULL;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:50.547 CESTERROR:  error de sintaxis en o cerca de «HAVING» en carácter 57
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:52:50.547 CESTSENTENCIA:  SELECT c.clienteid FROM clientes c LEFT JOIN reservas r HAVING r.reservaid IS NULL;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:53:03.040 CESTERROR:  error de sintaxis en o cerca de «WHERE» en carácter 57
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:53:03.040 CESTSENTENCIA:  SELECT c.clienteid FROM clientes c LEFT JOIN reservas r WHERE r.reservaid IS NULL;
+[09066309P 08134385K] ::1(37095) 2025-04-01 13:53:53.671 CESTLOG:  duración: 15176.038 ms  sentencia: SELECT c.clienteid 
+	FROM clientes c 
+	LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes 
+	WHERE r.reservaid IS NULL;
+[09066309P 08134385K] ::1(37443) 2025-04-01 13:54:27.858 CESTLOG:  duración: 35.970 ms  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37443) 2025-04-01 13:54:34.799 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(37443) 2025-04-01 13:54:34.799 CESTSENTENCIA:  SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37452) 2025-04-01 13:54:40.514 CESTLOG:  duración: 11.171 ms  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37452) 2025-04-01 13:56:53.180 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(37452) 2025-04-01 13:56:53.180 CESTSENTENCIA:  SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(37452) 2025-04-01 13:56:54.577 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K] ::1(32057) 2025-04-01 20:33:05.465 CESTLOG:  duración: 85.812 ms  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(32057) 2025-04-01 20:36:12.748 CESTLOG:  duración: 187282.663 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) FILTER (WHERE 
+	            c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	              AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	              AND p.cantidad > 150 
+	              AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	              AND pl.nivel < -4) 
+	
+	    * 100.0 / COUNT(DISTINCT c.clienteid)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid;
+[09066309P 08134385K] ::1(32057) 2025-04-02 01:13:32.714 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	

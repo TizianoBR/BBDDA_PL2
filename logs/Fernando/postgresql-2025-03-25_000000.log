@@ -1,0 +1,18 @@
+[09066309P 08134385K] ::1(56509) 2025-03-25 12:27:15.235 CETERROR:  no existe la columna i.codigo_contrato en carácter 31
+[09066309P 08134385K] ::1(56509) 2025-03-25 12:27:15.235 CETHINT:  Probablemente quiera hacer referencia a la columna «ic.codigo_contrato».
+[09066309P 08134385K] ::1(56509) 2025-03-25 12:27:15.235 CETSENTENCIA:  EXPLAIN SELECT COUNT(DISTINCT i.codigo_contrato) FROM investigadores i JOIN investigadores_contratos ic ON i.codigo_investigador = ic.codigo_investigador WHERE i.salario = 20000 AND ic.horas = 8;
+[09066309P 08134385K] ::1(57289) 2025-03-25 12:34:54.708 CETERROR:  error de sintaxis en o cerca de «JOIN» en carácter 95
+[09066309P 08134385K] ::1(57289) 2025-03-25 12:34:54.708 CETSENTENCIA:  EXPLAIN SELECT DISTINCT(nombre, entidad) FROM contratos c WHERE coste BETWEEN 10000 AND 15000 JOIN investigadores_contratos ic ON c.codigo_contrato = ic.codigo_contrato WHERE ic.horas = 5 JOIN investigadores i ON ic.codigo_investigador = i.codigo_investigador WHERE i.salario > 16000;
+[09066309P 08134385K] ::1(14158) 2025-03-25 12:37:02.575 CETERROR:  la referencia a la columna «nombre» es ambigua en carácter 25
+[09066309P 08134385K] ::1(14158) 2025-03-25 12:37:02.575 CETSENTENCIA:  EXPLAIN SELECT DISTINCT nombre, entidad FROM contratos c
+	JOIN investigadores_contratos ic ON c.codigo_contrato = ic.codigo_contrato 
+	JOIN investigadores i ON i.codigo_investigador = ic.codigo_investigador
+	WHERE 
+	    c.coste BETWEEN 10000 AND 20000 
+	    AND ic.horas = 5 
+	    AND i.salario > 16000;
+[09066309P 08134385K] ::1(5702) 2025-03-25 13:58:08.373 CETLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K]  2025-03-25 17:12:51.813 CETLOG:  apagando
+[09066309P 08134385K]  2025-03-25 17:12:51.814 CETLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-03-25 17:12:51.828 CETLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.016 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=0 kB; lsn=2A/13ACF4F0, lsn de redo=2A/13ACF4F0

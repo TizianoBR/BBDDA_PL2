@@ -1,0 +1,197 @@
+[09066309P 08134385K]  2025-04-08 12:35:56.559 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-08 12:35:47 CEST
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:36:10.181 CESTLOG:  duración: 6.128 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:36:10.299 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:36:10.378 CESTLOG:  duración: 82.233 ms
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:36:10.379 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:37:30.687 CESTLOG:  duración: 80308.297 ms
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:37:30.688 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(19346) 2025-04-08 12:37:30.688 CESTLOG:  duración: 0.073 ms
+[09066309P 08134385K]  2025-04-08 12:40:56.563 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-08 12:40:56.575 CESTLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.002 s, total=0.015 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.001 s; distancia=0 kB, estimación=0 kB; lsn=37/C05C8890, lsn de redo=37/C05C8858
+[09066309P 08134385K] ::1(19346) 2025-04-08 13:00:32.417 CESTLOG:  duración: 409.971 ms  sentencia: SELECT COUNT(*) FROM clientes WHERE provincia = 'Ceuta';
+[09066309P 08134385K] ::1(19346) 2025-04-08 13:00:40.529 CESTLOG:  duración: 422.403 ms  sentencia: SELECT * FROM clientes WHERE provincia = 'Ceuta';
+[09066309P 08134385K] ::1(19346) 2025-04-08 13:00:43.889 CESTLOG:  duración: 414.157 ms  sentencia: SELECT * FROM clientes WHERE provincia = 'ceuta';
+[09066309P 08134385K] ::1(19346) 2025-04-08 13:00:47.902 CESTLOG:  duración: 476.430 ms  sentencia: SELECT * FROM clientes WHERE provincia = 'Huelva';
+[09066309P 08134385K] ::1(19346) 2025-04-08 13:01:22.554 CESTLOG:  duración: 428.155 ms  sentencia: SELECT * FROM clientes WHERE provincia = 'Melilla';
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:04:10.587 CESTLOG:  duración: 0.042 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:04:10.589 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:04:10.624 CESTLOG:  duración: 35.449 ms
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:04:10.625 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:05:12.235 CESTLOG:  duración: 61609.898 ms
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:05:12.236 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(22354) 2025-04-08 13:05:12.236 CESTLOG:  duración: 0.080 ms
+[09066309P 08134385K] ::1(25370) 2025-04-08 13:33:19.618 CESTLOG:  duración: 1.625 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(25527) 2025-04-08 13:34:50.334 CESTLOG:  duración: 0.090 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(25527) 2025-04-08 13:34:50.362 CESTLOG:  duración: 0.051 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(25527) 2025-04-08 13:34:50.399 CESTLOG:  duración: 0.052 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(25527) 2025-04-08 13:34:50.437 CESTLOG:  duración: 0.109 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.258 CESTLOG:  duración: 0.077 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.283 CESTLOG:  duración: 0.043 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.307 CESTLOG:  duración: 0.041 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.342 CESTLOG:  duración: 0.049 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.376 CESTLOG:  duración: 0.063 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.377 CESTLOG:  duración: 0.045 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(25796) 2025-04-08 13:37:24.378 CESTLOG:  duración: 0.049 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:37:42.152 CESTLOG:  duración: 0.039 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:37:42.261 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:37:42.289 CESTLOG:  duración: 27.952 ms
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:37:42.289 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:38:33.767 CESTLOG:  duración: 51477.819 ms
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:38:33.768 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(25825) 2025-04-08 13:38:33.768 CESTLOG:  duración: 0.065 ms
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.285 CESTLOG:  duración: 1.087 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.310 CESTLOG:  duración: 0.039 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.333 CESTLOG:  duración: 0.045 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.357 CESTLOG:  duración: 0.041 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.380 CESTLOG:  duración: 0.038 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.380 CESTLOG:  duración: 0.026 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.380 CESTLOG:  duración: 0.024 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:50.382 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:54.061 CESTLOG:  duración: 3679.955 ms
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:46:54.062 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:47:12.023 CESTLOG:  duración: 17960.230 ms
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:47:12.024 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:47:30.484 CESTLOG:  duración: 18459.582 ms
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:47:30.485 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:48:12.697 CESTLOG:  duración: 42211.997 ms
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:48:12.698 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(26737) 2025-04-08 13:48:12.859 CESTLOG:  duración: 160.528 ms
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:48:27.566 CESTLOG:  duración: 0.045 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:48:27.568 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:48:27.597 CESTLOG:  duración: 29.833 ms
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:48:27.598 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:49:20.609 CESTLOG:  duración: 53010.674 ms
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:49:20.609 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:49:20.609 CESTLOG:  duración: 0.061 ms
+[09066309P 08134385K]  2025-04-08 13:50:56.686 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-08 13:50:57.027 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 80 eliminados, 0 reciclados; write=0.002 s, sync=0.011 s, total=0.342 s; archivos sincronizados=21, más largo=0.002 s, promedio=0.001 s; distancia=1311765 kB, estimación=1311765 kB; lsn=38/106CDCB8, lsn de redo=38/106CDC80
+[09066309P 08134385K] ::1(26895) 2025-04-08 13:56:54.275 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	

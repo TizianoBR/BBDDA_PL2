@@ -1,0 +1,48 @@
+[09066309P 08134385K]  2025-04-17 21:21:27.204 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-17 21:21:17 CEST
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:16.472 CESTLOG:  duración: 0.105 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:16.473 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:27.842 CESTLOG:  duración: 11368.839 ms
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:27.846 CESTLOG:  sentencia: EXPLAIN SELECT COUNT(DISTINCT c.clienteid)  * 100.0 / (SELECT COUNT(*) FROM clientes) AS resultado
+	    FROM
+	    clientes c
+	        JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	        JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	        JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	        AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	        AND p.cantidad > 150 
+	        AND pl.nivel < -4
+	    AND NOT EXISTS(
+	        SELECT 1
+	        FROM incidencias i
+	            JOIN reservas r2 ON i.reservaid_reservas = r2.reservaid
+	            JOIN vehiculos v ON r2.vehiculoid_vehiculos = v.vehiculoid
+	        WHERE i.estado = 'Cerrada' AND v.color = 'Negro'
+	            AND r2.clienteid_clientes = c.clienteid
+	    );
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:27.889 CESTLOG:  duración: 45.855 ms
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:22:27.889 CESTLOG:  sentencia: SELECT COUNT(DISTINCT c.clienteid)  * 100.0 / (SELECT COUNT(*) FROM clientes) AS resultado
+	    FROM
+	    clientes c
+	        JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	        JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	        JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	        AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	        AND p.cantidad > 150 
+	        AND pl.nivel < -4
+	    AND NOT EXISTS(
+	        SELECT 1
+	        FROM incidencias i
+	            JOIN reservas r2 ON i.reservaid_reservas = r2.reservaid
+	            JOIN vehiculos v ON r2.vehiculoid_vehiculos = v.vehiculoid
+	        WHERE i.estado = 'Cerrada' AND v.color = 'Negro'
+	            AND r2.clienteid_clientes = c.clienteid
+	    );
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:24:32.778 CESTLOG:  duración: 124888.530 ms
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:24:32.779 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(52085) 2025-04-17 21:24:32.779 CESTLOG:  duración: 0.329 ms
+[09066309P 08134385K]  2025-04-17 21:26:27.212 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-17 21:26:27.243 CESTLOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.012 s, sync=0.010 s, total=0.033 s; archivos sincronizados=15, más largo=0.002 s, promedio=0.001 s; distancia=386 kB, estimación=386 kB; lsn=D2/12A21AA8, lsn de redo=D2/12A21A70

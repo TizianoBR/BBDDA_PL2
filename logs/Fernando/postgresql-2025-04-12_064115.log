@@ -1,0 +1,754 @@
+[09066309P 08134385K]  2025-04-12 06:41:15.354 CESTLOG:  el sistema de bases de datos fue apagado en 2025-04-12 06:40:14 CEST
+[09066309P 08134385K]  2025-04-12 06:46:15.346 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 06:46:15.361 CESTLOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.003 s, total=0.017 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=38/106CDF00, lsn de redo=38/106CDEC8
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.608 CESTLOG:  duración: 4.757 ms  sentencia: SET work_mem = '4MB';
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.608 CESTLOG:  duración: 0.020 ms  sentencia: SET effective_cache_size = '4GB';
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.608 CESTLOG:  duración: 0.013 ms  sentencia: SET temp_buffers = '8MB';
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.610 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_clientes_provincia;
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.629 CESTLOG:  duración: 20.611 ms
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.630 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_reservas_fechainicio;
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.633 CESTLOG:  duración: 2.882 ms
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.634 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_reservas_fechafin;
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.637 CESTLOG:  duración: 2.972 ms
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.638 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_pagos_cantidad;
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.641 CESTLOG:  duración: 2.625 ms
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.642 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_plazas_nivel;
+[09066309P 08134385K] ::1(43017) 2025-04-12 11:43:13.644 CESTLOG:  duración: 2.182 ms
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:22.974 CESTLOG:  duración: 2.269 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.012 CESTLOG:  duración: 0.048 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.035 CESTLOG:  duración: 0.096 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.057 CESTLOG:  duración: 0.044 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.081 CESTLOG:  duración: 0.084 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.081 CESTLOG:  duración: 0.029 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(43031) 2025-04-12 11:43:23.082 CESTLOG:  duración: 0.046 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:43:51.979 CESTLOG:  duración: 0.038 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:43:51.979 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:05.069 CESTLOG:  duración: 13089.730 ms
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:05.072 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:05.097 CESTLOG:  duración: 27.416 ms
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:05.098 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:58.333 CESTLOG:  duración: 53235.254 ms
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:58.334 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(43084) 2025-04-12 11:44:58.334 CESTLOG:  duración: 0.096 ms
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.191 CESTLOG:  duración: 1.059 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.218 CESTLOG:  duración: 0.046 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.242 CESTLOG:  duración: 0.066 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.265 CESTLOG:  duración: 0.038 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.289 CESTLOG:  duración: 0.059 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.289 CESTLOG:  duración: 0.027 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.290 CESTLOG:  duración: 0.035 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:46.291 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:50.108 CESTLOG:  duración: 3817.807 ms
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:45:50.109 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:46:15.779 CESTLOG:  duración: 25669.803 ms
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:46:15.782 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K]  2025-04-12 11:46:15.854 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 11:46:21.383 CESTLOG:  checkpoint completo: escritos 50 búfers (0.3%); 0 archivos WAL añadidos, 16 eliminados, 0 reciclados; write=5.362 s, sync=0.031 s, total=5.529 s; archivos sincronizados=24, más largo=0.009 s, promedio=0.002 s; distancia=265314 kB, estimación=265314 kB; lsn=38/209E6A70, lsn de redo=38/209E69A0
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:46:44.112 CESTLOG:  duración: 28330.614 ms
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:46:44.114 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:47:30.636 CESTLOG:  duración: 46521.757 ms
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:47:30.637 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(13993) 2025-04-12 11:47:30.802 CESTLOG:  duración: 164.732 ms
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:09.129 CESTLOG:  duración: 0.037 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:09.130 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:11.558 CESTLOG:  duración: 2428.182 ms
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:11.669 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:11.685 CESTLOG:  duración: 15.706 ms
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:48:11.686 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:49:04.378 CESTLOG:  duración: 52692.034 ms
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:49:04.378 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(32002) 2025-04-12 11:49:04.378 CESTLOG:  duración: 0.052 ms
+[09066309P 08134385K]  2025-04-12 11:51:15.397 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 11:51:19.542 CESTLOG:  checkpoint completo: escritos 37 búfers (0.2%); 0 archivos WAL añadidos, 22 eliminados, 42 reciclados; write=3.907 s, sync=0.016 s, total=4.146 s; archivos sincronizados=23, más largo=0.002 s, promedio=0.001 s; distancia=1047406 kB, estimación=1047406 kB; lsn=38/608C2228, lsn de redo=38/608C21F0
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.741 CESTLOG:  duración: 1.322 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.777 CESTLOG:  duración: 0.047 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.802 CESTLOG:  duración: 0.051 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.824 CESTLOG:  duración: 0.043 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.849 CESTLOG:  duración: 0.049 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.849 CESTLOG:  duración: 0.029 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.850 CESTLOG:  duración: 0.049 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.851 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.857 CESTLOG:  duración: 6.809 ms
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:27.862 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.718 CESTLOG:  duración: 22856.088 ms
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.719 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.719 CESTLOG:  duración: 0.372 ms
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.725 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.725 CESTLOG:  duración: 0.286 ms
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.733 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.733 CESTLOG:  duración: 0.535 ms
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.741 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(32408) 2025-04-12 11:52:50.741 CESTLOG:  duración: 0.372 ms
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:03.450 CESTLOG:  duración: 0.039 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:03.450 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:06.346 CESTLOG:  duración: 2896.022 ms
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:06.347 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:06.363 CESTLOG:  duración: 15.700 ms
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:53:06.364 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:54:00.298 CESTLOG:  duración: 53933.882 ms
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:54:00.298 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(32467) 2025-04-12 11:54:00.298 CESTLOG:  duración: 0.060 ms
+[09066309P 08134385K]  2025-04-12 11:56:15.545 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 11:56:19.657 CESTLOG:  checkpoint completo: escritos 37 búfers (0.2%); 0 archivos WAL añadidos, 4 eliminados, 45 reciclados; write=3.927 s, sync=0.014 s, total=4.113 s; archivos sincronizados=22, más largo=0.002 s, promedio=0.001 s; distancia=798200 kB, estimación=1022485 kB; lsn=38/914403D0, lsn de redo=38/91440398
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:20.869 CESTLOG:  duración: 0.041 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:20.870 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:23.381 CESTLOG:  duración: 2510.601 ms
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:23.382 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:23.396 CESTLOG:  duración: 14.263 ms
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:23.397 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:26.324 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(33598) 2025-04-12 12:04:26.324 CESTSENTENCIA:  SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:33.284 CESTLOG:  duración: 0.043 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:33.284 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:35.759 CESTLOG:  duración: 2474.180 ms
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:35.759 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:35.771 CESTLOG:  duración: 12.128 ms
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:04:35.772 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:05:26.045 CESTLOG:  duración: 50273.155 ms
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:05:26.046 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(33626) 2025-04-12 12:05:26.046 CESTLOG:  duración: 0.375 ms
+[09066309P 08134385K]  2025-04-12 12:06:15.666 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 12:06:15.682 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.007 s, total=0.016 s; archivos sincronizados=10, más largo=0.001 s, promedio=0.001 s; distancia=513 kB, estimación=920288 kB; lsn=38/914C0A30, lsn de redo=38/914C09F8
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.530 CESTLOG:  duración: 1.061 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.570 CESTLOG:  duración: 0.054 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.594 CESTLOG:  duración: 0.057 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.623 CESTLOG:  duración: 0.041 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.644 CESTLOG:  duración: 0.035 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.644 CESTLOG:  duración: 0.017 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.644 CESTLOG:  duración: 0.014 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.645 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.653 CESTLOG:  duración: 8.370 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.658 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.659 CESTLOG:  duración: 1.308 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.665 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.665 CESTLOG:  duración: 0.398 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.671 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.671 CESTLOG:  duración: 0.287 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.676 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.676 CESTLOG:  duración: 0.315 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.682 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.682 CESTLOG:  duración: 0.295 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:45:46.687 CESTLOG:  sentencia: CLUSTER clientes USING idx_clientes_provincia;
+[09066309P 08134385K]  2025-04-12 12:46:15.742 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 12:46:16.670 CESTLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 19 eliminados, 4 reciclados; write=0.767 s, sync=0.015 s, total=0.928 s; archivos sincronizados=21, más largo=0.002 s, promedio=0.001 s; distancia=381173 kB, estimación=866376 kB; lsn=38/A88FE0B8, lsn de redo=38/A88FDFD8
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:46:30.269 CESTLOG:  duración: 43582.644 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:46:30.270 CESTLOG:  sentencia: CLUSTER reservas USING idx_reservas_fechainicio;
+[09066309P 08134385K]  2025-04-12 12:50:32.687 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-12 12:50:33.089 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=0.002 s, sync=0.013 s, total=0.402 s; archivos sincronizados=18, más largo=0.002 s, promedio=0.001 s; distancia=2187458 kB, estimación=2187458 kB; lsn=39/2E15B0F8, lsn de redo=39/2E12EA48
+[09066309P 08134385K]  2025-04-12 12:52:54.365 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-12 12:52:55.718 CESTLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=0.753 s, sync=0.208 s, total=1.354 s; archivos sincronizados=8, más largo=0.174 s, promedio=0.026 s; distancia=2198339 kB, estimación=2198339 kB; lsn=39/B7EECBB8, lsn de redo=39/B43FF730
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:53:04.233 CESTLOG:  duración: 393963.566 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:53:04.235 CESTLOG:  sentencia: CLUSTER pagos USING idx_pagos_cantidad;
+[09066309P 08134385K]  2025-04-12 12:54:57.961 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-12 12:54:58.481 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=0.002 s, sync=0.064 s, total=0.521 s; archivos sincronizados=20, más largo=0.053 s, promedio=0.004 s; distancia=2191621 kB, estimación=2197667 kB; lsn=3A/3A154310, lsn de redo=3A/3A040B38
+[09066309P 08134385K]  2025-04-12 12:56:52.137 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-12 12:56:53.411 CESTLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=0.763 s, sync=0.123 s, total=1.275 s; archivos sincronizados=6, más largo=0.110 s, promedio=0.021 s; distancia=2199289 kB, estimación=2199289 kB; lsn=3A/C420DB98, lsn de redo=3A/C03FF328
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:01.962 CESTLOG:  duración: 237726.724 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:01.963 CESTLOG:  sentencia: CLUSTER plazas USING idx_plazas_nivel;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.313 CESTLOG:  duración: 350.495 ms
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.314 CESTLOG:  sentencia: CLUSTER vehiculos USING idx_reserva_reservaid;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.315 CESTERROR:  «idx_reserva_reservaid» no es un índice de la tabla «vehiculos»
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.315 CESTSENTENCIA:  CLUSTER vehiculos USING idx_reserva_reservaid;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.318 CESTLOG:  sentencia: CLUSTER incidencias USING idx_reserva_reservaid;
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.319 CESTERROR:  «idx_reserva_reservaid» no es un índice de la tabla «incidencias»
+[09066309P 08134385K] ::1(35478) 2025-04-12 12:57:02.319 CESTSENTENCIA:  CLUSTER incidencias USING idx_reserva_reservaid;
+[09066309P 08134385K]  2025-04-12 13:01:52.414 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 13:01:55.067 CESTLOG:  checkpoint completo: escritos 24 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 41 reciclados; write=2.489 s, sync=0.012 s, total=2.654 s; archivos sincronizados=22, más largo=0.002 s, promedio=0.001 s; distancia=671421 kB, estimación=2046503 kB; lsn=3A/E93AE928, lsn de redo=3A/E93AE8F0
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.141 CESTLOG:  duración: 1.462 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.175 CESTLOG:  duración: 0.052 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.196 CESTLOG:  duración: 0.037 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.216 CESTLOG:  duración: 0.057 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.238 CESTLOG:  duración: 0.055 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.239 CESTLOG:  duración: 0.027 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.239 CESTLOG:  duración: 0.029 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.240 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.244 CESTLOG:  duración: 4.198 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.249 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.249 CESTLOG:  duración: 0.310 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.254 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.254 CESTLOG:  duración: 0.267 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.259 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.259 CESTLOG:  duración: 0.188 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.264 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.264 CESTLOG:  duración: 0.308 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.269 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.269 CESTLOG:  duración: 0.223 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:53.273 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:55.667 CESTLOG:  duración: 2393.314 ms
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:03:55.668 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K] ::1(25749) 2025-04-12 13:04:22.680 CESTLOG:  duración: 27012.249 ms
+[09066309P 08134385K]  2025-04-12 13:06:52.072 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 13:06:53.429 CESTLOG:  checkpoint completo: escritos 13 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=1.208 s, sync=0.023 s, total=1.357 s; archivos sincronizados=23, más largo=0.005 s, promedio=0.001 s; distancia=538402 kB, estimación=1895693 kB; lsn=3B/A177258, lsn de redo=3B/A177220
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.662 CESTLOG:  duración: 1.513 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.688 CESTLOG:  duración: 0.043 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.711 CESTLOG:  duración: 0.039 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.732 CESTLOG:  duración: 0.042 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.754 CESTLOG:  duración: 0.036 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.754 CESTLOG:  duración: 0.041 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.755 CESTLOG:  duración: 0.031 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.755 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia ON clientes(provincia);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.760 CESTLOG:  duración: 4.937 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.765 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reserva_reservaid ON reservas(reservaid);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.765 CESTLOG:  duración: 0.318 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.769 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio ON reservas(fechainicio);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.770 CESTLOG:  duración: 0.273 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.774 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin ON reservas(fechafin);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.775 CESTLOG:  duración: 0.207 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.780 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad ON pagos(cantidad);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.780 CESTLOG:  duración: 0.546 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.785 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel ON plazas(nivel);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.785 CESTLOG:  duración: 0.239 ms
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.789 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(36392) 2025-04-12 13:07:17.790 CESTLOG:  duración: 0.412 ms
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:42.712 CESTLOG:  duración: 0.049 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:42.713 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:45.658 CESTLOG:  duración: 2944.152 ms
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:45.659 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:45.672 CESTLOG:  duración: 13.267 ms
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:07:45.673 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:08:55.932 CESTLOG:  duración: 70259.087 ms
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:08:55.933 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(36409) 2025-04-12 13:08:55.933 CESTLOG:  duración: 0.182 ms
+[09066309P 08134385K]  2025-04-12 13:11:52.436 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 13:11:52.455 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.011 s, total=0.020 s; archivos sincronizados=16, más largo=0.001 s, promedio=0.001 s; distancia=409 kB, estimación=1706164 kB; lsn=3B/A1DD790, lsn de redo=3B/A1DD758
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:06.993 CESTLOG:  duración: 0.055 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:06.994 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:09.379 CESTLOG:  duración: 2385.502 ms
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:09.381 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:09.390 CESTLOG:  duración: 9.174 ms
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:37:09.505 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:38:01.751 CESTLOG:  duración: 52246.549 ms
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:38:01.753 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(37635) 2025-04-12 13:38:01.753 CESTLOG:  duración: 0.091 ms
+[09066309P 08134385K]  2025-04-12 13:41:52.510 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 13:41:56.424 CESTLOG:  checkpoint completo: escritos 37 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=3.901 s, sync=0.007 s, total=3.915 s; archivos sincronizados=10, más largo=0.001 s, promedio=0.001 s; distancia=369 kB, estimación=1535585 kB; lsn=3B/A239D20, lsn de redo=3B/A239CE8
+[09066309P 08134385K] ::1(37635) 2025-04-12 18:22:35.480 CESTLOG:  no se pudo recibir datos del cliente: An existing connection was forcibly closed by the remote host.
+	
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.360 CESTLOG:  duración: 1.525 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.410 CESTLOG:  duración: 0.043 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.433 CESTLOG:  duración: 0.061 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.457 CESTLOG:  duración: 0.035 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.480 CESTLOG:  duración: 0.064 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.481 CESTLOG:  duración: 0.014 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.481 CESTLOG:  duración: 0.019 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.483 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 56
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.483 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_clientes_provincia_hash USING hash ON clientes(provincia);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.492 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 55
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.492 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reserva_reservaid_hash USING hash ON reservas(reservaid);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.501 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 58
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.501 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio_hash USING hash ON reservas(fechainicio);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.509 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 55
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.509 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reservas_fechafin_hash USING hash ON reservas(fechafin);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.518 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 52
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.518 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_pagos_cantidad_hash USING hash ON pagos(cantidad);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.526 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 50
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.526 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_plazas_nivel_hash USING hash ON plazas(nivel);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.535 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 59
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.535 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_hash USING hash ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.544 CESTLOG:  sentencia: CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.548 CESTERROR:  no existe el índice «idx_clientes_provincia_hash» en la tabla «clientes»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.548 CESTSENTENCIA:  CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.553 CESTLOG:  sentencia: CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.554 CESTERROR:  no existe el índice «idx_reservas_fechainicio_hash» en la tabla «reservas»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.554 CESTSENTENCIA:  CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.559 CESTLOG:  sentencia: CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.560 CESTERROR:  no existe el índice «idx_pagos_cantidad_hash» en la tabla «pagos»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.560 CESTSENTENCIA:  CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.565 CESTLOG:  sentencia: CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.565 CESTERROR:  no existe el índice «idx_plazas_nivel_hash» en la tabla «plazas»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.565 CESTSENTENCIA:  CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.570 CESTLOG:  sentencia: CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.570 CESTERROR:  no existe el índice «idx_reserva_reservaid_hash» en la tabla «vehiculos»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.570 CESTSENTENCIA:  CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.575 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.576 CESTERROR:  no existe el índice «idx_incidencias_reservaid_hash» en la tabla «incidencias»
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.576 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:07.581 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:15.492 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(33881) 2025-04-12 19:30:15.492 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K]  2025-04-12 19:31:53.011 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 19:31:54.013 CESTLOG:  checkpoint completo: escritos 9 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 25 reciclados; write=0.867 s, sync=0.015 s, total=1.002 s; archivos sincronizados=22, más largo=0.002 s, promedio=0.001 s; distancia=412624 kB, estimación=1423289 kB; lsn=3B/2352DD80, lsn de redo=3B/2352DD48
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.768 CESTLOG:  duración: 1.497 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.807 CESTLOG:  duración: 0.044 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.829 CESTLOG:  duración: 0.066 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.850 CESTLOG:  duración: 0.038 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.870 CESTLOG:  duración: 0.086 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.871 CESTLOG:  duración: 0.020 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.872 CESTLOG:  duración: 0.024 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.872 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 56
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.872 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_clientes_provincia_hash USING hash ON clientes(provincia);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.882 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 55
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.882 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reserva_reservaid_hash USING hash ON reservas(reservaid);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.891 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 58
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.891 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio_hash USING hash ON reservas(fechainicio);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.899 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 55
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.899 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_reservas_fechafin_hash USING hash ON reservas(fechafin);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.906 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 52
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.906 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_pagos_cantidad_hash USING hash ON pagos(cantidad);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.914 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 50
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.914 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_plazas_nivel_hash USING hash ON plazas(nivel);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.921 CESTERROR:  error de sintaxis en o cerca de «USING» en carácter 59
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.921 CESTSENTENCIA:  CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_hash USING hash ON incidencias(reservaid_reservas);
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.928 CESTLOG:  sentencia: CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.929 CESTERROR:  no existe el índice «idx_clientes_provincia_hash» en la tabla «clientes»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.929 CESTSENTENCIA:  CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.934 CESTLOG:  sentencia: CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.934 CESTERROR:  no existe el índice «idx_reservas_fechainicio_hash» en la tabla «reservas»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.934 CESTSENTENCIA:  CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.940 CESTLOG:  sentencia: CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.940 CESTERROR:  no existe el índice «idx_pagos_cantidad_hash» en la tabla «pagos»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.940 CESTSENTENCIA:  CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.945 CESTLOG:  sentencia: CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.945 CESTERROR:  no existe el índice «idx_plazas_nivel_hash» en la tabla «plazas»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.945 CESTSENTENCIA:  CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.950 CESTLOG:  sentencia: CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.950 CESTERROR:  no existe el índice «idx_reserva_reservaid_hash» en la tabla «vehiculos»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.950 CESTSENTENCIA:  CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.955 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.955 CESTERROR:  no existe el índice «idx_incidencias_reservaid_hash» en la tabla «incidencias»
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.955 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:35.959 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:40.710 CESTERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K] ::1(34040) 2025-04-12 19:32:40.710 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K]  2025-04-12 19:32:40.712 CESTFATAL:  terminando el proceso ayudante «parallel worker» debido a una orden del administrador
+[09066309P 08134385K]  2025-04-12 19:32:40.712 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.669 CESTLOG:  duración: 1.255 ms  sentencia: SHOW work_mem;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.706 CESTLOG:  duración: 0.038 ms  sentencia: SHOW effective_cache_size;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.725 CESTLOG:  duración: 0.040 ms  sentencia: SHOW shared_buffers;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.748 CESTLOG:  duración: 0.037 ms  sentencia: SHOW temp_buffers;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.769 CESTLOG:  duración: 0.050 ms  sentencia: SET work_mem = '512MB';
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.769 CESTLOG:  duración: 0.023 ms  sentencia: SET effective_cache_size = '16GB';
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.770 CESTLOG:  duración: 0.029 ms  sentencia: SET temp_buffers = '256MB';
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:32:47.770 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_clientes_provincia_hash ON clientes USING hash (provincia);
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:33:18.528 CESTLOG:  duración: 30758.122 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:33:18.530 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reserva_reservaid_hash ON reservas USING hash (reservaid);
+[09066309P 08134385K]  2025-04-12 19:34:05.149 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:34:23.976 CESTLOG:  duración: 65446.626 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:34:23.978 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechainicio_hash ON reservas USING hash (fechainicio);
+[09066309P 08134385K]  2025-04-12 19:35:00.620 CESTLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=54.876 s, sync=0.222 s, total=55.472 s; archivos sincronizados=27, más largo=0.133 s, promedio=0.009 s; distancia=2194254 kB, estimación=2194254 kB; lsn=3C/22434588, lsn de redo=3B/A94018D0
+[09066309P 08134385K]  2025-04-12 19:35:05.031 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:35:45.093 CESTLOG:  duración: 81114.486 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:35:45.094 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_reservas_fechafin_hash ON reservas USING hash (fechafin);
+[09066309P 08134385K]  2025-04-12 19:36:12.986 CESTLOG:  checkpoint completo: escritos 1319 búfers (8.1%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=67.549 s, sync=0.040 s, total=67.955 s; archivos sincronizados=18, más largo=0.022 s, promedio=0.003 s; distancia=2195449 kB, estimación=2195449 kB; lsn=3C/A805AF88, lsn de redo=3C/2F3FFD18
+[09066309P 08134385K]  2025-04-12 19:36:17.462 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-04-12 19:37:02.577 CESTLOG:  checkpoint completo: escritos 1181 búfers (7.2%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=44.529 s, sync=0.198 s, total=45.117 s; archivos sincronizados=4, más largo=0.177 s, promedio=0.050 s; distancia=2195460 kB, estimación=2195460 kB; lsn=3D/2E5587C0, lsn de redo=3C/B54010C0
+[09066309P 08134385K]  2025-04-12 19:37:06.911 CESTLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:37:12.684 CESTLOG:  duración: 87590.158 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:37:12.686 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_pagos_cantidad_hash ON pagos USING hash (cantidad);
+[09066309P 08134385K]  2025-04-12 19:41:36.464 CESTLOG:  checkpoint completo: escritos 1355 búfers (8.3%); 0 archivos WAL añadidos, 0 eliminados, 134 reciclados; write=269.119 s, sync=0.013 s, total=269.553 s; archivos sincronizados=17, más largo=0.003 s, promedio=0.001 s; distancia=2192259 kB, estimación=2195140 kB; lsn=3D/70A9F248, lsn de redo=3D/3B0E2028
+[09066309P 08134385K]  2025-04-12 19:42:06.469 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 19:46:36.258 CESTLOG:  checkpoint completo: escritos 272 búfers (1.7%); 0 archivos WAL añadidos, 0 eliminados, 58 reciclados; write=269.563 s, sync=0.006 s, total=269.790 s; archivos sincronizados=4, más largo=0.004 s, promedio=0.002 s; distancia=959464 kB, estimación=2071573 kB; lsn=3D/A01F7F68, lsn de redo=3D/759DC140
+[09066309P 08134385K]  2025-04-12 19:47:06.263 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 19:51:36.288 CESTLOG:  checkpoint completo: escritos 37 búfers (0.2%); 0 archivos WAL añadidos, 7 eliminados, 41 reciclados; write=269.823 s, sync=0.003 s, total=270.026 s; archivos sincronizados=2, más largo=0.003 s, promedio=0.002 s; distancia=777744 kB, estimación=1942190 kB; lsn=3D/D0E36930, lsn de redo=3D/A51604B0
+[09066309P 08134385K]  2025-04-12 19:52:06.296 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:50.570 CESTLOG:  duración: 1117884.786 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:50.573 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_plazas_nivel_hash ON plazas USING hash (nivel);
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:51.300 CESTLOG:  duración: 727.034 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:51.302 CESTLOG:  sentencia: CREATE INDEX IF NOT EXISTS idx_incidencias_reservaid_hash ON incidencias USING hash (reservaid_reservas);
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.052 CESTLOG:  duración: 7750.200 ms
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.053 CESTLOG:  sentencia: CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.054 CESTERROR:  no se puede reordenar en índice «idx_clientes_provincia_hash» porque el método de acceso no soporta reordenamiento
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.054 CESTSENTENCIA:  CLUSTER clientes USING idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.059 CESTLOG:  sentencia: CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.059 CESTERROR:  no se puede reordenar en índice «idx_reservas_fechainicio_hash» porque el método de acceso no soporta reordenamiento
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.059 CESTSENTENCIA:  CLUSTER reservas USING idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.069 CESTLOG:  sentencia: CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.069 CESTERROR:  no se puede reordenar en índice «idx_pagos_cantidad_hash» porque el método de acceso no soporta reordenamiento
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.069 CESTSENTENCIA:  CLUSTER pagos USING idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.075 CESTLOG:  sentencia: CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.075 CESTERROR:  no se puede reordenar en índice «idx_plazas_nivel_hash» porque el método de acceso no soporta reordenamiento
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.075 CESTSENTENCIA:  CLUSTER plazas USING idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.081 CESTLOG:  sentencia: CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.081 CESTERROR:  «idx_reserva_reservaid_hash» no es un índice de la tabla «vehiculos»
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.081 CESTSENTENCIA:  CLUSTER vehiculos USING idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.087 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.087 CESTERROR:  no se puede reordenar en índice «idx_incidencias_reservaid_hash» porque el método de acceso no soporta reordenamiento
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.087 CESTSENTENCIA:  CLUSTER incidencias USING idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:55:59.093 CESTLOG:  sentencia: CLUSTER incidencias USING idx_incidencias_reservaid;
+[09066309P 08134385K] ::1(34048) 2025-04-12 19:56:14.226 CESTLOG:  duración: 15133.853 ms
+[09066309P 08134385K]  2025-04-12 19:56:36.340 CESTLOG:  checkpoint completo: escritos 1292 búfers (7.9%); 0 archivos WAL añadidos, 14 eliminados, 34 reciclados; write=269.778 s, sync=0.068 s, total=270.045 s; archivos sincronizados=28, más largo=0.037 s, promedio=0.003 s; distancia=798613 kB, estimación=1827832 kB; lsn=3E/37810610, lsn de redo=3D/D5D45938
+[09066309P 08134385K]  2025-04-12 20:02:06.363 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 20:06:36.318 CESTLOG:  checkpoint completo: escritos 6627 búfers (40.4%); 0 archivos WAL añadidos, 3 eliminados, 95 reciclados; write=269.659 s, sync=0.005 s, total=269.956 s; archivos sincronizados=7, más largo=0.002 s, promedio=0.001 s; distancia=1600299 kB, estimación=1805079 kB; lsn=3E/378107B8, lsn de redo=3E/37810780
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:46.847 CESTLOG:  duración: 0.052 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:46.848 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:50.729 CESTLOG:  duración: 3881.580 ms
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:50.735 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:50.774 CESTLOG:  duración: 42.442 ms
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:09:50.775 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:10:49.507 CESTLOG:  duración: 58732.076 ms
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:10:49.507 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(35661) 2025-04-12 20:10:49.507 CESTLOG:  duración: 0.220 ms
+[09066309P 08134385K]  2025-04-12 20:12:06.331 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 20:12:06.351 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.013 s, total=0.021 s; archivos sincronizados=16, más largo=0.002 s, promedio=0.001 s; distancia=412 kB, estimación=1624612 kB; lsn=3E/37877AD0, lsn de redo=3E/37877A98
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:53.687 CESTLOG:  duración: 0.040 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:53.688 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:56.096 CESTLOG:  duración: 2408.055 ms
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:56.098 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:56.111 CESTLOG:  duración: 12.741 ms
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:13:56.223 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:14:53.136 CESTLOG:  duración: 56913.157 ms
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:14:53.137 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(35832) 2025-04-12 20:14:53.137 CESTLOG:  duración: 0.295 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:31.032 CESTLOG:  duración: 0.058 ms  sentencia: SET log_statement = 'all';
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:31.033 CESTLOG:  sentencia: ANALYZE;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:33.420 CESTLOG:  duración: 2386.698 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:33.421 CESTLOG:  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:33.433 CESTLOG:  duración: 11.888 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:15:33.434 CESTLOG:  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:16:29.728 CESTLOG:  duración: 56293.961 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:16:29.729 CESTLOG:  sentencia: SET log_statement = 'mod';
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:16:29.729 CESTLOG:  duración: 0.204 ms
+[09066309P 08134385K]  2025-04-12 20:17:06.355 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 20:17:06.374 CESTLOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.009 s, total=0.020 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=521 kB, estimación=1462203 kB; lsn=3E/378FA2A0, lsn de redo=3E/378FA268
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.707 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_clientes_provincia_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.713 CESTLOG:  duración: 6.346 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.722 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_reserva_reservaid_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.732 CESTLOG:  duración: 9.946 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.739 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_reservas_fechainicio_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.744 CESTLOG:  duración: 4.928 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.751 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_reservas_fechafin_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.891 CESTLOG:  duración: 140.588 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:26:59.894 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_pagos_cantidad_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:27:00.155 CESTLOG:  duración: 261.131 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:27:00.157 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_plazas_nivel_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:27:00.160 CESTLOG:  duración: 3.059 ms
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:27:02.104 CESTLOG:  sentencia: DROP INDEX IF EXISTS idx_incidencias_reservaid_hash;
+[09066309P 08134385K] ::1(35915) 2025-04-12 20:27:02.126 CESTLOG:  duración: 21.526 ms
+[09066309P 08134385K]  2025-04-12 20:27:06.388 CESTLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-04-12 20:27:07.043 CESTLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.643 s, sync=0.005 s, total=0.656 s; archivos sincronizados=6, más largo=0.002 s, promedio=0.001 s; distancia=30 kB, estimación=1315986 kB; lsn=3E/37901C48, lsn de redo=3E/37901C10

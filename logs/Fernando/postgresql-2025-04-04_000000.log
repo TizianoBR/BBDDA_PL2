@@ -1,0 +1,138 @@
+[09066309P 08134385K] ::1(1968) 2025-04-04 11:10:09.965 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 46
+[09066309P 08134385K] ::1(1968) 2025-04-04 11:10:09.965 CESTSENTENCIA:  EXPLAIN SELECT
+	    COUNT(*) * 100.0 / COUNT(SELECT * FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(1968) 2025-04-04 11:10:09.976 CESTERROR:  error de sintaxis en o cerca de «SELECT» en carácter 38
+[09066309P 08134385K] ::1(1968) 2025-04-04 11:10:09.976 CESTSENTENCIA:  SELECT
+	    COUNT(*) * 100.0 / COUNT(SELECT * FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2032) 2025-04-04 11:10:55.262 CESTLOG:  duración: 84.258 ms  sentencia: EXPLAIN SELECT
+	    COUNT(*) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2032) 2025-04-04 11:12:07.900 CESTLOG:  duración: 72571.110 ms  sentencia: SELECT
+	    COUNT(*) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2346) 2025-04-04 11:13:12.158 CESTLOG:  duración: 50.003 ms  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2346) 2025-04-04 11:14:05.059 CESTLOG:  duración: 52900.491 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    LEFT JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2477) 2025-04-04 11:14:38.985 CESTLOG:  duración: 29.277 ms  sentencia: EXPLAIN SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
+[09066309P 08134385K] ::1(2477) 2025-04-04 11:15:30.917 CESTLOG:  duración: 51931.465 ms  sentencia: SELECT
+	    COUNT(DISTINCT c.clienteid) * 100.0 / (SELECT COUNT(*) FROM clientes)
+	    AS resultado
+	    FROM
+	    clientes c
+	    JOIN reservas r ON c.clienteid = r.clienteid_clientes
+	    JOIN pagos p ON r.reservaid = p.reservaid_reservas
+	    JOIN vehiculos v ON v.vehiculoid = r.vehiculoid_vehiculos
+	    JOIN plazas pl ON pl.plazaid = r.plazaid_plazas
+	    LEFT JOIN incidencias i ON i.reservaid_reservas = r.reservaid
+	    
+	    WHERE
+	    c.provincia IN ('Huelva', 'Cadiz', 'Sevilla', 'Malaga', 'Granada', 'Almeria', 'Jaen', 'Cordoba') 
+	    AND (EXTRACT(MONTH FROM r.fechainicio) BETWEEN 6 AND 8 OR EXTRACT(MONTH FROM r.fechafin) BETWEEN 6 AND 8) 
+	    AND p.cantidad > 150 
+	    AND (i IS NULL OR i.estado != 'Cerrada' OR v.color != 'Negro') 
+	    AND pl.nivel < -4;
