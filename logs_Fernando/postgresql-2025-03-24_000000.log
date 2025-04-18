@@ -1,0 +1,4 @@
+[09066309P 08134385K]  2025-03-24 12:20:08.829 CETERROR:  cancelando la sentencia debido a una petición del usuario
+[09066309P 08134385K]  2025-03-24 12:20:08.838 CETLOG:  apagando
+[09066309P 08134385K]  2025-03-24 12:20:08.842 CETLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-03-24 12:20:08.860 CETLOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.003 s, sync=0.001 s, total=0.021 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=0 kB; lsn=2A/13ACF358, lsn de redo=2A/13ACF358

@@ -1,0 +1,47 @@
+[09066309P 08134385K]  2025-03-18 12:31:48.030 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-18 12:31:20 CET
+[09066309P 08134385K] ::1(59020) 2025-03-18 12:33:28.545 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 12:33:28.551 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 12:33:28.566 CETLOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.005 s, sync=0.003 s, total=0.017 s; archivos sincronizados=3, más largo=0.001 s, promedio=0.001 s; distancia=2 kB, estimación=2 kB; lsn=26/F82DCC40, lsn de redo=26/F82DCC08
+[09066309P 08134385K] ::1(59020) 2025-03-18 12:33:28.733 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.054 CETERROR:  el parámetro «max_wal_size» no se puede cambiar en este momento
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.054 CETSENTENCIA:  SET max_wal_size = '4GB';
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.058 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.071 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.076 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:29.083 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:38.230 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:33:38.803 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K]  2025-03-18 12:33:44.961 CETLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 16 segundos)
+[09066309P 08134385K]  2025-03-18 12:33:44.961 CETHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-03-18 12:33:44.961 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-03-18 12:34:09.372 CETLOG:  checkpoint completo: escritos 2962 búfers (18.1%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=23.827 s, sync=0.495 s, total=24.411 s; archivos sincronizados=316, más largo=0.208 s, promedio=0.002 s; distancia=541440 kB, estimación=541440 kB; lsn=27/3748F9A0, lsn de redo=27/1939CDC8
+[09066309P 08134385K]  2025-03-18 12:34:13.288 CETLOG:  los puntos de control están ocurriendo con demasiada frecuencia (cada 29 segundos)
+[09066309P 08134385K]  2025-03-18 12:34:13.288 CETHINT:  Considere incrementar el parámetro de configuración «max_wal_size».
+[09066309P 08134385K]  2025-03-18 12:34:13.288 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K]  2025-03-18 12:34:49.377 CETLOG:  checkpoint completo: escritos 2689 búfers (16.4%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=35.557 s, sync=0.425 s, total=36.089 s; archivos sincronizados=10, más largo=0.396 s, promedio=0.043 s; distancia=538092 kB, estimación=541105 kB; lsn=27/57E275B8, lsn de redo=27/3A117E58
+[09066309P 08134385K]  2025-03-18 12:34:55.999 CETLOG:  empezando checkpoint: wal
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:34:56.006 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:35:01.550 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:35:05.928 CETERROR:  el parámetro «max_wal_size» no se puede cambiar en este momento
+[09066309P 08134385K] ::1(59021) 2025-03-18 12:35:05.928 CETSENTENCIA:  SET max_wal_size = '1GB';
+[09066309P 08134385K]  2025-03-18 12:37:54.912 CETLOG:  checkpoint completo: escritos 7405 búfers (45.2%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=178.651 s, sync=0.149 s, total=178.914 s; archivos sincronizados=23, más largo=0.119 s, promedio=0.007 s; distancia=539839 kB, estimación=540978 kB; lsn=27/5B46DB98, lsn de redo=27/5B047B80
+[09066309P 08134385K]  2025-03-18 12:37:54.913 CETLOG:  apagando
+[09066309P 08134385K]  2025-03-18 12:37:54.914 CETLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-03-18 12:37:54.966 CETLOG:  checkpoint completo: escritos 2039 búfers (12.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.025 s, sync=0.021 s, total=0.053 s; archivos sincronizados=30, más largo=0.007 s, promedio=0.001 s; distancia=4248 kB, estimación=487305 kB; lsn=27/5B46DC10, lsn de redo=27/5B46DC10

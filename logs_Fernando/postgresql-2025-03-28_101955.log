@@ -1,0 +1,3 @@
+[09066309P 08134385K]  2025-03-28 10:19:56.162 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-28 01:50:12 CET
+[09066309P 08134385K]  2025-03-28 10:24:56.154 CETLOG:  empezando checkpoint: time
+[09066309P 08134385K]  2025-03-28 10:24:56.620 CETLOG:  checkpoint completo: escritos 7 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.449 s, sync=0.003 s, total=0.470 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=0 kB, estimación=0 kB; lsn=2D/EFAA5228, lsn de redo=2D/EFAA51F0

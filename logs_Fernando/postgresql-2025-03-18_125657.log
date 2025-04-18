@@ -1,0 +1,142 @@
+[09066309P 08134385K]  2025-03-18 12:56:57.644 CETLOG:  el sistema de bases de datos fue apagado en 2025-03-18 12:56:47 CET
+[09066309P 08134385K] ::1(60062) 2025-03-18 12:57:16.644 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 12:57:16.648 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 12:57:16.662 CETLOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.002 s, total=0.016 s; archivos sincronizados=3, más largo=0.001 s, promedio=0.001 s; distancia=3 kB, estimación=3 kB; lsn=28/60695D18, lsn de redo=28/60695CE0
+[09066309P 08134385K] ::1(60062) 2025-03-18 12:57:16.830 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:17.150 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:17.163 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:17.167 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:17.173 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:25.993 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:57:26.602 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:58:48.317 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:58:54.404 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:58:59.540 CETERROR:  error de sintaxis en o cerca de «RAISE» en carácter 1
+[09066309P 08134385K] ::1(60064) 2025-03-18 12:58:59.540 CETSENTENCIA:  RAISE LOG 'Carga de datos finalizada';
+[09066309P 08134385K] ::1(60323) 2025-03-18 13:01:51.754 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 13:01:51.759 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 13:01:51.957 CETLOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 87 reciclados; write=0.004 s, sync=0.004 s, total=0.198 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=1426459 kB, estimación=1426459 kB; lsn=28/B779CBA0, lsn de redo=28/B779CB68
+[09066309P 08134385K] ::1(60323) 2025-03-18 13:01:52.131 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:01:52.452 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:01:52.465 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:01:52.470 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:01:52.477 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:02:01.556 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:02:02.153 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:03:25.149 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K]  2025-03-18 13:03:26.156 CETERROR:  cancelando tarea de autovacuum
+[09066309P 08134385K]  2025-03-18 13:03:26.156 CETCONTEXTO:  recorriendo el bloque 16109 de la relación «public.investigadores»
+	vacuum automático de la tabla «investigar.public.investigadores»
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:03:31.660 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:03:36.169 CETLOG:  Carga de datos finalizada
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:03:36.169 CETCONTEXTO:  función PL/pgSQL inline_code_block en la línea 3 en RAISE
+[09066309P 08134385K] ::1(60324) 2025-03-18 13:03:36.169 CETSENTENCIA:  DO $$
+	BEGIN
+	    RAISE LOG 'Carga de datos finalizada';
+	END $$;
+[09066309P 08134385K] ::1(60489) 2025-03-18 13:06:03.940 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 13:06:03.946 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 13:06:04.160 CETLOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 87 reciclados; write=0.003 s, sync=0.003 s, total=0.214 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=1426454 kB, estimación=1426459 kB; lsn=29/E8A2760, lsn de redo=29/E8A2728
+[09066309P 08134385K] ::1(60489) 2025-03-18 13:06:04.370 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:04.733 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:04.748 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:04.755 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:04.763 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:13.648 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:06:14.246 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:07:37.436 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:07:42.742 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:07:46.962 CETWARNING:  Carga de datos finalizada
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:07:46.962 CETCONTEXTO:  función PL/pgSQL inline_code_block en la línea 3 en RAISE
+[09066309P 08134385K] ::1(60490) 2025-03-18 13:07:46.962 CETSENTENCIA:  DO $$
+	BEGIN
+	    RAISE WARNING 'Carga de datos finalizada';
+	END
+	$$;
+[09066309P 08134385K] ::1(60678) 2025-03-18 13:09:42.395 CETLOG:  sentencia: DROP DATABASE IF EXISTS investigar;
+[09066309P 08134385K]  2025-03-18 13:09:42.398 CETFATAL:  terminando el proceso autovacuum debido a una orden del administrador
+[09066309P 08134385K]  2025-03-18 13:09:42.398 CETCONTEXTO:  recorriendo el bloque 42431 de la relación «public.investigadores_contratos»
+[09066309P 08134385K]  2025-03-18 13:09:42.505 CETLOG:  empezando checkpoint: immediate force wait
+[09066309P 08134385K]  2025-03-18 13:09:42.696 CETLOG:  checkpoint completo: escritos 2 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 87 reciclados; write=0.002 s, sync=0.003 s, total=0.191 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=1425525 kB, estimación=1426365 kB; lsn=29/658BFF30, lsn de redo=29/658BFEF8
+[09066309P 08134385K] ::1(60678) 2025-03-18 13:09:42.878 CETLOG:  sentencia: CREATE DATABASE investigar;
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:43.194 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores(
+	    codigo_investigador NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    apellidos TEXT,
+	    salario NUMERIC
+	);
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:43.206 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS contratos(
+	    codigo_contrato NUMERIC PRIMARY KEY,
+	    nombre TEXT,
+	    entidad TEXT,
+	    coste NUMERIC
+	);
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:43.210 CETLOG:  sentencia: CREATE TABLE IF NOT EXISTS investigadores_contratos(
+	    codigo_investigador NUMERIC,
+	    codigo_contrato NUMERIC,
+	    horas NUMERIC,
+	    PRIMARY KEY (codigo_investigador, codigo_contrato)
+	);
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:43.218 CETLOG:  sentencia: COPY  investigadores FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:52.062 CETLOG:  sentencia: COPY  contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:09:52.671 CETLOG:  sentencia: COPY  investigadores_contratos FROM STDIN DELIMITER ','
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:11:15.410 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_investigador) REFERENCES investigadores(codigo_investigador) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:11:20.799 CETLOG:  sentencia: ALTER TABLE investigadores_contratos
+	ADD FOREIGN KEY (codigo_contrato) REFERENCES contratos(codigo_contrato) ON DELETE RESTRICT;
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:11:25.310 CETLOG:  sentencia: INSERT INTO investigadores VALUES (-1, 'Juan', 'García', 2000);
+[09066309P 08134385K] ::1(60681) 2025-03-18 13:11:25.312 CETLOG:  sentencia: DELETE FROM investigadores WHERE codigo_investigador = -1;
+[09066309P 08134385K]  2025-03-18 13:14:03.329 CETLOG:  apagando
+[09066309P 08134385K]  2025-03-18 13:14:03.331 CETLOG:  empezando checkpoint: shutdown immediate
+[09066309P 08134385K]  2025-03-18 13:14:04.090 CETLOG:  checkpoint completo: escritos 8612 búfers (52.6%); 0 archivos WAL añadidos, 0 eliminados, 87 reciclados; write=0.089 s, sync=0.459 s, total=0.761 s; archivos sincronizados=318, más largo=0.295 s, promedio=0.002 s; distancia=1426460 kB, estimación=1426460 kB; lsn=29/BC9C6F90, lsn de redo=29/BC9C6F90
